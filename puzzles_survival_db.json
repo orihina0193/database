@@ -158,57 +158,5 @@
     "weaponStats4": "軍団防御力 +25% / 味方全体の防御が常時さらに10%上昇",
     "weaponStats6": "軍団防御力 +50% / 味方ファイターが倒れるたびに部隊HPを回復",
     "weaponStats8": "軍団防御力 +100% / 全軍が受けるすべての持続物理ダメージ効果を常時無効化"
-  },
-  {
-    "id": "char_custom_1780378472440",
-    "name": "あああ",
-    "title": "ｓｓｓ",
-    "element": "火",
-    "rarity": 5,
-    "classType": "戦士",
-    "stats": {
-      "hp": 4000,
-      "atk": 500,
-      "def": 400,
-      "speed": 110,
-      "crit": 15
-    },
-    "skills": [
-      {
-        "name": "ｗｗｗ",
-        "description": "あああ",
-        "type": "奥義"
-      },
-      {
-        "name": "通常攻撃",
-        "description": "敵単体にダメージを与える。",
-        "type": "スキル"
-      },
-      {
-        "name": "戦闘精神",
-        "description": "自身の戦闘力をわずかに向上する。",
-        "type": "パッシブ"
-      }
-    ],
-    "lore": "詳細不明の冒険者。世界を股にかける戦士の一員として知られている。",
-    "isCustom": true,
-    "skillItems": [
-      {
-        "itemName": "その他追加ステータス",
-        "itemValue": "-"
-      },
-      {
-        "itemName": "その他追加ステータス",
-        "itemValue": "-"
-      },
-      {
-        "itemName": "その他追加ステータス",
-        "itemValue": "-"
-      },
-      {
-        "itemName": "その他追加ステータス",
-        "itemValue": "-"
-      }
-    ]
   }
 ]
