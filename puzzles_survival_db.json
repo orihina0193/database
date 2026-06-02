@@ -29,7 +29,8 @@
     "weaponStats2": "軍団HP +12%",
     "weaponStats4": "軍団HP +25% / 確率で追加治療効果を発動",
     "weaponStats6": "軍団HP +50% / 味方の攻撃力を15%追加アップ",
-    "weaponStats8": "軍団HP +100% / スキル発動後にデバフを即時解除し大幅に治療"
+    "weaponStats8": "軍団HP +100% / スキル発動後にデバフを即時解除し大幅に治療",
+    "troopType": "ライダー"
   },
   {
     "id": "char_zephyr",
