@@ -135,30 +135,31 @@
     "element": "勇敢型 (緑)",
     "rarity": 5,
     "skillName": "大地の加護",
-    "skillEffect": "ファイターHP +100% / ライダーHP +100% / 全兵種の被ダメージを軽減",
+    "skillEffect": "資源保護数 20 / ガス産出量 300 / 部隊HP（パッシブ） 150",
     "skillItems": [
       {
-        "itemName": "ファイターHP",
-        "itemValue": "+100%"
+        "itemName": "資源保護数",
+        "itemValue": "20"
       },
       {
-        "itemName": "ライダーHP",
-        "itemValue": "+100%"
+        "itemName": "ガス産出量",
+        "itemValue": "300"
       },
       {
-        "itemName": "その他追加ステータス",
-        "itemValue": "全兵種の被ダメージを軽減"
+        "itemName": "部隊HP（パッシブ）",
+        "itemValue": "150"
       },
       {
-        "itemName": "その他追加ステータス",
+        "itemName": "その他ステータス",
         "itemValue": "-"
       }
     ],
-    "weaponName": "不屈のナックル",
-    "weaponStats0": "軍団防御力 +5%",
-    "weaponStats2": "軍団防御力 +12%",
-    "weaponStats4": "軍団防御力 +25% / 味方全体の防御が常時さらに10%上昇",
-    "weaponStats6": "軍団防御力 +50% / 味方ファイターが倒れるたびに部隊HPを回復",
-    "weaponStats8": "軍団防御力 +100% / 全軍が受けるすべての持続物理ダメージ効果を常時無効化"
+    "weaponName": "スナイパーライフル",
+    "weaponStats0": "部隊DEF +100％",
+    "weaponStats2": "部隊HP +100%",
+    "weaponStats4": "部隊ATK +100%",
+    "weaponStats6": "部隊ATK +150%",
+    "weaponStats8": "部隊HP 100％",
+    "troopType": "内政"
   }
 ]
