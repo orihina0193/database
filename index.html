@@ -204,34 +204,6 @@
 
   <!-- メインコンテンツ -->
   <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
-    <!-- 未設定時、または初回起動時のオンボーディングUI -->
-    <div id="setup-onboarding" class="hidden max-w-xl mx-auto py-12 px-6 bg-indigo-50/50 border border-indigo-100 rounded-3xl text-center space-y-5">
-      <div class="w-14 h-14 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto text-indigo-600 shadow-3xs">
-        <i data-lucide="cloud-lightning" class="w-8 h-8"></i>
-      </div>
-      <div>
-        <h3 class="text-base font-black text-slate-800">GitHub クラウド同期を開始しましょう</h3>
-        <p class="text-xs text-slate-500 leading-relaxed mt-1.5 max-w-sm mx-auto">
-          右上にある「⚙️ 設定」のアイコンから、あなたの空のGitHubリポジトリ（ユーザー名 ＆ レポート名）を設定して接続してください。
-        </p>
-      </div>
-      <div class="flex flex-wrap gap-3 justify-center items-center">
-        <button
-          onclick="openConfigModal()"
-          class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-md transition-all cursor-pointer flex items-center justify-center gap-1.5"
-        >
-          <i data-lucide="settings" class="w-4 h-4"></i>
-          <span>クラウド連動設定を開く</span>
-        </button>
-        <button
-          onclick="document.getElementById('setup-onboarding').classList.add('hidden'); localStorage.setItem('character_database_hide_onboarding', 'true');"
-          class="px-5 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5"
-        >
-          <span>閉じる (ローカル見本表示)</span>
-        </button>
-      </div>
-    </div>
-
     <!-- ローディングスピナー -->
     <div id="loading-spinner" class="py-24 text-center flex flex-col items-center justify-center gap-3">
       <div class="w-10 h-10 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
@@ -688,18 +660,10 @@
         }
       }
 
-      const userDismissedOnboarding = localStorage.getItem('character_database_hide_onboarding') === 'true';
-
       if (dbConfig.owner && dbConfig.repo) {
-        document.getElementById('setup-onboarding').classList.add('hidden');
         await loadDatabaseFromGitHub();
       } else {
         document.getElementById('loading-spinner').classList.add('hidden');
-        if (!userDismissedOnboarding) {
-          document.getElementById('setup-onboarding').classList.remove('hidden');
-        } else {
-          document.getElementById('setup-onboarding').classList.add('hidden');
-        }
         loadDefaultFallbackMock();
       }
 
