@@ -268,8 +268,8 @@
           </div>
           <div class="bg-indigo-50/20 border border-indigo-100/60 rounded-xl p-3.5 space-y-3">
             <div class="flex items-center justify-between gap-1 border-b border-indigo-100/50 pb-1.5">
-              <span class="text-[9px] font-bold text-indigo-700 tracking-wider">SKILL</span>
-              <span class="text-xs font-bold text-slate-800" id="detail-skill-name"></span>
+              <span class="text-[9px] font-bold text-indigo-700 tracking-wider">兵種</span>
+              <span class="text-xs font-bold text-slate-800" id="detail-troop-type"></span>
             </div>
             <!-- 4分割グリッド -->
             <div id="detail-skill-items" class="grid grid-cols-2 gap-2"></div>
@@ -478,11 +478,16 @@
           </div>
         </div>
 
-        <!-- 軍団スキル基礎名 -->
+        <!-- 兵種 -->
         <div class="pt-2 border-t border-slate-100 flex gap-4">
           <div class="flex-grow">
-            <label class="font-bold text-slate-600">軍団スキル名 *</label>
-            <input id="c-skill-name" type="text" placeholder="例: パワーチャージ" class="w-full mt-1 px-3 py-2 rounded-lg bg-slate-50 border border-slate-200" />
+            <label class="font-bold text-slate-600 block mb-1">兵種 *</label>
+            <select id="c-troop-type" class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 font-bold text-slate-705 text-slate-700">
+              <option value="ファイター">ファイター</option>
+              <option value="シューター">シューター</option>
+              <option value="ライダー">ライダー</option>
+              <option value="内政">内政</option>
+            </select>
           </div>
         </div>
 
@@ -903,7 +908,7 @@
       let filtered = rawCharacters.filter(char => {
         const queryMatch = 
           char.name.toLowerCase().includes(searchVal) ||
-          char.skillName.toLowerCase().includes(searchVal) ||
+          (char.troopType && char.troopType.toLowerCase().includes(searchVal)) ||
           (char.skillEffect && char.skillEffect.toLowerCase().includes(searchVal)) ||
           (char.weaponName && char.weaponName.toLowerCase().includes(searchVal)) ||
           (char.skillItems && char.skillItems.some(i => i.itemName.toLowerCase().includes(searchVal) || i.itemValue.toLowerCase().includes(searchVal)));
@@ -946,29 +951,23 @@
           }
 
           const card = document.createElement('div');
-          card.className = 'bg-white border border-slate-200 rounded-3xl p-5 shadow-3xs hover:shadow-md hover:border-slate-300 transition-all cursor-pointer flex flex-col justify-between group relative overflow-hidden';
+          card.className = 'bg-white border border-slate-200 rounded-2xl p-4.5 shadow-2xs hover:shadow-md hover:border-indigo-400 transition-all cursor-pointer flex items-center justify-between group relative select-none gap-3';
           card.setAttribute('onclick', `if(!event.target.closest('.admin-btn-prevent')) openDetailsById('${char.id}')`);
-
-          // Primary preview item
-          const primaryItem = (char.skillItems && char.skillItems.find(i => i.itemValue && i.itemValue !== '-')) || (char.skillItems && char.skillItems[0]);
-          const primaryItemStr = primaryItem ? `${primaryItem.itemName} ${primaryItem.itemValue}` : (char.skillEffect ? char.skillEffect.split('/')[0] : '-');
 
           // Admin quick edit overlays if logged in
           let adminBadgeControls = '';
           if (hasAdminPrivilege) {
             adminBadgeControls = `
-              <div class="absolute right-3 bottom-3 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity admin-btn-prevent">
+              <div class="flex items-center gap-1 admin-btn-prevent ml-1 shrink-0">
                 <button
                   onclick="openHeroCreator('${char.id}')"
-                  class="p-1 px-2.5 rounded-lg bg-indigo-50 hover:bg-indigo-600 text-indigo-600 hover:text-white border-none font-bold text-[9px] cursor-pointer transition-colors"
-                  title="英雄を編集"
+                  class="p-1 px-2 rounded-lg bg-indigo-50 hover:bg-indigo-600 text-indigo-600 hover:text-white border border-indigo-100 font-extrabold text-[9px] cursor-pointer transition-colors"
                 >
                   編集
                 </button>
                 <button
                   onclick="deleteHeroById('${char.id}')"
-                  class="p-1 px-2 bg-rose-50 hover:bg-rose-600 text-rose-600 hover:text-white border-none font-bold text-[9px] cursor-pointer transition-colors"
-                  title="英雄を削除"
+                  class="p-1 px-2 bg-rose-50 hover:bg-rose-600 text-rose-600 hover:text-white border border-rose-100 font-extrabold text-[9px] cursor-pointer transition-colors"
                 >
                   削除
                 </button>
@@ -976,38 +975,33 @@
             `;
           }
 
+          let elementTextBg = 'bg-slate-50 text-slate-600 border border-slate-200/60';
+          if (char.element === '衝動型 (赤)') elementTextBg = 'bg-red-50 text-red-600 border border-red-150';
+          else if (char.element === '冷静型 (青)') elementTextBg = 'bg-sky-50 text-sky-600 border border-sky-150';
+          else if (char.element === '狂乱型 (紫)') elementTextBg = 'bg-purple-50 text-purple-650 border border-purple-150';
+          else if (char.element === '慎重型 (黄)') elementTextBg = 'bg-amber-50/70 text-amber-700 border border-amber-150';
+          else if (char.element === '勇敢型 (緑)') elementTextBg = 'bg-emerald-50 text-emerald-700 border border-emerald-150';
+
           card.innerHTML = `
-            <div>
-              <div class="flex items-center justify-between gap-1.5 mb-2.5">
-                <span class="text-[9px] font-extrabold px-2.5 py-0.5 rounded-full text-white ${elementBgClass}">${char.element}</span>
-                <span class="text-[10px] font-black text-amber-500 font-mono tracking-tight">${stars}</span>
-              </div>
-
-              <h3 class="text-sm font-black text-slate-800 tracking-tight mb-3.5 group-hover:text-indigo-600 transition-colors">
-                ${char.name}
-              </h3>
-
-              <div class="p-3 rounded-2xl bg-slate-50 border border-slate-100 space-y-1.5 group-hover:bg-indigo-50/20 group-hover:border-indigo-100 transition-all mb-4">
-                <div class="flex items-center justify-between font-mono text-[9px] font-bold text-slate-400">
-                  <span>軍団スキル</span>
-                  <span class="text-slate-700 tracking-tight font-sans text-[10px] font-extrabold">${char.skillName || '通常'}</span>
-                </div>
-                <div class="text-[11px] font-bold text-slate-700 leading-tight truncate">
-                  ${primaryItemStr}
+            <div class="flex items-center gap-3 min-w-0">
+              <div>
+                <h3 class="text-sm font-black text-slate-800 tracking-tight leading-snug line-clamp-1 group-hover:text-indigo-600 transition-colors">
+                  ${char.name}
+                </h3>
+                <div class="flex items-center gap-1.5 mt-1 flex-wrap">
+                  <span class="inline-flex items-center px-2 py-0.5 rounded-lg text-[10px] font-black bg-slate-50 text-slate-600 border border-slate-200/60 transition-colors">
+                    ${char.troopType || '未設定'}
+                  </span>
                 </div>
               </div>
             </div>
 
-            <div class="flex items-center justify-between pt-2 border-t border-slate-100 text-[10px] font-mono font-semibold text-slate-400">
-              <span class="flex items-center gap-1">
-                <i data-lucide="sword" class="w-3.5 h-3.5 text-rose-500"></i>
-                <span class="truncate max-w-[110px]">${char.weaponName || '専属未設定'}</span>
+            <div class="shrink-0 flex items-center gap-2">
+              <span class="text-[10px] font-extrabold px-2.5 py-0.5 rounded-lg font-sans ${elementTextBg}">
+                ${char.element.split(' ')[0]}
               </span>
-              <span class="text-indigo-600 font-bold hover:underline flex items-center gap-0.5 group-hover:scale-105 transition-all">
-                詳細 <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-              </span>
+              ${adminBadgeControls}
             </div>
-            ${adminBadgeControls}
           `;
 
           g.appendChild(card);
@@ -1040,7 +1034,7 @@
       if (!char) return;
 
       document.getElementById('detail-name').innerText = char.name;
-      document.getElementById('detail-skill-name').innerText = char.skillName || '通常';
+      document.getElementById('detail-troop-type').innerText = char.troopType || '未設定';
       
       let elementBgClass = 'from-[#475569] to-[#334155]';
       if (char.element === '衝動型 (赤)') elementBgClass = 'from-[#f43f5e] to-[#be123c]';
@@ -1284,7 +1278,7 @@
       document.getElementById('c-name').value = '';
       document.getElementById('c-element').value = '衝動型 (赤)';
       document.getElementById('c-rarity').value = '5';
-      document.getElementById('c-skill-name').value = '';
+      document.getElementById('c-troop-type').value = 'ファイター';
       
       document.getElementById('c-s1-n').value = '';
       document.getElementById('c-s1-v').value = '';
@@ -1309,7 +1303,7 @@
           document.getElementById('c-name').value = char.name || '';
           document.getElementById('c-element').value = char.element || '';
           document.getElementById('c-rarity').value = String(char.rarity || '5');
-          document.getElementById('c-skill-name').value = char.skillName || '';
+          document.getElementById('c-troop-type').value = char.troopType || 'ファイター';
 
           if (char.skillItems && char.skillItems.length >= 4) {
             document.getElementById('c-s1-n').value = char.skillItems[0].itemName || '';
@@ -1347,7 +1341,7 @@
       const name = document.getElementById('c-name').value.trim();
       const element = document.getElementById('c-element').value;
       const rarity = parseInt(document.getElementById('c-rarity').value) || 5;
-      const skillName = document.getElementById('c-skill-name').value.trim();
+      const troopType = document.getElementById('c-troop-type').value;
 
       if (!name) {
         alert('英雄の名前は入力必須項目です。');
@@ -1381,7 +1375,7 @@
         name,
         element,
         rarity,
-        skillName,
+        troopType,
         skillEffect,
         skillItems,
         weaponName: document.getElementById('c-weapon').value.trim(),
