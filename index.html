@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>英雄・軍団スキルデータベース | ARCANA_DB Viewer</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & Noto Sans JP -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;505;600;700;800;900&family=Noto+Sans+JP:wght@400;505;700;900&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* スクロールバーのデザイン */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
+
+  <!-- ヘッダー -->
+  <header class="bg-slate-900 text-white shadow-md border-b border-indigo-500/20 sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="p-2.5 bg-indigo-600/95 rounded-xl shadow-md shadow-indigo-600/25 flex items-center justify-center">
+          <i data-lucide="database" class="w-6 h-6 text-white animate-pulse"></i>
+        </div>
+        <div>
+          <h1 class="text-lg md:text-xl font-black tracking-wider text-white uppercase flex items-center gap-2">
+            ARCANA_DB <span class="bg-indigo-500/20 text-[#38bdf8] text-[9px] font-mono tracking-widest px-2 py-0.5 rounded-full border border-indigo-500/30">VIEWER</span>
+          </h1>
+          <p class="text-[10px] text-slate-400 font-mono tracking-widest uppercase mt-0.5">
+            Puzzles & Survival Alliance Database
+          </p>
+        </div>
+      </div>
+      
+      <!-- データソースステータス表示 -->
+      <div class="flex items-center gap-2 bg-slate-800 border border-slate-700 rounded-full px-3 py-1.5 text-xs text-slate-300">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+        <span class="font-mono text-[10px] uppercase font-bold text-slate-300" id="db-filename-badge">puzzles_survival_db.json</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- 検索・フィルターコントロールパネル -->
+  <div class="bg-white border-b border-slate-200 shadow-3xs sticky top-20 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 space-y-4">
+      
+      <!-- 自由検索 ＆ ソート -->
+      <div class="flex flex-col md:flex-row gap-4 justify-between items-stretch md:items-center">
+        <!-- 検索入力 -->
+        <div class="relative flex-grow max-w-xl">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+            <i data-lucide="search" class="w-4 h-4 text-slate-400"></i>
+          </span>
+          <input
+            id="search-box"
+            type="text"
+            placeholder="英雄の名前、スキル名、ウェポン、効果から自由検索..."
+            class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 hover:border-slate-300 rounded-xl text-sm focus:outline-none focus:border-indigo-500 focus:bg-white transition-all font-semibold text-slate-800"
+          />
+        </div>
+
+        <!-- 順番切り替え -->
+        <div class="flex items-center gap-2.5 shrink-0 self-end md:self-auto">
+          <i data-lucide="sliders-horizontal" class="w-4 h-4 text-slate-400"></i>
+          <span class="text-xs font-bold text-slate-500 uppercase">並び替え:</span>
+          <select
+            id="sort-select"
+            class="bg-slate-50 border border-slate-200 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 cursor-pointer focus:outline-none focus:bg-white focus:border-indigo-500"
+          >
+            <option value="id">登録ID順</option>
+            <option value="rarity">星の数 (レア度) 最高順</option>
+            <option value="name">五十音順</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 属性選択ピルフィルター -->
+      <div id="element-filters-container" class="flex flex-wrap items-center gap-2 border-t border-slate-100 pt-3">
+        <span class="text-xs font-bold text-slate-400 mr-2 flex items-center gap-1">
+          <i data-lucide="filter" class="w-3.5 h-3.5 text-indigo-500"></i>
+          属性:
+        </span>
+        <button onclick="setElementFilter('all')" class="element-pill bg-indigo-600 text-white border-indigo-600 px-3.5 py-1.5 rounded-full text-xs font-bold border transition-all cursor-pointer shadow-3xs" data-element="all">
+          すべて
+        </button>
+        <button onclick="setElementFilter('衝動型 (赤)')" class="element-pill bg-white border-slate-200 px-3.5 py-1.5 rounded-full text-xs font-bold border hover:bg-slate-50 text-slate-750 text-slate-700 transition-all cursor-pointer shadow-3xs" data-element="衝動型 (赤)">
+          衝動型 (赤)
+        </button>
+        <button onclick="setElementFilter('冷静型 (青)')" class="element-pill bg-white border-slate-200 px-3.5 py-1.5 rounded-full text-xs font-bold border hover:bg-slate-50 text-slate-755 text-slate-700 transition-all cursor-pointer shadow-3xs" data-element="冷静型 (青)">
+          冷静型 (青)
+        </button>
+        <button onclick="setElementFilter('狂乱型 (紫)')" class="element-pill bg-white border-slate-200 px-3.5 py-1.5 rounded-full text-xs font-bold border hover:bg-slate-50 text-slate-755 text-slate-700 transition-all cursor-pointer shadow-3xs" data-element="狂乱型 (紫)">
+          狂乱型 (紫)
+        </button>
+        <button onclick="setElementFilter('慎重型 (黄)')" class="element-pill bg-white border-slate-200 px-3.5 py-1.5 rounded-full text-xs font-bold border hover:bg-slate-50 text-slate-755 text-slate-700 transition-all cursor-pointer shadow-3xs" data-element="慎重型 (黄)">
+          慎重型 (黄)
+        </button>
+        <button onclick="setElementFilter('勇敢型 (緑)')" class="element-pill bg-white border-slate-200 px-3.5 py-1.5 rounded-full text-xs font-bold border hover:bg-slate-50 text-slate-755 text-slate-700 transition-all cursor-pointer shadow-3xs" data-element="勇敢型 (緑)">
+          勇敢型 (緑)
+        </button>
+      </div>
+
+      <!-- レア度指定 ＆ 軍団スキル効果項目フィルター -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t border-slate-100 pt-3">
+        <!-- レア度 -->
+        <div class="flex items-center gap-3">
+          <span class="text-xs font-bold text-slate-400 uppercase font-mono shrink-0">レア度指定:</span>
+          <select
+            id="rarity-select"
+            class="w-full bg-slate-50 border border-slate-200 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 cursor-pointer focus:outline-none"
+          >
+            <option value="all">すべての星</option>
+            <option value="5">★★★★★ (5星のみ)</option>
+            <option value="4">★★★★ (4星のみ)</option>
+            <option value="3">★★★ (3星のみ)</option>
+          </select>
+        </div>
+
+        <!-- スキル効果別 -->
+        <div class="flex items-center gap-3">
+          <span class="text-xs font-bold text-slate-400 uppercase font-mono shrink-0">効果項目指定:</span>
+          <select
+            id="skill-item-select"
+            class="w-full bg-slate-50 border border-slate-200 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 cursor-pointer focus:outline-none"
+          >
+            <option value="all">すべての効果項目</option>
+            <!-- 動的にJSで挿入 -->
+          </select>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- ローディングスピナー -->
+    <div id="loading-spinner" class="py-32 text-center flex flex-col items-center justify-center gap-3">
+      <div class="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+      <p class="text-xs text-slate-400 font-bold tracking-widest font-mono uppercase animate-pulse">データベース読込中...</p>
+    </div>
+
+    <!-- 読込失敗エラー -->
+    <div id="error-box" class="hidden py-10 max-w-lg mx-auto bg-red-50 border border-red-200 p-6 rounded-2xl text-center space-y-4">
+      <i data-lucide="alert-triangle" class="w-12 h-12 text-red-500 mx-auto"></i>
+      <h3 class="text-base font-bold text-slate-900">データベースの読み込み失敗</h3>
+      <p class="text-xs text-slate-600 leading-relaxed" id="error-message">
+        このHTMLと同一フォルダ内にデータファイル「<code class="font-mono bg-red-100 px-1 py-0.5 rounded">puzzles_survival_db.json</code>」が保存されていることを確認してください。
+      </p>
+    </div>
+
+    <!-- 検索結果が空の時の表示 -->
+    <div id="empty-state" class="hidden py-24 text-center max-w-lg mx-auto bg-white border border-dashed border-slate-200 p-8 rounded-2xl shadow-3xs">
+      <i data-lucide="info" class="w-10 h-10 text-slate-400 mx-auto mb-3"></i>
+      <h4 class="text-sm font-bold text-slate-800">一致する英雄が見つかりませんでした</h4>
+      <p class="text-xs text-slate-500 mt-1">検索テキスト、または属性指定などの条件をお確かめください。</p>
+    </div>
+
+    <!-- キャラクターグリッド -->
+    <div id="character-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+  </main>
+
+  <!-- フッター -->
+  <footer class="bg-white border-t border-slate-200 h-16 shrink-0 z-10 flex items-center">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between text-xs text-slate-400 font-semibold">
+      <span id="footer-count">ARCANA_DB Sync Service</span>
+      <span>GitHub Page Viewer Engine V1.2.0</span>
+    </div>
+  </footer>
+
+  <!-- 詳細表示ドロワー（モーダル） -->
+  <div id="details-modal" class="hidden fixed inset-0 z-50 flex items-center justify-end">
+    <!-- 背景遮断バックドロップ -->
+    <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-xs transition-opacity" onclick="closeDetails()"></div>
+    
+    <!-- ドロワー本体 -->
+    <div class="relative w-full max-w-md h-full bg-white shadow-2xl flex flex-col z-10 overflow-hidden border-l border-slate-100">
+      
+      <!-- ヘッダー (属性色グラデーション) -->
+      <div id="drawer-header" class="p-6 text-white relative">
+        <button onclick="closeDetails()" class="absolute top-5 right-5 p-1 px-2.5 bg-black/15 text-white/90 hover:text-white hover:bg-black/25 rounded-lg border border-white/20 transition-all text-sm font-bold">
+          閉じる
+        </button>
+        <div class="space-y-1.5 mt-2">
+          <span class="text-[9px] font-black uppercase tracking-widest px-2.5 py-0.5 bg-black/20 border border-white/10 rounded-full inline-block" id="detail-element-badge"></span>
+          <h2 class="text-2xl font-black tracking-tight" id="detail-name"></h2>
+          <div class="flex text-amber-400 text-sm py-0.5 animate-pulse" id="detail-stars"></div>
+        </div>
+      </div>
+
+      <!-- スクロール可能な詳細部分 -->
+      <div class="flex-grow overflow-y-auto p-6 space-y-6">
+        
+        <!-- SECTION 1: 軍団スキル -->
+        <div class="space-y-3">
+          <div class="flex items-center gap-1.5 text-indigo-700 font-extrabold text-xs">
+            <i data-lucide="shield" class="w-4.5 h-4.5"></i>
+            <span>軍団スキル構成（４項目）</span>
+          </div>
+          
+          <div class="bg-indigo-50/30 border border-indigo-100 rounded-2xl p-4 space-y-3 shadow-3xs">
+            <div class="flex items-center justify-between gap-1 border-b border-indigo-100 pb-2">
+              <span class="text-[10px] font-extrabold text-[#4338ca] uppercase tracking-wider">SKILL NAME</span>
+              <span class="text-sm font-bold text-slate-800" id="detail-skill-name"></span>
+            </div>
+
+            <!-- 4分割グリッド -->
+            <div id="detail-skill-items" class="grid grid-cols-2 gap-2.5">
+              <!-- JSで動的に設定 -->
+            </div>
+            <p class="text-[10px] text-slate-400 font-medium italic text-right mt-1" id="detail-skill-aggregated"></p>
+          </div>
+        </div>
+
+        <!-- SECTION 2: 専属ウェポン -->
+        <div id="weapon-section" class="space-y-3">
+          <div class="flex items-center gap-1.5 text-rose-700 font-extrabold text-xs">
+            <i data-lucide="sword" class="w-4.5 h-4.5"></i>
+            <span>専属ウェポンデータ</span>
+          </div>
+
+          <div class="bg-rose-50/25 border border-rose-100 rounded-2xl p-5 space-y-4">
+            <div class="flex justify-between items-center border-b border-rose-100 pb-2">
+              <span class="text-[10px] font-black text-rose-600 uppercase tracking-wide">WEAPON NAME</span>
+              <span class="text-xs font-black text-slate-800" id="detail-weapon-name"></span>
+            </div>
+
+            <!-- 強化段階ウェポンステータス -->
+            <div class="space-y-3">
+              <div class="grid grid-cols-1 gap-2.5">
+                <div class="bg-white border border-rose-100/50 rounded-xl p-3 shadow-3xs">
+                  <div class="text-[9px] font-mono font-bold text-rose-600 mb-0.5">専属 ＋0 クラス</div>
+                  <div class="text-xs font-semibold text-slate-800" id="detail-weapon-tier-0">-</div>
+                </div>
+                <div class="bg-white border border-rose-100/50 rounded-xl p-3 shadow-3xs">
+                  <div class="text-[9px] font-mono font-bold text-rose-600 mb-0.5">専属 ＋2 クラス</div>
+                  <div class="text-xs font-semibold text-slate-800" id="detail-weapon-tier-2">-</div>
+                </div>
+                <div class="bg-white border border-rose-100/50 rounded-xl p-3 shadow-3xs">
+                  <div class="text-[9px] font-mono font-bold text-rose-600 mb-0.5">専属 ＋4 クラス</div>
+                  <div class="text-xs font-semibold text-slate-800" id="detail-weapon-tier-4">-</div>
+                </div>
+                <div class="bg-white border border-rose-100/50 rounded-xl p-3 shadow-3xs">
+                  <div class="text-[9px] font-mono font-bold text-rose-600 mb-0.5">専属 ＋6 クラス</div>
+                  <div class="text-xs font-semibold text-slate-800" id="detail-weapon-tier-6">-</div>
+                </div>
+                <div class="bg-white border border-rose-200/50 rounded-xl p-3.5 shadow-2xs border-l-4 border-l-rose-500">
+                  <div class="text-[10px] font-mono font-black text-rose-700 flex items-center justify-between mb-1">
+                    <span>専属 ＋8 MAX強化クラス</span>
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-rose-500"></i>
+                  </div>
+                  <div class="text-xs font-bold text-slate-900 leading-relaxed" id="detail-weapon-tier-8">-</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- データ描画 ＆ インタラクション用 JavaScript 制御 -->
+  <script>
+    let rawCharacters = [];
+    let currentElementFilter = 'all';
+    let databasePath = 'puzzles_survival_db.json';
+
+    // クエリパラメーター「?file=xxx.json」でファイル名を指定可能
+    const query = new URLSearchParams(window.location.search);
+    if (query.has('file')) {
+      databasePath = query.get('file');
+      document.getElementById('db-filename-badge').innerText = databasePath;
+    }
+
+    // 初期化
+    async function init() {
+      try {
+        const response = await fetch(databasePath + '?id=' + Date.now());
+        if (!response.ok) {
+          throw new Error('ファイルの読み込みに失敗しました。ステータスコード: ' + response.status);
+        }
+        
+        rawCharacters = await response.json();
+        
+        // 効果項目の追加
+        populateSkillItemsFilter();
+        
+        // 初回レンダリング
+        renderCharacters();
+        
+        // イベントバインド
+        document.getElementById('search-box').addEventListener('input', renderCharacters);
+        document.getElementById('sort-select').addEventListener('change', renderCharacters);
+        document.getElementById('rarity-select').addEventListener('change', renderCharacters);
+        document.getElementById('skill-item-select').addEventListener('change', renderCharacters);
+
+        document.getElementById('loading-spinner').classList.add('hidden');
+        lucide.createIcons();
+      } catch (err) {
+        console.error(err);
+        document.getElementById('loading-spinner').classList.add('hidden');
+        document.getElementById('error-box').classList.remove('hidden');
+      }
+    }
+
+    // ユニークな軍団スキルの効果項目名をソートしてセレクトボックスに抽出
+    function populateSkillItemsFilter() {
+      const distinctNames = new Set();
+      rawCharacters.forEach(char => {
+        if (char.skillItems && Array.isArray(char.skillItems)) {
+          char.skillItems.forEach(item => {
+            if (item.itemName && item.itemName.trim()) {
+              distinctNames.add(item.itemName.trim());
+            }
+          });
+        }
+      });
+
+      const sortedNames = Array.from(distinctNames).sort();
+      const select = document.getElementById('skill-item-select');
+      
+      sortedNames.forEach(name => {
+        const option = document.createElement('option');
+        option.value = name;
+        option.innerText = name;
+        select.appendChild(option);
+      });
+    }
+
+    // 属性ピルが押下されたときのハンドラー
+    function setElementFilter(elementVal) {
+      currentElementFilter = elementVal;
+      
+      document.querySelectorAll('.element-pill').forEach(btn => {
+        if (btn.getAttribute('data-element') === elementVal) {
+          btn.classList.add('bg-indigo-600', 'text-white', 'border-indigo-600');
+          btn.classList.remove('bg-white', 'text-slate-700', 'border-slate-200');
+        } else {
+          btn.classList.remove('bg-indigo-600', 'text-white', 'border-indigo-600');
+          btn.classList.add('bg-white', 'text-slate-700', 'border-slate-200');
+        }
+      });
+
+      renderCharacters();
+    }
+
+    // キャラクターのフィルタリング ＆ ソート ＆ 描画
+    function renderCharacters() {
+      const searchVal = document.getElementById('search-box').value.toLowerCase().trim();
+      const sortBy = document.getElementById('sort-select').value;
+      const rarityFilter = document.getElementById('rarity-select').value;
+      const skillItemFilter = document.getElementById('skill-item-select').value;
+
+      // 4項目軍団スキルの後方互換対応
+      const mappedCharacters = rawCharacters.map(char => {
+        if (char.skillItems && char.skillItems.length > 0) return char;
+        
+        const items = [
+          { itemName: 'その他追加ステータス', itemValue: '-' },
+          { itemName: 'その他追加ステータス', itemValue: '-' },
+          { itemName: 'その他追加ステータス', itemValue: '-' },
+          { itemName: 'その他追加ステータス', itemValue: '-' }
+        ];
+
+        if (char.skillEffect) {
+          const parts = char.skillEffect.split('/').map(p => p.trim());
+          parts.forEach((part, idx) => {
+            if (idx < 4 && part) {
+              const spaceIndex = part.lastIndexOf(' ');
+              if (spaceIndex !== -1) {
+                const name = part.substring(0, spaceIndex).trim();
+                const val = part.substring(spaceIndex).trim();
+                items[idx] = { itemName: name, itemValue: val };
+              } else {
+                items[idx] = { itemName: 'その他追加ステータス', itemValue: part };
+              }
+            }
+          });
+        }
+        return { ...char, skillItems: items };
+      });
+
+      // 1. フィルター
+      const filtered = mappedCharacters.filter(char => {
+        const queryMatch = 
+          char.name.toLowerCase().includes(searchVal) ||
+          char.skillName.toLowerCase().includes(searchVal) ||
+          (char.skillEffect && char.skillEffect.toLowerCase().includes(searchVal)) ||
+          (char.weaponName && char.weaponName.toLowerCase().includes(searchVal)) ||
+          (char.skillItems && char.skillItems.some(i => i.itemName.toLowerCase().includes(searchVal) || i.itemValue.toLowerCase().includes(searchVal)));
+
+        const elementMatch = currentElementFilter === 'all' || char.element === currentElementFilter;
+        const rarityMatch = rarityFilter === 'all' || char.rarity.toString() === rarityFilter;
+        
+        const skillItemMatch = skillItemFilter === 'all' || (char.skillItems && char.skillItems.some(i => 
+          i.itemName === skillItemFilter && i.itemValue && i.itemValue !== '-' && i.itemValue.trim() !== ''
+        ));
+
+        return queryMatch && elementMatch && rarityMatch && skillItemMatch;
+      });
+
+      // 2. ソート
+      filtered.sort((a, b) => {
+        if (sortBy === 'rarity') return (b.rarity || 5) - (a.rarity || 5);
+        if (sortBy === 'name') return a.name.localeCompare(b.name);
+        return a.id.localeCompare(b.id);
+      });
+
+      // 3. 描画
+      const grid = document.getElementById('character-grid');
+      const emptyState = document.getElementById('empty-state');
+      
+      grid.innerHTML = '';
+      
+      if (filtered.length === 0) {
+        emptyState.classList.remove('hidden');
+      } else {
+        emptyState.classList.add('hidden');
+        
+        filtered.forEach(char => {
+          let elementBgClass = 'bg-[#475569]';
+          let elementTextColor = 'text-[#475569]';
+          
+          if (char.element === '衝動型 (赤)') {
+            elementBgClass = 'bg-rose-600';
+            elementTextColor = 'text-rose-600';
+          } else if (char.element === '冷静型 (青)') {
+            elementBgClass = 'bg-blue-600';
+            elementTextColor = 'text-blue-600';
+          } else if (char.element === '狂乱型 (紫)') {
+            elementBgClass = 'bg-purple-600';
+            elementTextColor = 'text-purple-600';
+          } else if (char.element === '慎重型 (黄)') {
+            elementBgClass = 'bg-amber-600';
+            elementTextColor = 'text-amber-600';
+          } else if (char.element === '勇敢型 (緑)') {
+            elementBgClass = 'bg-emerald-600';
+            elementTextColor = 'text-emerald-600';
+          }
+
+          let stars = '';
+          for (let i = 0; i < (char.rarity || 5); i++) {
+            stars += '★';
+          }
+
+          const card = document.createElement('div');
+          card.className = 'bg-white border border-slate-200 rounded-2xl p-5 shadow-3xs hover:shadow-md hover:border-slate-350 hover:border-slate-300 transition-all cursor-pointer flex flex-col justify-between group';
+          card.onclick = () => openDetails(char);
+
+          const primaryItem = char.skillItems.find(i => i.itemValue && i.itemValue !== '-') || char.skillItems[0];
+          const primaryItemStr = primaryItem ? primaryItem.itemName + ' ' + primaryItem.itemValue : '-';
+
+          card.innerHTML = `
+            <div>
+              <div class="flex items-center justify-between gap-1.5 mb-2.5">
+                <span class="text-[9px] font-extrabold px-2.5 py-0.5 rounded-full text-white ${elementBgClass}">${char.element}</span>
+                <span class="text-[10px] font-bold text-amber-500 font-mono tracking-tight">${stars}</span>
+              </div>
+
+              <h3 class="text-sm font-black text-slate-800 tracking-tight mb-4 group-hover:text-indigo-600 transition-colors">${char.name}</h3>
+
+              <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 space-y-1.5 mb-4 group-hover:bg-indigo-50/20 group-hover:border-indigo-100 transition-all">
+                <div class="flex items-center justify-between font-mono text-[9px] font-bold text-slate-500">
+                  <span>軍団スキル</span>
+                  <span class="text-slate-800 tracking-tight font-sans text-[10px] font-extrabold">${char.skillName}</span>
+                </div>
+                <div class="text-xs font-black text-slate-700 leading-tight truncate" title="${char.skillEffect}">
+                  ${primaryItemStr}
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-3 border-t border-slate-100 text-[10px] font-mono font-semibold text-slate-400">
+              <span class="flex items-center gap-1">
+                <i data-lucide="sword" class="w-3.5 h-3.5 text-rose-500"></i>
+                <span class="truncate max-w-[120px]">${char.weaponName || '専属未設定'}</span>
+              </span>
+              <span class="text-indigo-600 font-bold hover:underline flex items-center gap-0.5 group-hover:scale-105 transition-all">
+                詳細 <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+              </span>
+            </div>
+          `;
+
+          grid.appendChild(card);
+        });
+      }
+
+      // レコードカウンター数表示
+      document.getElementById('footer-count').innerText = '表示中: ' + filtered.length + ' 体 / 総登録数: ' + mappedCharacters.length + ' 体';
+      lucide.createIcons();
+    }
+
+    // 英雄詳細のアコーディオン/ドロワー表示
+    function openDetails(char) {
+      document.getElementById('detail-name').innerText = char.name;
+      document.getElementById('detail-skill-name').innerText = char.skillName;
+      document.getElementById('detail-skill-aggregated').innerText = '一括: ' + (char.skillEffect || '-');
+      
+      let elementBgClass = 'from-[#475569] to-[#334155]';
+      let elementBadgeText = char.element;
+      
+      if (char.element === '衝動型 (赤)') {
+        elementBgClass = 'from-[#f43f5e] to-[#be123c]';
+      } else if (char.element === '冷静型 (青)') {
+        elementBgClass = 'from-[#3b82f6] to-[#1d4ed8]';
+      } else if (char.element === '狂乱型 (紫)') {
+        elementBgClass = 'from-[#a78bfa] to-[#6d28d9]';
+      } else if (char.element === '慎重型 (黄)') {
+        elementBgClass = 'from-[#fbbf24] to-[#c2410c]';
+      } else if (char.element === '勇敢型 (緑)') {
+        elementBgClass = 'from-[#34d399] to-[#047857]';
+      }
+
+      const header = document.getElementById('drawer-header');
+      header.className = 'p-6 text-white relative bg-gradient-to-r ' + elementBgClass;
+      
+      const badge = document.getElementById('detail-element-badge');
+      badge.innerText = elementBadgeText;
+
+      const starsDiv = document.getElementById('detail-stars');
+      starsDiv.innerHTML = '';
+      for (let i = 0; i < (char.rarity || 5); i++) {
+        starsDiv.innerHTML += '★';
+      }
+
+      // 4大軍団スキルグリッド
+      const itemsContainer = document.getElementById('detail-skill-items');
+      itemsContainer.innerHTML = '';
+      
+      if (char.skillItems && char.skillItems.length > 0) {
+        char.skillItems.forEach(item => {
+          const itemDiv = document.createElement('div');
+          itemDiv.className = 'bg-white border border-indigo-100 rounded-xl p-3 shadow-3xs';
+          itemDiv.innerHTML = `
+            <span class="text-[9px] font-black text-indigo-600 block truncate" title="${item.itemName}">${item.itemName}</span>
+            <span class="text-xs font-black text-slate-800 mt-1 block">${item.itemValue || '-'}</span>
+          `;
+          itemsContainer.appendChild(itemDiv);
+        });
+      }
+
+      // 専属ウェポン
+      if (char.weaponName) {
+        document.getElementById('weapon-section').classList.remove('hidden');
+        document.getElementById('detail-weapon-name').innerText = char.weaponName;
+        document.getElementById('detail-weapon-tier-0').innerText = char.weaponStats0 || '-';
+        document.getElementById('detail-weapon-tier-2').innerText = char.weaponStats2 || '-';
+        document.getElementById('detail-weapon-tier-4').innerText = char.weaponStats4 || '-';
+        document.getElementById('detail-weapon-tier-6').innerText = char.weaponStats6 || '-';
+        document.getElementById('detail-weapon-tier-8').innerText = char.weaponStats8 || '-';
+      } else {
+        document.getElementById('weapon-section').classList.add('hidden');
+      }
+
+      document.getElementById('details-modal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      lucide.createIcons();
+    }
+
+    function closeDetails() {
+      document.getElementById('details-modal').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>
