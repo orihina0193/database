@@ -103,7 +103,7 @@
     "element": "冷静型 (青)",
     "rarity": 5,
     "skillName": "氷結剣舞",
-    "skillEffect": "ライダーATK +110% / ライダーHP +110% / 敵の移動速度を低下",
+    "skillEffect": "ライダーATK +110% / ライダーHP +110% / その他追加ステータス 敵の移動速度を低下",
     "skillItems": [
       {
         "itemName": "ライダーATK",
@@ -122,12 +122,13 @@
         "itemValue": "-"
       }
     ],
-    "weaponName": "氷の狂刀",
-    "weaponStats0": "ライダー攻撃力 +10%",
-    "weaponStats2": "ライダー攻撃力 +25%",
-    "weaponStats4": "ライダー攻撃力 +50% / 攻撃した敵部隊のスキルゲージを10%減少",
-    "weaponStats6": "ライダー攻撃力 +100% / 敵部隊の防御力を追加で15%貫通",
-    "weaponStats8": "ライダー攻撃力 +200% / スキル発動時に確率で敵全体を1ターン行動不能（凍結）にする"
+    "weaponName": "消防斧",
+    "weaponStats0": "部隊DEF +100%",
+    "weaponStats2": "部隊HP +100%",
+    "weaponStats4": "部隊ATK +100％",
+    "weaponStats6": "部隊ATK +150%",
+    "weaponStats8": "部隊HP+100%",
+    "troopType": "ファイター"
   },
   {
     "id": "char_samuel",
