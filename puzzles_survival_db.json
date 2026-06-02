@@ -1,1 +1,214 @@
-
+[
+  {
+    "id": "char_fox",
+    "name": "フォックス (Fox)",
+    "element": "慎重型 (黄)",
+    "rarity": 5,
+    "skillName": "救急処置",
+    "skillEffect": "軍団防御力 +80% / シューター防御力 +160% / クリティカル耐性アップ",
+    "skillItems": [
+      {
+        "itemName": "軍団防御力",
+        "itemValue": "+80%"
+      },
+      {
+        "itemName": "シューター防御力",
+        "itemValue": "+160%"
+      },
+      {
+        "itemName": "その他追加ステータス",
+        "itemValue": "クリティカル耐性アップ"
+      },
+      {
+        "itemName": "その他追加ステータス",
+        "itemValue": "-"
+      }
+    ],
+    "weaponName": "医者のメス",
+    "weaponStats0": "軍団HP +5%",
+    "weaponStats2": "軍団HP +12%",
+    "weaponStats4": "軍団HP +25% / 確率で追加治療効果を発動",
+    "weaponStats6": "軍団HP +50% / 味方の攻撃力を15%追加アップ",
+    "weaponStats8": "軍団HP +100% / スキル発動後にデバフを即時解除し大幅に治療"
+  },
+  {
+    "id": "char_zephyr",
+    "name": "ゼフィア (Zephyr)",
+    "element": "狂乱型 (紫)",
+    "rarity": 5,
+    "skillName": "ファントムブラスト",
+    "skillEffect": "シューターATK +120% / 軍団ATK +40% / 敵の防御力を一部無視",
+    "skillItems": [
+      {
+        "itemName": "シューターATK",
+        "itemValue": "+120%"
+      },
+      {
+        "itemName": "軍団ATK",
+        "itemValue": "+40%"
+      },
+      {
+        "itemName": "その他追加ステータス",
+        "itemValue": "敵の防御力を一部無視"
+      },
+      {
+        "itemName": "その他追加ステータス",
+        "itemValue": "-"
+      }
+    ],
+    "weaponName": "ファントムクロー",
+    "weaponStats0": "最大部隊規模 +2000",
+    "weaponStats2": "最大部隊規模 +4500",
+    "weaponStats4": "最大部隊規模 +10000 / シューター攻撃力 +15%",
+    "weaponStats6": "最大部隊規模 +22000 / シューター攻撃力 +35%",
+    "weaponStats8": "最大部隊規模 +45000 / シューター攻撃力 +75% / 自部隊の与ダメージを20%アップ"
+  },
+  {
+    "id": "char_rohan",
+    "name": "ローダン (Rohan)",
+    "element": "衝動型 (赤)",
+    "rarity": 5,
+    "skillName": "ブレインブレイク",
+    "skillEffect": "軍団ATK +50% / ファイターATK +100% / ファイター防御力 +80%",
+    "skillItems": [
+      {
+        "itemName": "軍団ATK",
+        "itemValue": "+50%"
+      },
+      {
+        "itemName": "ファイターATK",
+        "itemValue": "+100%"
+      },
+      {
+        "itemName": "ファイター防御力",
+        "itemValue": "+80%"
+      },
+      {
+        "itemName": "その他追加ステータス",
+        "itemValue": "-"
+      }
+    ],
+    "weaponName": "サンダーハンマー",
+    "weaponStats0": "ファイター攻撃力 +10%",
+    "weaponStats2": "ファイター攻撃力 +25%",
+    "weaponStats4": "ファイター攻撃力 +50% / 開戦時に部隊シールドを付与 (耐久値10%)",
+    "weaponStats6": "ファイター攻撃力 +100% / シールド発動中に自身の攻撃速度を15%向上",
+    "weaponStats8": "ファイター攻撃力 +200% / シールド耐久値が25%に。さらにファイター致死ダメージを1度無効化"
+  },
+  {
+    "id": "char_shota",
+    "name": "翔太 (Shota)",
+    "element": "冷静型 (青)",
+    "rarity": 5,
+    "skillName": "氷結剣舞",
+    "skillEffect": "ライダーATK +110% / ライダーHP +110% / 敵の移動速度を低下",
+    "skillItems": [
+      {
+        "itemName": "ライダーATK",
+        "itemValue": "+110%"
+      },
+      {
+        "itemName": "ライダーHP",
+        "itemValue": "+110%"
+      },
+      {
+        "itemName": "その他追加ステータス",
+        "itemValue": "敵の移動速度を低下"
+      },
+      {
+        "itemName": "その他追加ステータス",
+        "itemValue": "-"
+      }
+    ],
+    "weaponName": "氷の狂刀",
+    "weaponStats0": "ライダー攻撃力 +10%",
+    "weaponStats2": "ライダー攻撃力 +25%",
+    "weaponStats4": "ライダー攻撃力 +50% / 攻撃した敵部隊のスキルゲージを10%減少",
+    "weaponStats6": "ライダー攻撃力 +100% / 敵部隊の防御力を追加で15%貫通",
+    "weaponStats8": "ライダー攻撃力 +200% / スキル発動時に確率で敵全体を1ターン行動不能（凍結）にする"
+  },
+  {
+    "id": "char_samuel",
+    "name": "サミュエル (Samuel)",
+    "element": "勇敢型 (緑)",
+    "rarity": 5,
+    "skillName": "大地の加護",
+    "skillEffect": "ファイターHP +100% / ライダーHP +100% / 全兵種の被ダメージを軽減",
+    "skillItems": [
+      {
+        "itemName": "ファイターHP",
+        "itemValue": "+100%"
+      },
+      {
+        "itemName": "ライダーHP",
+        "itemValue": "+100%"
+      },
+      {
+        "itemName": "その他追加ステータス",
+        "itemValue": "全兵種の被ダメージを軽減"
+      },
+      {
+        "itemName": "その他追加ステータス",
+        "itemValue": "-"
+      }
+    ],
+    "weaponName": "不屈のナックル",
+    "weaponStats0": "軍団防御力 +5%",
+    "weaponStats2": "軍団防御力 +12%",
+    "weaponStats4": "軍団防御力 +25% / 味方全体の防御が常時さらに10%上昇",
+    "weaponStats6": "軍団防御力 +50% / 味方ファイターが倒れるたびに部隊HPを回復",
+    "weaponStats8": "軍団防御力 +100% / 全軍が受けるすべての持続物理ダメージ効果を常時無効化"
+  },
+  {
+    "id": "char_custom_1780378472440",
+    "name": "あああ",
+    "title": "ｓｓｓ",
+    "element": "火",
+    "rarity": 5,
+    "classType": "戦士",
+    "stats": {
+      "hp": 4000,
+      "atk": 500,
+      "def": 400,
+      "speed": 110,
+      "crit": 15
+    },
+    "skills": [
+      {
+        "name": "ｗｗｗ",
+        "description": "あああ",
+        "type": "奥義"
+      },
+      {
+        "name": "通常攻撃",
+        "description": "敵単体にダメージを与える。",
+        "type": "スキル"
+      },
+      {
+        "name": "戦闘精神",
+        "description": "自身の戦闘力をわずかに向上する。",
+        "type": "パッシブ"
+      }
+    ],
+    "lore": "詳細不明の冒険者。世界を股にかける戦士の一員として知られている。",
+    "isCustom": true,
+    "skillItems": [
+      {
+        "itemName": "その他追加ステータス",
+        "itemValue": "-"
+      },
+      {
+        "itemName": "その他追加ステータス",
+        "itemValue": "-"
+      },
+      {
+        "itemName": "その他追加ステータス",
+        "itemValue": "-"
+      },
+      {
+        "itemName": "その他追加ステータス",
+        "itemValue": "-"
+      }
+    ]
+  }
+]
