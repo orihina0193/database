@@ -5,31 +5,31 @@
     "element": "冷静型 (青)",
     "rarity": 5,
     "skillName": "救急処置",
-    "skillEffect": "軍団防御力 +80% / シューター防御力 +160% / その他追加ステータス クリティカル耐性アップ",
+    "skillEffect": "ライダーHP 250 / ライダーDEF 250 / ライダーATK 250",
     "skillItems": [
       {
-        "itemName": "軍団防御力",
-        "itemValue": "+80%"
+        "itemName": "ライダーHP",
+        "itemValue": "250"
       },
       {
-        "itemName": "シューター防御力",
-        "itemValue": "+160%"
+        "itemName": "ライダーDEF",
+        "itemValue": "250"
       },
       {
-        "itemName": "その他追加ステータス",
-        "itemValue": "クリティカル耐性アップ"
+        "itemName": "ライダーATK",
+        "itemValue": "250"
       },
       {
-        "itemName": "その他追加ステータス",
+        "itemName": "その他ステータス",
         "itemValue": "-"
       }
     ],
     "weaponName": "イノキュレーターガン",
-    "weaponStats0": "軍団HP +5%",
-    "weaponStats2": "軍団HP +12%",
-    "weaponStats4": "軍団HP +25% / 確率で追加治療効果を発動",
-    "weaponStats6": "軍団HP +50% / 味方の攻撃力を15%追加アップ",
-    "weaponStats8": "軍団HP +100% / スキル発動後にデバフを即時解除し大幅に治療",
+    "weaponStats0": "部隊DEF100％",
+    "weaponStats2": "部隊HP100％",
+    "weaponStats4": "部隊ATK100％",
+    "weaponStats6": "敵方シューターが味方ライダーに対するダメージ減少+30％",
+    "weaponStats8": "ライダーHP200％",
     "troopType": "ライダー"
   },
   {
