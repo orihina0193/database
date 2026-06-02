@@ -67,34 +67,35 @@
   {
     "id": "char_rohan",
     "name": "ローダン (Rohan)",
-    "element": "衝動型 (赤)",
+    "element": "慎重型 (黄)",
     "rarity": 5,
     "skillName": "ブレインブレイク",
-    "skillEffect": "軍団ATK +50% / ファイターATK +100% / ファイター防御力 +80%",
+    "skillEffect": "研究速度 100 / 訓練速度 100 / 部隊規模 55,000",
     "skillItems": [
       {
-        "itemName": "軍団ATK",
-        "itemValue": "+50%"
+        "itemName": "研究速度",
+        "itemValue": "100"
       },
       {
-        "itemName": "ファイターATK",
-        "itemValue": "+100%"
+        "itemName": "訓練速度",
+        "itemValue": "100"
       },
       {
-        "itemName": "ファイター防御力",
-        "itemValue": "+80%"
+        "itemName": "部隊規模",
+        "itemValue": "55,000"
       },
       {
-        "itemName": "その他追加ステータス",
+        "itemName": "その他ステータス",
         "itemValue": "-"
       }
     ],
-    "weaponName": "サンダーハンマー",
-    "weaponStats0": "ファイター攻撃力 +10%",
-    "weaponStats2": "ファイター攻撃力 +25%",
-    "weaponStats4": "ファイター攻撃力 +50% / 開戦時に部隊シールドを付与 (耐久値10%)",
-    "weaponStats6": "ファイター攻撃力 +100% / シールド発動中に自身の攻撃速度を15%向上",
-    "weaponStats8": "ファイター攻撃力 +200% / シールド耐久値が25%に。さらにファイター致死ダメージを1度無効化"
+    "weaponName": "デスクロー",
+    "weaponStats0": "部隊DEF +100%",
+    "weaponStats2": "部隊HP +100%",
+    "weaponStats4": "部隊規模 15,000",
+    "weaponStats6": "部隊規模 25,000",
+    "weaponStats8": "研究速度 100",
+    "troopType": "内政"
   },
   {
     "id": "char_shota",
