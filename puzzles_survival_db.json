@@ -2,10 +2,10 @@
   {
     "id": "char_fox",
     "name": "フォックス (Fox)",
-    "element": "慎重型 (黄)",
+    "element": "冷静型 (青)",
     "rarity": 5,
     "skillName": "救急処置",
-    "skillEffect": "軍団防御力 +80% / シューター防御力 +160% / クリティカル耐性アップ",
+    "skillEffect": "軍団防御力 +80% / シューター防御力 +160% / その他追加ステータス クリティカル耐性アップ",
     "skillItems": [
       {
         "itemName": "軍団防御力",
