@@ -502,7 +502,7 @@
             <div>
               <label class="text-[10px] text-slate-400 font-semibold block mb-0.5">段階1: 項目名 / 増減値</label>
               <div class="grid grid-cols-10 gap-1.5">
-                <input id="c-s1-n" type="text" placeholder="例: シューター攻撃力" class="col-span-7 px-2 py-1.5 bg-white border border-slate-200 rounded text-[11px]" />
+                <input id="c-s1-n" list="skill-item-names-datalist" type="text" placeholder="例: シューター攻撃力" class="col-span-7 px-2 py-1.5 bg-white border border-slate-200 rounded text-[11px]" />
                 <input id="c-s1-v" type="text" placeholder="+10%" class="col-span-3 px-2 py-1.5 bg-white border border-slate-200 rounded text-[11px] font-mono text-right" />
               </div>
             </div>
@@ -510,7 +510,7 @@
             <div>
               <label class="text-[10px] text-slate-400 font-semibold block mb-0.5">段階2: 項目名 / 増減値</label>
               <div class="grid grid-cols-10 gap-1.5">
-                <input id="c-s2-n" type="text" placeholder="項目名" class="col-span-7 px-2 py-1.5 bg-white border border-slate-200 rounded text-[11px]" />
+                <input id="c-s2-n" list="skill-item-names-datalist" type="text" placeholder="項目名" class="col-span-7 px-2 py-1.5 bg-white border border-slate-200 rounded text-[11px]" />
                 <input id="c-s2-v" type="text" placeholder="値" class="col-span-3 px-2 py-1.5 bg-white border border-slate-200 rounded text-[11px] font-mono text-right" />
               </div>
             </div>
@@ -518,7 +518,7 @@
             <div>
               <label class="text-[10px] text-slate-400 font-semibold block mb-0.5">段階3: 項目名 / 増減値</label>
               <div class="grid grid-cols-10 gap-1.5">
-                <input id="c-s3-n" type="text" placeholder="項目名" class="col-span-7 px-2 py-1.5 bg-white border border-slate-200 rounded text-[11px]" />
+                <input id="c-s3-n" list="skill-item-names-datalist" type="text" placeholder="項目名" class="col-span-7 px-2 py-1.5 bg-white border border-slate-200 rounded text-[11px]" />
                 <input id="c-s3-v" type="text" placeholder="値" class="col-span-3 px-2 py-1.5 bg-white border border-slate-200 rounded text-[11px] font-mono text-right" />
               </div>
             </div>
@@ -526,7 +526,7 @@
             <div>
               <label class="text-[10px] text-slate-400 font-semibold block mb-0.5">段階4: 項目名 / 増減値</label>
               <div class="grid grid-cols-10 gap-1.5">
-                <input id="c-s4-n" type="text" placeholder="項目名" class="col-span-7 px-2 py-1.5 bg-white border border-slate-200 rounded text-[11px]" />
+                <input id="c-s4-n" list="skill-item-names-datalist" type="text" placeholder="項目名" class="col-span-7 px-2 py-1.5 bg-white border border-slate-200 rounded text-[11px]" />
                 <input id="c-s4-v" type="text" placeholder="値" class="col-span-3 px-2 py-1.5 bg-white border border-slate-200 rounded text-[11px] font-mono text-right" />
               </div>
             </div>
@@ -579,6 +579,9 @@
       </div>
     </div>
   </div>
+
+  <!-- 効果項目名の入力候補用 Datalist -->
+  <datalist id="skill-item-names-datalist"></datalist>
 
   <!-- 5. 進捗進行中オーバーレイ -->
   <div id="progress-overlay" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
@@ -684,7 +687,7 @@
       rawCharacters = [
         {
           id: 'char_fox',
-          name: 'フォックス',
+          name: 'フォックス (Fox)',
           element: '慎重型 (黄)',
           rarity: 5,
           skillName: '救急処置',
@@ -704,7 +707,7 @@
         },
         {
           id: 'char_zephyr',
-          name: 'ゼフィロス',
+          name: 'ゼフィア (Zephyr)',
           element: '狂乱型 (紫)',
           rarity: 5,
           skillName: 'ファントムブラスト',
@@ -724,7 +727,7 @@
         },
         {
           id: 'char_rohan',
-          name: 'ローダン',
+          name: 'ローダン (Rohan)',
           element: '衝動型 (赤)',
           rarity: 5,
           skillName: 'ブレインブレイク',
@@ -744,7 +747,7 @@
         },
         {
           id: 'char_shota',
-          name: '翔太',
+          name: '翔太 (Shota)',
           element: '冷静型 (青)',
           rarity: 5,
           skillName: '氷結剣舞',
@@ -764,7 +767,7 @@
         },
         {
           id: 'char_samuel',
-          name: 'サミュエル',
+          name: 'サミュエル (Samuel)',
           element: '勇敢型 (緑)',
           rarity: 5,
           skillName: '大地の加護',
@@ -867,7 +870,26 @@
 
     // Refresh Selector
     function populateSkillItemsFilter() {
-      const distinctNames = new Set();
+      const DEFAULT_SKILL_ITEM_NAMES = [
+        '軍団ATK',
+        '軍団防御力',
+        '軍団HP',
+        'ファイターATK',
+        'ファイター防御力',
+        'ファイターHP',
+        'ライダーATK',
+        'ライダー防御力',
+        'ライダーHP',
+        'シューターATK',
+        'シューター防御力',
+        'シューターHP',
+        '部隊規模',
+        '最大部隊規模',
+        '対ギャザーATK',
+        'その他追加ステータス'
+      ];
+
+      const distinctNames = new Set(DEFAULT_SKILL_ITEM_NAMES);
       rawCharacters.forEach(char => {
         if (char.skillItems && Array.isArray(char.skillItems)) {
           char.skillItems.forEach(item => {
@@ -879,17 +901,29 @@
       });
 
       const sortedNames = Array.from(distinctNames).sort();
+      
+      // 1. Filter dropdown selector
       const select = document.getElementById('skill-item-select');
-      
-      // Preserve first (all) option
-      select.innerHTML = '<option value="all">すべての効果項目</option>';
-      
-      sortedNames.forEach(name => {
-        const option = document.createElement('option');
-        option.value = name;
-        option.innerText = name;
-        select.appendChild(option);
-      });
+      if (select) {
+        select.innerHTML = '<option value="all">すべての効果項目</option>';
+        sortedNames.forEach(name => {
+          const option = document.createElement('option');
+          option.value = name;
+          option.innerText = name;
+          select.appendChild(option);
+        });
+      }
+
+      // 2. Editor input helper datalist
+      const datalist = document.getElementById('skill-item-names-datalist');
+      if (datalist) {
+        datalist.innerHTML = '';
+        sortedNames.forEach(name => {
+          const option = document.createElement('option');
+          option.value = name;
+          datalist.appendChild(option);
+        });
+      }
     }
 
     // Rendering Characters List Grid
