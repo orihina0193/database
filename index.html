@@ -878,21 +878,21 @@
     // Refresh Selector
     function populateSkillItemsFilter() {
       const DEFAULT_SKILL_ITEM_NAMES = [
-        '軍団ATK',
-        '軍団防御力',
-        '軍団HP',
+        '部隊ATK',
+        '部隊DEF',
+        '部隊HP',
         'ファイターATK',
-        'ファイター防御力',
+        'ファイターDEF',
         'ファイターHP',
         'ライダーATK',
-        'ライダー防御力',
+        'ライダーDEF',
         'ライダーHP',
         'シューターATK',
-        'シューター防御力',
+        'シューターDEF',
         'シューターHP',
         '部隊規模',
-        '最大部隊規模',
-        '対ギャザーATK'
+        'ギャザー規模',
+        'ギャザーATK'
       ];
 
       const distinctNames = new Set(DEFAULT_SKILL_ITEM_NAMES);
@@ -1297,6 +1297,61 @@
       } finally {
         btn.disabled = false;
       }
+    }
+
+    // Config Modal Management
+    function openConfigModal() {
+      document.getElementById("cfg-owner").value = dbConfig.owner || '';
+      document.getElementById("cfg-repo").value = dbConfig.repo || '';
+      document.getElementById("cfg-branch").value = dbConfig.branch || 'main';
+      document.getElementById("cfg-path").value = dbConfig.path || 'puzzles_survival_db.json';
+      document.getElementById("cfg-admin-key").value = dbConfig.adminKey || '1234';
+      document.getElementById("cfg-token").value = dbConfig.token || '';
+      
+      const resultBox = document.getElementById("cfg-test-result");
+      resultBox.classList.add("hidden");
+      resultBox.innerText = "";
+      
+      document.getElementById("config-modal").classList.remove("hidden");
+    }
+
+    function closeConfigModal() {
+      document.getElementById("config-modal").classList.add("hidden");
+    }
+
+    async function saveConfigModalSettings() {
+      const owner = document.getElementById("cfg-owner").value.trim();
+      const repo = document.getElementById("cfg-repo").value.trim();
+      const branch = document.getElementById("cfg-branch").value.trim() || 'main';
+      const path = document.getElementById("cfg-path").value.trim() || 'puzzles_survival_db.json';
+      const adminKey = document.getElementById("cfg-admin-key").value.trim() || '1234';
+      const token = document.getElementById("cfg-token").value.trim();
+
+      dbConfig.owner = owner;
+      dbConfig.repo = repo;
+      dbConfig.branch = branch;
+      dbConfig.path = path;
+      dbConfig.adminKey = adminKey;
+      dbConfig.token = token;
+
+      localStorage.setItem(GITHUB_SETTINGS_KEY, JSON.stringify(dbConfig));
+      
+      // Update session auth if already authenticated
+      const sessionAuth = sessionStorage.getItem('arcana_db_auth_session');
+      if (sessionAuth) {
+        sessionStorage.setItem('arcana_db_auth_session', adminKey);
+      }
+      
+      closeConfigModal();
+      updateAdminUIVisibility();
+
+      // reload database with new settings
+      if (dbConfig.owner && dbConfig.repo) {
+        await loadDatabaseFromGitHub();
+      } else {
+        loadDefaultFallbackMock();
+      }
+      alert("設定を適用保存し、データベースを再読み込みしました！");
     }
 
     // Hero Custom Entry Creator Forms
