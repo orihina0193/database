@@ -1,5 +1,33 @@
 [
   {
+    "id": "CUSTOM-1780506351155",
+    "name": "オーストン",
+    "element": "冷静型 (青)",
+    "rarity": 5,
+    "troopType": "シューター",
+    "skillEffect": "シューターHP 250 / シューターDEF 250 / シューターATK 250",
+    "skillItems": [
+      {
+        "itemName": "シューターHP",
+        "itemValue": "250"
+      },
+      {
+        "itemName": "シューターDEF",
+        "itemValue": "250"
+      },
+      {
+        "itemName": "シューターATK",
+        "itemValue": "250"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
     "id": "CUSTOM-1780505967568",
     "name": "トム",
     "element": "慎重型 (黄)",
