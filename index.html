@@ -850,28 +850,23 @@
     // Ensure all heroes have backward-compatibility skill items structure
     function ensureStructuredSkillItems(arr) {
       return arr.map(char => {
-        if (char.skillItems && Array.isArray(char.skillItems) && char.skillItems.length === 4) {
+        if (char.skillItems && Array.isArray(char.skillItems)) {
+          char.skillItems = char.skillItems.filter(item => item && item.itemName && item.itemName.trim() !== '');
           return char;
         }
         
-        const items = [
-          { itemName: '', itemValue: '' },
-          { itemName: '', itemValue: '' },
-          { itemName: '', itemValue: '' },
-          { itemName: '', itemValue: '' }
-        ];
-
+        const items = [];
         if (char.skillEffect) {
           const parts = char.skillEffect.split('/').map(p => p.trim());
-          parts.forEach((part, idx) => {
-            if (idx < 4 && part) {
+          parts.forEach(part => {
+            if (part) {
               const spaceIndex = part.lastIndexOf(' ');
               if (spaceIndex !== -1) {
                 const name = part.substring(0, spaceIndex).trim();
                 const val = part.substring(spaceIndex).trim();
-                items[idx] = { itemName: name, itemValue: val };
+                items.push({ itemName: name, itemValue: val });
               } else {
-                items[idx] = { itemName: part, itemValue: '発動' };
+                items.push({ itemName: part, itemValue: '発動' });
               }
             }
           });
@@ -942,21 +937,30 @@
         if (selectEl) {
           const currentVal = selectEl.value;
           selectEl.innerHTML = '';
+          
+          // Add empty option first
+          const emptyOpt = document.createElement('option');
+          emptyOpt.value = '';
+          emptyOpt.innerText = '(未設定/なし)';
+          selectEl.appendChild(emptyOpt);
+
           sortedNames.forEach(name => {
-            const opt = document.createElement('option');
-            opt.value = name;
-            opt.innerText = name;
-            selectEl.appendChild(opt);
+            if (name && name.trim() !== '') {
+              const opt = document.createElement('option');
+              opt.value = name;
+              opt.innerText = name;
+              selectEl.appendChild(opt);
+            }
           });
           const customOpt = document.createElement('option');
           customOpt.value = '__custom__';
           customOpt.innerText = '直接入力 (その他)...';
           selectEl.appendChild(customOpt);
 
-          if (currentVal) {
+          if (currentVal !== undefined && currentVal !== null && currentVal !== '') {
             selectEl.value = currentVal;
           } else {
-            selectEl.value = '軍団ATK';
+            selectEl.value = '';
           }
         }
       }
@@ -1306,15 +1310,15 @@
       document.getElementById('c-rarity').value = '5';
       document.getElementById('c-troop-type').value = 'ファイター';
       
-      // Reset Select and Inputs
+      // Reset Select and Inputs (Defaults to unselected/empty)
       for (let idx = 1; idx <= 4; idx++) {
         const selectEl = document.getElementById(`c-s${idx}-select`);
         const inputEl = document.getElementById(`c-s${idx}-n`);
         const valEl = document.getElementById(`c-s${idx}-v`);
         
-        if (selectEl) selectEl.value = '軍団ATK';
+        if (selectEl) selectEl.value = '';
         if (inputEl) {
-          inputEl.value = '軍団ATK';
+          inputEl.value = '';
           inputEl.classList.add('hidden');
         }
         if (valEl) valEl.value = '';
@@ -1336,37 +1340,51 @@
           document.getElementById('c-rarity').value = String(char.rarity || '5');
           document.getElementById('c-troop-type').value = char.troopType || 'ファイター';
 
-          if (char.skillItems && char.skillItems.length >= 4) {
-            for (let idx = 1; idx <= 4; idx++) {
-              const item = char.skillItems[idx - 1];
-              const selectEl = document.getElementById(`c-s${idx}-select`);
-              const inputEl = document.getElementById(`c-s${idx}-n`);
-              const valEl = document.getElementById(`c-s${idx}-v`);
+          // Safe load for skills (1 to 4)
+          for (let idx = 1; idx <= 4; idx++) {
+            const selectEl = document.getElementById(`c-s${idx}-select`);
+            const inputEl = document.getElementById(`c-s${idx}-n`);
+            const valEl = document.getElementById(`c-s${idx}-v`);
 
+            const item = (char.skillItems && char.skillItems[idx - 1]) ? char.skillItems[idx - 1] : null;
+
+            if (item) {
               if (valEl) valEl.value = item.itemValue || '';
               
               if (selectEl && inputEl) {
-                const name = item.itemName || '軍団ATK';
-                
-                // Check if options contains the name
-                let exists = false;
-                for (let i = 0; i < selectEl.options.length; i++) {
-                  if (selectEl.options[i].value === name) {
-                    exists = true;
-                    break;
+                const name = item.itemName || '';
+                if (name) {
+                  // Check if options contains the name
+                  let exists = false;
+                  for (let i = 0; i < selectEl.options.length; i++) {
+                    if (selectEl.options[i].value === name) {
+                      exists = true;
+                      break;
+                    }
                   }
-                }
 
-                if (exists) {
-                  selectEl.value = name;
-                  inputEl.value = name;
-                  inputEl.classList.add('hidden');
+                  if (exists) {
+                    selectEl.value = name;
+                    inputEl.value = name;
+                    inputEl.classList.add('hidden');
+                  } else {
+                    selectEl.value = '__custom__';
+                    inputEl.value = name;
+                    inputEl.classList.remove('hidden');
+                  }
                 } else {
-                  selectEl.value = '__custom__';
-                  inputEl.value = name;
-                  inputEl.classList.remove('hidden');
+                  selectEl.value = '';
+                  inputEl.value = '';
+                  inputEl.classList.add('hidden');
                 }
               }
+            } else {
+              if (selectEl) selectEl.value = '';
+              if (inputEl) {
+                inputEl.value = '';
+                inputEl.classList.add('hidden');
+              }
+              if (valEl) valEl.value = '';
             }
           }
 
@@ -1402,7 +1420,7 @@
         return;
       }
 
-      // Pack 4-stages skills list
+      // Pack dynamic skills list
       const getSkillNameValue = (idx) => {
         const selectEl = document.getElementById(`c-s${idx}-select`);
         const inputEl = document.getElementById(`c-s${idx}-n`);
@@ -1412,25 +1430,21 @@
         return inputEl ? inputEl.value.trim() : '';
       };
 
-      const s1n = getSkillNameValue(1);
-      const s1v = document.getElementById('c-s1-v').value.trim() || '-';
-      const s2n = getSkillNameValue(2);
-      const s2v = document.getElementById('c-s2-v').value.trim() || '-';
-      const s3n = getSkillNameValue(3);
-      const s3v = document.getElementById('c-s3-v').value.trim() || '-';
-      const s4n = getSkillNameValue(4);
-      const s4v = document.getElementById('c-s4-v').value.trim() || '-';
-
-      const skillItems = [
-        { itemName: s1n, itemValue: s1v },
-        { itemName: s2n, itemValue: s2v },
-        { itemName: s3n, itemValue: s3v },
-        { itemName: s4n, itemValue: s4v }
-      ];
+      const skillItems = [];
+      for (let idx = 1; idx <= 4; idx++) {
+        const name = getSkillNameValue(idx);
+        const val = document.getElementById(`c-s${idx}-v`).value.trim();
+        // Name must not be empty or unselected
+        if (name && name !== '') {
+          skillItems.push({
+            itemName: name,
+            itemValue: val || '-'
+          });
+        }
+      }
 
       // Format concatenated plain string
       const plainSkillPairs = skillItems
-        .filter(i => i.itemValue && i.itemValue !== '-')
         .map(i => `${i.itemName} ${i.itemValue}`);
       const skillEffect = plainSkillPairs.length > 0 ? plainSkillPairs.join(' / ') : '-';
 
