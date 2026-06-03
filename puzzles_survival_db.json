@@ -1,5 +1,33 @@
 [
   {
+    "id": "CUSTOM-1780510460785",
+    "name": "ワリ",
+    "element": "狂乱型 (紫)",
+    "rarity": 5,
+    "troopType": "ライダー",
+    "skillEffect": "ライダーATK 350 / ファイターATK 350 / 部隊DEF 350",
+    "skillItems": [
+      {
+        "itemName": "ライダーATK",
+        "itemValue": "350"
+      },
+      {
+        "itemName": "ファイターATK",
+        "itemValue": "350"
+      },
+      {
+        "itemName": "部隊DEF",
+        "itemValue": "350"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
     "id": "CUSTOM-1780510361008",
     "name": "ローラ＆ジェシ",
     "element": "慎重型 (黄)",
