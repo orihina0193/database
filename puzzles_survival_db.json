@@ -1,5 +1,33 @@
 [
   {
+    "id": "CUSTOM-1780510180262",
+    "name": "エリー",
+    "element": "衝動型 (赤)",
+    "rarity": 5,
+    "troopType": "シューター",
+    "skillEffect": "部隊HP 125 / 部隊DEF 125 / 部隊ATK 125",
+    "skillItems": [
+      {
+        "itemName": "部隊HP",
+        "itemValue": "125"
+      },
+      {
+        "itemName": "部隊DEF",
+        "itemValue": "125"
+      },
+      {
+        "itemName": "部隊ATK",
+        "itemValue": "125"
+      }
+    ],
+    "weaponName": "極寒の刀",
+    "weaponStats0": "部隊DEF +100%",
+    "weaponStats2": "部隊HP +100%",
+    "weaponStats4": "部隊ATK +100%",
+    "weaponStats6": "ギャザー部隊ダメージ増加+10%",
+    "weaponStats8": "シューターATK +200％"
+  },
+  {
     "id": "CUSTOM-1780506351155",
     "name": "オーストン",
     "element": "冷静型 (青)",
