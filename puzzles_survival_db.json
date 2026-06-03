@@ -18,10 +18,6 @@
       {
         "itemName": "ライダーATK",
         "itemValue": "250"
-      },
-      {
-        "itemName": "",
-        "itemValue": "-"
       }
     ],
     "weaponName": "イノキュレーターガン",
@@ -38,23 +34,11 @@
     "element": "狂乱型 (紫)",
     "rarity": 5,
     "skillName": "ファントムブラスト",
-    "skillEffect": "シューターATK +120% / 軍団ATK +40%",
+    "skillEffect": "シューターATK +120%",
     "skillItems": [
       {
         "itemName": "シューターATK",
         "itemValue": "+120%"
-      },
-      {
-        "itemName": "軍団ATK",
-        "itemValue": "+40%"
-      },
-      {
-        "itemName": "軍団ATK",
-        "itemValue": "-"
-      },
-      {
-        "itemName": "軍団ATK",
-        "itemValue": "-"
       }
     ],
     "weaponName": "ファントムクロー",
@@ -84,10 +68,6 @@
       {
         "itemName": "部隊規模",
         "itemValue": "55,000"
-      },
-      {
-        "itemName": "",
-        "itemValue": "-"
       }
     ],
     "weaponName": "デスクロー",
@@ -113,14 +93,6 @@
       {
         "itemName": "ライダーHP",
         "itemValue": "+110%"
-      },
-      {
-        "itemName": "",
-        "itemValue": "-"
-      },
-      {
-        "itemName": "軍団ATK",
-        "itemValue": "-"
       }
     ],
     "weaponName": "消防斧",
@@ -150,10 +122,6 @@
       {
         "itemName": "部隊HP（パッシブ）",
         "itemValue": "150"
-      },
-      {
-        "itemName": "",
-        "itemValue": "-"
       }
     ],
     "weaponName": "スナイパーライフル",
