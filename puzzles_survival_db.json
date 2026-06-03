@@ -34,19 +34,27 @@
     "element": "狂乱型 (紫)",
     "rarity": 5,
     "skillName": "ファントムブラスト",
-    "skillEffect": "シューターATK +120%",
+    "skillEffect": "ファイターHP 250 / ファイターDEF 250 / ファイターATK 250",
     "skillItems": [
       {
-        "itemName": "シューターATK",
-        "itemValue": "+120%"
+        "itemName": "ファイターHP",
+        "itemValue": "250"
+      },
+      {
+        "itemName": "ファイターDEF",
+        "itemValue": "250"
+      },
+      {
+        "itemName": "ファイターATK",
+        "itemValue": "250"
       }
     ],
-    "weaponName": "ファントムクロー",
-    "weaponStats0": "最大部隊規模 +2000",
-    "weaponStats2": "最大部隊規模 +4500",
-    "weaponStats4": "最大部隊規模 +10000 / シューター攻撃力 +15%",
-    "weaponStats6": "最大部隊規模 +22000 / シューター攻撃力 +35%",
-    "weaponStats8": "最大部隊規模 +45000 / シューター攻撃力 +75% / 自部隊の与ダメージを20%アップ",
+    "weaponName": "サンダーハンマー",
+    "weaponStats0": "ファイターHP +200％",
+    "weaponStats2": "ファイターDEF +200％",
+    "weaponStats4": "ファイターATK +200％",
+    "weaponStats6": "ファイターダメージアップ +20",
+    "weaponStats8": "ファイターDEF +200％",
     "troopType": "ファイター"
   },
   {
@@ -84,15 +92,19 @@
     "element": "冷静型 (青)",
     "rarity": 5,
     "skillName": "氷結剣舞",
-    "skillEffect": "ライダーATK +110% / ライダーHP +110%",
+    "skillEffect": "病院収容量 35 / 治療時鋼材消費 ー -36 / 部隊DEF（パッシブ） 150",
     "skillItems": [
       {
-        "itemName": "ライダーATK",
-        "itemValue": "+110%"
+        "itemName": "病院収容量",
+        "itemValue": "35"
       },
       {
-        "itemName": "ライダーHP",
-        "itemValue": "+110%"
+        "itemName": "治療時鋼材消費 ー",
+        "itemValue": "-36"
+      },
+      {
+        "itemName": "部隊DEF（パッシブ）",
+        "itemValue": "150"
       }
     ],
     "weaponName": "消防斧",
