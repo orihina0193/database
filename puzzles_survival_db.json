@@ -1,5 +1,33 @@
 [
   {
+    "id": "CUSTOM-1780530214370",
+    "name": "フェニックス",
+    "element": "衝動型 (赤)",
+    "rarity": 5,
+    "troopType": "シューター",
+    "skillEffect": "シューターHP 250 / シューターDEF 250 / シューターATK 250",
+    "skillItems": [
+      {
+        "itemName": "シューターHP",
+        "itemValue": "250"
+      },
+      {
+        "itemName": "シューターDEF",
+        "itemValue": "250"
+      },
+      {
+        "itemName": "シューターATK",
+        "itemValue": "250"
+      }
+    ],
+    "weaponName": "火炎放射器",
+    "weaponStats0": "シューターHP +200%",
+    "weaponStats2": "シューターDEF +200％",
+    "weaponStats4": "シューターATK +200%",
+    "weaponStats6": "シューターダメージアップ +20％",
+    "weaponStats8": "シューターDEF +200％"
+  },
+  {
     "id": "CUSTOM-1780529399013",
     "name": "マット",
     "element": "狂乱型 (紫)",
@@ -160,12 +188,12 @@
         "itemValue": "350"
       }
     ],
-    "weaponName": "",
-    "weaponStats0": "",
-    "weaponStats2": "",
-    "weaponStats4": "",
-    "weaponStats6": "",
-    "weaponStats8": ""
+    "weaponName": "マシンハート",
+    "weaponStats0": "ライダーHP +200%",
+    "weaponStats2": "ファイターHP +200%",
+    "weaponStats4": "部隊DEF +100%",
+    "weaponStats6": "ライダーATK +200％,ファイターATK +200％",
+    "weaponStats8": "部隊ATK +100％"
   },
   {
     "id": "CUSTOM-1780510361008",
