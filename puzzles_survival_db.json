@@ -1,5 +1,33 @@
 [
   {
+    "id": "CUSTOM-1780510361008",
+    "name": "ローラ＆ジェシ",
+    "element": "慎重型 (黄)",
+    "rarity": 5,
+    "troopType": "シューター",
+    "skillEffect": "シューターATK 350 / ライダーATK 350 / 部隊DEF 350",
+    "skillItems": [
+      {
+        "itemName": "シューターATK",
+        "itemValue": "350"
+      },
+      {
+        "itemName": "ライダーATK",
+        "itemValue": "350"
+      },
+      {
+        "itemName": "部隊DEF",
+        "itemValue": "350"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
     "id": "CUSTOM-1780510180262",
     "name": "エリー",
     "element": "衝動型 (赤)",
