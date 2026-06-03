@@ -1,5 +1,33 @@
 [
   {
+    "id": "CUSTOM-1780510654635",
+    "name": "トーマス",
+    "element": "勇敢型 (緑)",
+    "rarity": 5,
+    "troopType": "ライダー",
+    "skillEffect": "部隊HP 125 / 部隊DEF 125 / 部隊ATK 125",
+    "skillItems": [
+      {
+        "itemName": "部隊HP",
+        "itemValue": "125"
+      },
+      {
+        "itemName": "部隊DEF",
+        "itemValue": "125"
+      },
+      {
+        "itemName": "部隊ATK",
+        "itemValue": "125"
+      }
+    ],
+    "weaponName": "フェニックスヘルム",
+    "weaponStats0": "部隊DEF +100%",
+    "weaponStats2": "部隊HP +100%",
+    "weaponStats4": "部隊ATK +100%",
+    "weaponStats6": "部隊被ダメージダウン +10%",
+    "weaponStats8": "ライダーATK +200％"
+  },
+  {
     "id": "CUSTOM-1780510460785",
     "name": "ワリ",
     "element": "狂乱型 (紫)",
