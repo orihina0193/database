@@ -1,5 +1,33 @@
 [
   {
+    "id": "CUSTOM-1780511645431",
+    "name": "アトムズ",
+    "element": "勇敢型 (緑)",
+    "rarity": 5,
+    "troopType": "ライダー",
+    "skillEffect": "ライダーHP 250 / ライダーDEF 250 / ライダーATK 250",
+    "skillItems": [
+      {
+        "itemName": "ライダーHP",
+        "itemValue": "250"
+      },
+      {
+        "itemName": "ライダーDEF",
+        "itemValue": "250"
+      },
+      {
+        "itemName": "ライダーATK",
+        "itemValue": "250"
+      }
+    ],
+    "weaponName": "パワーグローブ",
+    "weaponStats0": "部隊HP +200%",
+    "weaponStats2": "部隊DEF +200%",
+    "weaponStats4": "部隊ATK +200%",
+    "weaponStats6": "ライダーダメージアップ +20",
+    "weaponStats8": "ライダーDEF +200"
+  },
+  {
     "id": "CUSTOM-1780511053061",
     "name": "アイディー",
     "element": "慎重型 (黄)",
