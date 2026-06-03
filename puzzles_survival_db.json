@@ -1,5 +1,33 @@
 [
   {
+    "id": "CUSTOM-1780530634282",
+    "name": "アンナ",
+    "element": "冷静型 (青)",
+    "rarity": 5,
+    "troopType": "内政",
+    "skillEffect": "ファイターATK(パッシブ) - / ライダーATK(パッシブ) - / シューターATK(パッシブ) -",
+    "skillItems": [
+      {
+        "itemName": "ファイターATK(パッシブ)",
+        "itemValue": "-"
+      },
+      {
+        "itemName": "ライダーATK(パッシブ)",
+        "itemValue": "-"
+      },
+      {
+        "itemName": "シューターATK(パッシブ)",
+        "itemValue": "-"
+      }
+    ],
+    "weaponName": "サンダーウィップ",
+    "weaponStats0": "部隊DEF +100%",
+    "weaponStats2": "部隊HP +100%",
+    "weaponStats4": "部隊ATK +100%",
+    "weaponStats6": "SP・部隊ATK +200％",
+    "weaponStats8": "SP・部隊ATK +200％"
+  },
+  {
     "id": "CUSTOM-1780530214370",
     "name": "フェニックス",
     "element": "衝動型 (赤)",
