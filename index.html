@@ -500,34 +500,46 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             <!-- 段階1 -->
             <div>
-              <label class="text-[10px] text-slate-400 font-semibold block mb-0.5">段階1: 項目名 / 増減値</label>
+              <label class="text-[10px] text-slate-400 font-semibold block mb-0.5">段階1: 効果項目 / 増減値</label>
               <div class="grid grid-cols-10 gap-1.5">
-                <input id="c-s1-n" list="skill-item-names-datalist" type="text" placeholder="例: シューター攻撃力" class="col-span-7 px-2 py-1.5 bg-white border border-slate-200 rounded text-[11px]" />
-                <input id="c-s1-v" type="text" placeholder="+10%" class="col-span-3 px-2 py-1.5 bg-white border border-slate-200 rounded text-[11px] font-mono text-right" />
+                <div class="col-span-7 flex flex-col gap-1.5">
+                  <select id="c-s1-select" onchange="toggleCustomSkillInput(1)" class="w-full px-2 py-1.5 bg-white border border-slate-200 rounded text-[11px] font-bold text-slate-700 focus:outline-none focus:border-indigo-500 cursor-pointer"></select>
+                  <input id="c-s1-n" type="text" placeholder="手動でその他項目を入力..." class="hidden px-2 py-1 bg-indigo-50 border border-indigo-200 rounded text-[11px] font-bold text-slate-800" />
+                </div>
+                <input id="c-s1-v" type="text" placeholder="+10%" class="col-span-3 h-8 px-2 py-1.5 bg-white border border-slate-200 rounded text-[11px] font-mono text-right" />
               </div>
             </div>
             <!-- 段階2 -->
             <div>
-              <label class="text-[10px] text-slate-400 font-semibold block mb-0.5">段階2: 項目名 / 増減値</label>
+              <label class="text-[10px] text-slate-400 font-semibold block mb-0.5">段階2: 効果項目 / 増減値</label>
               <div class="grid grid-cols-10 gap-1.5">
-                <input id="c-s2-n" list="skill-item-names-datalist" type="text" placeholder="項目名" class="col-span-7 px-2 py-1.5 bg-white border border-slate-200 rounded text-[11px]" />
-                <input id="c-s2-v" type="text" placeholder="値" class="col-span-3 px-2 py-1.5 bg-white border border-slate-200 rounded text-[11px] font-mono text-right" />
+                <div class="col-span-7 flex flex-col gap-1.5">
+                  <select id="c-s2-select" onchange="toggleCustomSkillInput(2)" class="w-full px-2 py-1.5 bg-white border border-slate-200 rounded text-[11px] font-bold text-slate-700 focus:outline-none focus:border-indigo-500 cursor-pointer"></select>
+                  <input id="c-s2-n" type="text" placeholder="手動でその他項目を入力..." class="hidden px-2 py-1 bg-indigo-50 border border-indigo-200 rounded text-[11px] font-bold text-slate-800" />
+                </div>
+                <input id="c-s2-v" type="text" placeholder="値" class="col-span-3 h-8 px-2 py-1.5 bg-white border border-slate-200 rounded text-[11px] font-mono text-right" />
               </div>
             </div>
             <!-- 段階3 -->
             <div>
-              <label class="text-[10px] text-slate-400 font-semibold block mb-0.5">段階3: 項目名 / 増減値</label>
+              <label class="text-[10px] text-slate-400 font-semibold block mb-0.5">段階3: 効果項目 / 増減値</label>
               <div class="grid grid-cols-10 gap-1.5">
-                <input id="c-s3-n" list="skill-item-names-datalist" type="text" placeholder="項目名" class="col-span-7 px-2 py-1.5 bg-white border border-slate-200 rounded text-[11px]" />
-                <input id="c-s3-v" type="text" placeholder="値" class="col-span-3 px-2 py-1.5 bg-white border border-slate-200 rounded text-[11px] font-mono text-right" />
+                <div class="col-span-7 flex flex-col gap-1.5">
+                  <select id="c-s3-select" onchange="toggleCustomSkillInput(3)" class="w-full px-2 py-1.5 bg-white border border-slate-200 rounded text-[11px] font-bold text-slate-700 focus:outline-none focus:border-indigo-500 cursor-pointer"></select>
+                  <input id="c-s3-n" type="text" placeholder="手動でその他項目を入力..." class="hidden px-2 py-1 bg-indigo-50 border border-indigo-200 rounded text-[11px] font-bold text-slate-800" />
+                </div>
+                <input id="c-s3-v" type="text" placeholder="値" class="col-span-3 h-8 px-2 py-1.5 bg-white border border-slate-200 rounded text-[11px] font-mono text-right" />
               </div>
             </div>
             <!-- 段階4 -->
             <div>
-              <label class="text-[10px] text-slate-400 font-semibold block mb-0.5">段階4: 項目名 / 増減値</label>
+              <label class="text-[10px] text-slate-400 font-semibold block mb-0.5">段階4: 効果項目 / 増減値</label>
               <div class="grid grid-cols-10 gap-1.5">
-                <input id="c-s4-n" list="skill-item-names-datalist" type="text" placeholder="項目名" class="col-span-7 px-2 py-1.5 bg-white border border-slate-200 rounded text-[11px]" />
-                <input id="c-s4-v" type="text" placeholder="値" class="col-span-3 px-2 py-1.5 bg-white border border-slate-200 rounded text-[11px] font-mono text-right" />
+                <div class="col-span-7 flex flex-col gap-1.5">
+                  <select id="c-s4-select" onchange="toggleCustomSkillInput(4)" class="w-full px-2 py-1.5 bg-white border border-slate-200 rounded text-[11px] font-bold text-slate-700 focus:outline-none focus:border-indigo-500 cursor-pointer"></select>
+                  <input id="c-s4-n" type="text" placeholder="手動でその他項目を入力..." class="hidden px-2 py-1 bg-indigo-50 border border-indigo-200 rounded text-[11px] font-bold text-slate-800" />
+                </div>
+                <input id="c-s4-v" type="text" placeholder="値" class="col-span-3 h-8 px-2 py-1.5 bg-white border border-slate-200 rounded text-[11px] font-mono text-right" />
               </div>
             </div>
           </div>
@@ -924,6 +936,49 @@
           datalist.appendChild(option);
         });
       }
+
+      // 3. Populate Creator Form drop-downs
+      for (let idx = 1; idx <= 4; idx++) {
+        const selectEl = document.getElementById(`c-s${idx}-select`);
+        if (selectEl) {
+          const currentVal = selectEl.value;
+          selectEl.innerHTML = '';
+          sortedNames.forEach(name => {
+            const opt = document.createElement('option');
+            opt.value = name;
+            opt.innerText = name;
+            selectEl.appendChild(opt);
+          });
+          const customOpt = document.createElement('option');
+          customOpt.value = '__custom__';
+          customOpt.innerText = '直接入力 (その他)...';
+          selectEl.appendChild(customOpt);
+
+          if (currentVal) {
+            selectEl.value = currentVal;
+          } else {
+            selectEl.value = 'その他追加ステータス';
+          }
+        }
+      }
+    }
+
+    // Toggle custom textbox based on dropdown selection
+    function toggleCustomSkillInput(stepNum) {
+      const selectEl = document.getElementById(`c-s${stepNum}-select`);
+      const inputEl = document.getElementById(`c-s${stepNum}-n`);
+      if (selectEl && inputEl) {
+        if (selectEl.value === '__custom__') {
+          inputEl.classList.remove('hidden');
+          if (inputEl.value === 'その他追加ステータス' || inputEl.value === 'その他ステータス' || inputEl.value === '') {
+            inputEl.value = '';
+          }
+          inputEl.focus();
+        } else {
+          inputEl.classList.add('hidden');
+          inputEl.value = selectEl.value;
+        }
+      }
     }
 
     // Rendering Characters List Grid
@@ -1314,14 +1369,19 @@
       document.getElementById('c-rarity').value = '5';
       document.getElementById('c-troop-type').value = 'ファイター';
       
-      document.getElementById('c-s1-n').value = '';
-      document.getElementById('c-s1-v').value = '';
-      document.getElementById('c-s2-n').value = '';
-      document.getElementById('c-s2-v').value = '';
-      document.getElementById('c-s3-n').value = '';
-      document.getElementById('c-s3-v').value = '';
-      document.getElementById('c-s4-n').value = '';
-      document.getElementById('c-s4-v').value = '';
+      // Reset Select and Inputs
+      for (let idx = 1; idx <= 4; idx++) {
+        const selectEl = document.getElementById(`c-s${idx}-select`);
+        const inputEl = document.getElementById(`c-s${idx}-n`);
+        const valEl = document.getElementById(`c-s${idx}-v`);
+        
+        if (selectEl) selectEl.value = 'その他追加ステータス';
+        if (inputEl) {
+          inputEl.value = 'その他追加ステータス';
+          inputEl.classList.add('hidden');
+        }
+        if (valEl) valEl.value = '';
+      }
 
       document.getElementById('c-weapon').value = '';
       document.getElementById('c-w0').value = '';
@@ -1340,14 +1400,37 @@
           document.getElementById('c-troop-type').value = char.troopType || 'ファイター';
 
           if (char.skillItems && char.skillItems.length >= 4) {
-            document.getElementById('c-s1-n').value = char.skillItems[0].itemName || '';
-            document.getElementById('c-s1-v').value = char.skillItems[0].itemValue || '';
-            document.getElementById('c-s2-n').value = char.skillItems[1].itemName || '';
-            document.getElementById('c-s2-v').value = char.skillItems[1].itemValue || '';
-            document.getElementById('c-s3-n').value = char.skillItems[2].itemName || '';
-            document.getElementById('c-s3-v').value = char.skillItems[2].itemValue || '';
-            document.getElementById('c-s4-n').value = char.skillItems[3].itemName || '';
-            document.getElementById('c-s4-v').value = char.skillItems[3].itemValue || '';
+            for (let idx = 1; idx <= 4; idx++) {
+              const item = char.skillItems[idx - 1];
+              const selectEl = document.getElementById(`c-s${idx}-select`);
+              const inputEl = document.getElementById(`c-s${idx}-n`);
+              const valEl = document.getElementById(`c-s${idx}-v`);
+
+              if (valEl) valEl.value = item.itemValue || '';
+              
+              if (selectEl && inputEl) {
+                const name = item.itemName || 'その他追加ステータス';
+                
+                // Check if options contains the name
+                let exists = false;
+                for (let i = 0; i < selectEl.options.length; i++) {
+                  if (selectEl.options[i].value === name) {
+                    exists = true;
+                    break;
+                  }
+                }
+
+                if (exists) {
+                  selectEl.value = name;
+                  inputEl.value = name;
+                  inputEl.classList.add('hidden');
+                } else {
+                  selectEl.value = '__custom__';
+                  inputEl.value = name;
+                  inputEl.classList.remove('hidden');
+                }
+              }
+            }
           }
 
           document.getElementById('c-weapon').value = char.weaponName || '';
@@ -1383,13 +1466,22 @@
       }
 
       // Pack 4-stages skills list
-      const s1n = document.getElementById('c-s1-n').value.trim() || 'その他ステータス';
+      const getSkillNameValue = (idx) => {
+        const selectEl = document.getElementById(`c-s${idx}-select`);
+        const inputEl = document.getElementById(`c-s${idx}-n`);
+        if (selectEl && selectEl.value !== '__custom__') {
+          return selectEl.value;
+        }
+        return inputEl ? inputEl.value.trim() || 'その他追加ステータス' : 'その他追加ステータス';
+      };
+
+      const s1n = getSkillNameValue(1);
       const s1v = document.getElementById('c-s1-v').value.trim() || '-';
-      const s2n = document.getElementById('c-s2-n').value.trim() || 'その他ステータス';
+      const s2n = getSkillNameValue(2);
       const s2v = document.getElementById('c-s2-v').value.trim() || '-';
-      const s3n = document.getElementById('c-s3-n').value.trim() || 'その他ステータス';
+      const s3n = getSkillNameValue(3);
       const s3v = document.getElementById('c-s3-v').value.trim() || '-';
-      const s4n = document.getElementById('c-s4-n').value.trim() || 'その他ステータス';
+      const s4n = getSkillNameValue(4);
       const s4v = document.getElementById('c-s4-v').value.trim() || '-';
 
       const skillItems = [
