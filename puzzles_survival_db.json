@@ -115,7 +115,7 @@
   {
     "id": "char_zephyr",
     "name": "ゼフィロス",
-    "element": "狂乱型 (紫)",
+    "element": "冷静型 (青)",
     "rarity": 5,
     "skillName": "ファントムブラスト",
     "skillEffect": "ファイターHP 250 / ファイターDEF 250 / ファイターATK 250",
