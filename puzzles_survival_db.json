@@ -1,5 +1,33 @@
 [
   {
+    "id": "CUSTOM-1780511053061",
+    "name": "アイディー",
+    "element": "慎重型 (黄)",
+    "rarity": 5,
+    "troopType": "内政",
+    "skillEffect": "資源採集速度 100 / ギャザーATK 150 / 部隊規模 25,000",
+    "skillItems": [
+      {
+        "itemName": "資源採集速度",
+        "itemValue": "100"
+      },
+      {
+        "itemName": "ギャザーATK",
+        "itemValue": "150"
+      },
+      {
+        "itemName": "部隊規模",
+        "itemValue": "25,000"
+      }
+    ],
+    "weaponName": "デスベース",
+    "weaponStats0": "部隊DEF +100%",
+    "weaponStats2": "部隊HP +100%",
+    "weaponStats4": "部隊規模 +10,000",
+    "weaponStats6": "部隊規模 +15,000",
+    "weaponStats8": "部隊ATK +100％"
+  },
+  {
     "id": "CUSTOM-1780510654635",
     "name": "トーマス",
     "element": "勇敢型 (緑)",
