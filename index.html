@@ -172,21 +172,8 @@
         </button>
       </div>
 
-      <!-- 詳細絞り込み (レア度指定 ＆ 軍団効果項目) -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 border-t border-slate-100 pt-2.5">
-        <div class="flex items-center gap-2">
-          <span class="text-[11px] font-bold text-slate-400 uppercase font-mono shrink-0">星の数:</span>
-          <select
-            id="rarity-select"
-            class="w-full bg-slate-50 border border-slate-200 px-2.5 py-1.5 rounded-xl text-[11px] font-bold text-slate-700 cursor-pointer focus:outline-none"
-          >
-            <option value="all">すべての星</option>
-            <option value="5">★★★★★ (5星のみ)</option>
-            <option value="4">★★★★ (4星のみ)</option>
-            <option value="3">★★★ (3星のみ)</option>
-          </select>
-        </div>
-
+      <!-- 詳細絞り込み (軍団効果項目) -->
+      <div class="border-t border-slate-100 pt-2.5">
         <div class="flex items-center gap-2">
           <span class="text-[11px] font-bold text-slate-400 uppercase font-mono shrink-0">効果項目:</span>
           <select
@@ -690,7 +677,6 @@
       // Bind dynamic input filters
       document.getElementById('search-box').addEventListener('input', renderCharacters);
       document.getElementById('sort-select').addEventListener('change', renderCharacters);
-      document.getElementById('rarity-select').addEventListener('change', renderCharacters);
       document.getElementById('skill-item-select').addEventListener('change', renderCharacters);
     }
 
@@ -992,7 +978,7 @@
       
       const searchVal = document.getElementById('search-box').value.toLowerCase().trim();
       const sortBy = document.getElementById('sort-select').value;
-      const rarityFilter = document.getElementById('rarity-select').value;
+      const rarityFilter = 'all';
       const skillItemFilter = document.getElementById('skill-item-select').value;
 
       g.innerHTML = '';
