@@ -5,14 +5,14 @@
     "element": "慎重型 (黄)",
     "rarity": 5,
     "troopType": "内政",
-    "skillEffect": "資源採集速度 100 / ギャザーATK 150 / 部隊規模 25,000",
+    "skillEffect": "資源採集速度 100 / ギャザー部隊ATK 150 / 部隊規模 25,000",
     "skillItems": [
       {
         "itemName": "資源採集速度",
         "itemValue": "100"
       },
       {
-        "itemName": "ギャザーATK",
+        "itemName": "ギャザー部隊ATK",
         "itemValue": "150"
       },
       {
