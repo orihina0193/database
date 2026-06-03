@@ -20,12 +20,12 @@
         "itemValue": "250"
       }
     ],
-    "weaponName": "",
-    "weaponStats0": "",
-    "weaponStats2": "",
-    "weaponStats4": "",
-    "weaponStats6": "",
-    "weaponStats8": ""
+    "weaponName": "赤外線ライフル",
+    "weaponStats0": "部隊DEF +100%",
+    "weaponStats2": "部隊HP +100%",
+    "weaponStats4": "部隊ATK +100%",
+    "weaponStats6": "敵方ファイターが味方シューターに対するダメージ減少+30%",
+    "weaponStats8": "シューターHP +200％"
   },
   {
     "id": "CUSTOM-1780505967568",
