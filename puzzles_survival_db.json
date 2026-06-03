@@ -1,5 +1,33 @@
 [
   {
+    "id": "CUSTOM-1780505379908",
+    "name": "ワリオ",
+    "element": "勇敢型 (緑)",
+    "rarity": 5,
+    "troopType": "ファイター",
+    "skillEffect": "ファイターHP 250 / ファイターDEF 250 / ファイターATK 250",
+    "skillItems": [
+      {
+        "itemName": "ファイターHP",
+        "itemValue": "250"
+      },
+      {
+        "itemName": "ファイターDEF",
+        "itemValue": "250"
+      },
+      {
+        "itemName": "ファイターATK",
+        "itemValue": "250"
+      }
+    ],
+    "weaponName": "ディティンチェーン",
+    "weaponStats0": "部隊DEF +100％",
+    "weaponStats2": "部隊HP +100%",
+    "weaponStats4": "部隊ATK+100%",
+    "weaponStats6": "敵方ライダーが味方ファイターに対するダメージ減少+30％",
+    "weaponStats8": "ファイターHP +200％"
+  },
+  {
     "id": "char_fox",
     "name": "フォックス",
     "element": "冷静型 (青)",
