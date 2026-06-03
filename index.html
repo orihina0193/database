@@ -7,7 +7,7 @@
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts: Inter & Noto Sans JP -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;905&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <script>
@@ -57,13 +57,15 @@
         </div>
       </div>
       
-      <!-- クラウド操作エリア -->
+      <!-- クラウド操作エリア（管理者ログイン ＆ 設定） -->
       <div class="flex items-center gap-2">
+        <!-- 未保存バッジ -->
         <div id="unsaved-changes-badge" class="hidden px-2.5 py-1.5 rounded-lg text-[10px] font-bold text-amber-400 bg-amber-500/10 border border-amber-500/30 items-center gap-1 animate-pulse shrink-0">
           <span class="w-1.5 h-1.5 bg-amber-400 rounded-full"></span>
           <span>未保存の変更あり</span>
         </div>
 
+        <!-- アクションボタン：保存 -->
         <button
           id="global-save-btn"
           onclick="pushToDatabaseGitHub()"
@@ -73,7 +75,9 @@
           <span>GitHubへ保存</span>
         </button>
 
+        <!-- 管理者ログインステータス -->
         <div id="admin-session-box" class="flex items-center gap-1">
+          <!-- ログイン状態別UI -->
           <button
             id="admin-status-trigger"
             onclick="toggleAdminStatusAction()"
@@ -84,6 +88,7 @@
           </button>
         </div>
 
+        <!-- ギア設定モーダル起動 -->
         <button
           onclick="openConfigModal()"
           class="p-2 rounded-xl text-slate-400 hover:text-white bg-slate-800 border border-slate-700 hover:border-slate-600 cursor-pointer transition-colors"
@@ -95,10 +100,13 @@
     </div>
   </header>
 
-  <!-- 検索・フィルターパネル -->
+  <!-- 検索・フィルターコントロールパネル -->
   <div class="bg-white border-b border-slate-200 shadow-3xs sticky top-20 z-30">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 space-y-3.5">
+      
+      <!-- 自由検索 ＆ ソート ＆ 新規登録 -->
       <div class="flex flex-col md:flex-row gap-3 justify-between items-stretch md:items-center">
+        <!-- 検索入力 -->
         <div class="relative flex-grow max-w-xl">
           <span class="absolute inset-y-0 left-0 flex items-center pl-3">
             <i data-lucide="search" class="w-4 h-4 text-slate-400"></i>
@@ -107,12 +115,13 @@
             id="search-box"
             type="text"
             placeholder="名前、スキル名、専属ウェポン、効果項目などから自由検索..."
-            class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 hover:border-slate-300 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-indigo-500 focus:bg-white transition-all font-semibold text-slate-800"
+            class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 hover:border-slate-300 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-indigo-500 focus:bg-white transition-all font-semibold text-slate-850 text-slate-800"
           />
         </div>
 
+        <!-- 新規登録＆ソート -->
         <div class="flex items-center justify-between gap-3 shrink-0">
-          <div class="flex items-center gap-1.5 text-[11px] font-bold text-slate-500 uppercase">
+          <div class="flex items-center gap-1.5 select-wrapper text-[11px] font-bold text-slate-500 uppercase">
             <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5 text-slate-400"></i>
             <span>順序:</span>
             <select
@@ -125,6 +134,7 @@
             </select>
           </div>
 
+          <!-- 新規登録ボタン (管理者のみ表示可能) -->
           <button
             id="creator-modal-trigger"
             onclick="openHeroCreator(null)"
@@ -136,6 +146,7 @@
         </div>
       </div>
 
+      <!-- 属性選択ピルフィルター -->
       <div id="element-filters-container" class="flex flex-wrap items-center gap-1.5 border-t border-slate-100 pt-2.5">
         <span class="text-[11px] font-bold text-slate-400 mr-1.5 flex items-center gap-1">
           <i data-lucide="filter" class="w-3.5 h-3.5 text-indigo-500"></i>
@@ -161,6 +172,7 @@
         </button>
       </div>
 
+      <!-- 詳細絞り込み (レア度指定 ＆ 軍団効果項目) -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 border-t border-slate-100 pt-2.5">
         <div class="flex items-center gap-2">
           <span class="text-[11px] font-bold text-slate-400 uppercase font-mono shrink-0">星の数:</span>
@@ -182,19 +194,23 @@
             class="w-full bg-slate-50 border border-slate-200 px-2.5 py-1.5 rounded-xl text-[11px] font-bold text-slate-700 cursor-pointer focus:outline-none"
           >
             <option value="all">すべての効果項目</option>
+            <!-- 動的にJSで抽出挿入 -->
           </select>
         </div>
       </div>
+
     </div>
   </div>
 
   <!-- メインコンテンツ -->
   <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <!-- ローディングスピナー -->
     <div id="loading-spinner" class="py-24 text-center flex flex-col items-center justify-center gap-3">
       <div class="w-10 h-10 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
       <p class="text-xs text-slate-400 font-bold tracking-widest font-mono uppercase animate-pulse">データベース取得中...</p>
     </div>
 
+    <!-- 読込失敗エラー -->
     <div id="error-box" class="hidden py-8 max-w-md mx-auto bg-red-50 border border-red-200 p-6 rounded-2xl text-center space-y-4">
       <i data-lucide="alert-triangle" class="w-10 h-10 text-red-500 mx-auto"></i>
       <h3 class="text-sm font-bold text-slate-800">データベースの同期・読み込み失敗</h3>
@@ -203,12 +219,14 @@
       </p>
     </div>
 
+    <!-- 検索結果が空の時の表示 -->
     <div id="empty-state" class="hidden py-20 text-center max-w-md mx-auto bg-white border border-dashed border-slate-200 p-8 rounded-2xl">
       <i data-lucide="info" class="w-8 h-8 text-slate-400 mx-auto mb-3"></i>
       <h4 class="text-xs font-bold text-slate-700">該当するキャラクターがみつかりません</h4>
       <p class="text-[11px] text-slate-500 mt-1">フィルター項目、検索ワードをお確かめください。</p>
     </div>
 
+    <!-- キャラクターグリッド -->
     <div id="character-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5"></div>
   </main>
 
@@ -223,10 +241,12 @@
     </div>
   </footer>
 
-  <!-- 1. 詳細表示ドロワー -->
+  <!-- 1. 詳細表示ドロワー（モーダル） -->
   <div id="details-modal" class="hidden fixed inset-0 z-50 flex items-center justify-end">
-    <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity" onclick="closeDetails()"></div>
+    <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-xs transition-opacity" onclick="closeDetails()"></div>
     <div class="relative w-full max-w-md h-full bg-white shadow-2xl flex flex-col z-10 overflow-hidden border-l border-slate-100">
+      
+      <!-- ヘッダー (属性色グラデーション) -->
       <div id="drawer-header" class="p-5 text-white relative">
         <button onclick="closeDetails()" class="absolute top-4 right-4 p-1 px-2.5 bg-black/15 text-white/90 hover:text-white hover:bg-black/25 rounded-lg border border-white/10 transition-all text-xs font-bold cursor-pointer">
           閉じる
@@ -238,7 +258,9 @@
         </div>
       </div>
 
+      <!-- スクロール部 -->
       <div class="flex-grow overflow-y-auto p-5 space-y-5">
+        <!-- 軍団スキル -->
         <div class="space-y-2">
           <div class="flex items-center gap-1.5 text-indigo-700 font-bold text-xs">
             <i data-lucide="shield" class="w-4 h-4"></i>
@@ -249,11 +271,13 @@
               <span class="text-[9px] font-bold text-indigo-700 tracking-wider">兵種</span>
               <span class="text-xs font-bold text-slate-800" id="detail-troop-type"></span>
             </div>
+            <!-- 4分割グリッド -->
             <div id="detail-skill-items" class="grid grid-cols-2 gap-2"></div>
             <p class="text-[9px] text-slate-400 font-medium italic text-right" id="detail-skill-aggregated"></p>
           </div>
         </div>
 
+        <!-- 専属ウェポン -->
         <div id="drawer-weapon-section" class="space-y-2">
           <div class="flex items-center gap-1.5 text-rose-700 font-bold text-xs">
             <i data-lucide="sword" class="w-4 h-4"></i>
@@ -264,6 +288,7 @@
               <span class="text-[9px] font-bold text-rose-600 tracking-wider">WEAPON</span>
               <span class="text-xs font-bold text-slate-800" id="detail-weapon-name"></span>
             </div>
+            <!-- 強化段階 -->
             <div class="grid grid-cols-1 gap-2">
               <div class="bg-white border border-slate-100 rounded-lg p-2 flex justify-between items-center text-xs">
                 <span class="font-bold text-slate-500">＋0 クラス:</span>
@@ -294,7 +319,7 @@
 
   <!-- 2. 管理者ログインモーダル -->
   <div id="login-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-    <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onclick="closeLoginModal()"></div>
+    <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-xs" onclick="closeLoginModal()"></div>
     <div class="relative z-10 w-full max-w-xs bg-white border border-slate-200 rounded-2xl p-5 shadow-2xl text-slate-800">
       <div class="flex justify-between items-center mb-3 pb-2 border-b border-indigo-50">
         <h3 class="text-xs font-bold text-slate-900 flex items-center gap-1.5">
@@ -313,7 +338,7 @@
           <input
             id="login-pin-input"
             type="password"
-            maxLength="16"
+            maxLength={16}
             placeholder="PIN"
             class="w-32 px-3 py-2 text-center text-lg font-mono font-black border border-slate-200 focus:border-indigo-500 rounded-lg focus:outline-none"
             onkeydown="if(event.key === 'Enter') submitAdminLogin()"
@@ -333,11 +358,12 @@
 
   <!-- 3. GitHub 設定モーダル -->
   <div id="config-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-    <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onclick="closeConfigModal()"></div>
-    <div class="relative z-10 w-full max-w-md bg-white border border-slate-200 rounded-2xl p-5 shadow-2xl flex flex-col max-h-[85vh]">
+    <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-xs" onclick="closeConfigModal()"></div>
+    <div class="relative z-10 w-full max-w-md bg-white border border-slate-200 rounded-2xl p-5 shadow-2l flex flex-col max-h-[85vh]">
+      <!-- Header -->
       <div class="flex justify-between items-center mb-4 pb-2.5 border-b border-indigo-50">
         <div class="flex items-center gap-2">
-          <i data-lucide="github" class="w-5 h-5 text-indigo-600"></i>
+          <i data-lucide="github" class="w-5 h-5 text-indigo-650 text-indigo-600"></i>
           <span class="text-sm font-bold text-slate-800">GitHub クラウド同期設定</span>
         </div>
         <button onclick="closeConfigModal()" class="p-1 rounded-lg hover:bg-slate-50 text-slate-400 hover:text-slate-700 cursor-pointer">
@@ -345,6 +371,7 @@
         </button>
       </div>
 
+      <!-- Scrollable Form Body -->
       <div class="overflow-y-auto space-y-4 pr-1">
         <div class="grid grid-cols-2 gap-3">
           <div>
@@ -370,7 +397,7 @@
 
         <div class="border-t border-slate-100 pt-2.5">
           <label class="text-[10px] font-bold text-slate-500 block mb-1">管理者暗号キー（PIN・４桁）</label>
-          <input id="cfg-admin-key" type="text" maxLength="4" placeholder="1234" class="w-20 px-2 py-1.5 text-center text-xs font-bold rounded-lg border border-slate-200 bg-slate-50 focus:outline-none" />
+          <input id="cfg-admin-key" type="text" maxLength={4} placeholder="1234" class="w-20 px-2 py-1.5 text-center text-xs font-bold rounded-lg border border-slate-200 bg-slate-50 focus:outline-none" />
           <p class="text-[9px] text-slate-400 mt-1 leading-normal">
             このキーを設定しておくと、一般閲覧者から保護されます。あなたがこの端末でログインするための数字です。
           </p>
@@ -378,7 +405,7 @@
 
         <div class="border-t border-slate-100 pt-2.5 space-y-1.5">
           <div class="flex justify-between items-baseline">
-            <label class="text-[10px] font-bold text-indigo-600">パーソナルアクセストークン / PAT (管理者用)</label>
+            <label class="text-[10px] font-bold text-indigo-650 text-indigo-600">パーソナルアクセストークン / PAT (管理者用)</label>
             <span class="text-[9px] text-slate-400">※閲覧専用は空欄で可</span>
           </div>
           <input id="cfg-token" type="password" placeholder="ghp_..." class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs font-mono focus:outline-none" />
@@ -387,9 +414,11 @@
           </p>
         </div>
 
+        <!-- 接続テストログ表示 -->
         <div id="cfg-test-result" class="hidden p-3 rounded-lg text-[11px] leading-relaxed border"></div>
       </div>
 
+      <!-- Footer Action -->
       <div class="pt-4 border-t border-indigo-50 flex justify-between gap-1.5">
         <button id="cfg-btn-test" onclick="testGitHubConnectionCfg()" class="px-3.5 py-2 border border-slate-200 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-50 cursor-pointer">
           接続テスト
@@ -408,8 +437,9 @@
 
   <!-- 4. 英雄 登録・編集モーダル -->
   <div id="creator-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-    <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onclick="closeHeroCreator()"></div>
+    <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-xs" onclick="closeHeroCreator()"></div>
     <div class="relative z-10 w-full max-w-xl bg-white border border-slate-200 rounded-2xl p-5 shadow-2xl flex flex-col max-h-[90vh]">
+      <!-- Header -->
       <div class="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
         <h3 id="creator-title" class="text-sm font-black text-slate-800 flex items-center gap-1.5">
           <i data-lucide="user-plus" class="w-4 h-4 text-indigo-500"></i>
@@ -420,7 +450,9 @@
         </button>
       </div>
 
+      <!-- Body Form -->
       <div class="overflow-y-auto space-y-4 pr-1 text-xs text-slate-700">
+        <!-- 基礎 -->
         <div class="grid grid-cols-3 gap-3">
           <div class="col-span-1.5">
             <label class="font-bold text-slate-600">英雄の名前 *</label>
@@ -446,10 +478,11 @@
           </div>
         </div>
 
+        <!-- 兵種 -->
         <div class="pt-2 border-t border-slate-100 flex gap-4">
           <div class="flex-grow">
             <label class="font-bold text-slate-600 block mb-1">兵種 *</label>
-            <select id="c-troop-type" class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 font-bold text-slate-700">
+            <select id="c-troop-type" class="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 font-bold text-slate-705 text-slate-700">
               <option value="ファイター">ファイター</option>
               <option value="シューター">シューター</option>
               <option value="ライダー">ライダー</option>
@@ -458,6 +491,7 @@
           </div>
         </div>
 
+        <!-- 4大軍団効果項目詳細 -->
         <div class="p-3 bg-indigo-50/10 border border-indigo-100/60 rounded-xl space-y-3">
           <div class="text-[10px] uppercase font-bold text-indigo-700 flex items-center gap-1">
             <i data-lucide="shield" class="w-3.5 h-3.5"></i>
@@ -511,6 +545,7 @@
           </div>
         </div>
 
+        <!-- 武器 -->
         <div class="p-3 bg-rose-50/10 border border-rose-100/60 rounded-xl space-y-2.5">
           <div class="text-[10px] uppercase font-bold text-rose-700 flex items-center gap-1">
             <i data-lucide="sword" class="w-3.5 h-3.5"></i>
@@ -540,11 +575,12 @@
           </div>
           <div class="mt-1">
             <label class="text-[10px] text-rose-700 font-black block">＋8 MAX強化クラス時効果</label>
-            <textarea id="c-w8" rows="1" class="w-full mt-0.5 px-2.5 py-1.5 bg-white border border-rose-200 rounded-lg text-xs leading-relaxed font-semibold focus:outline-rose-500" placeholder="MAX +8 効果の詳細"></textarea>
+            <textarea id="c-w8" rows="1." class="w-full mt-0.5 px-2.5 py-1.5 bg-white border border-rose-200 rounded-lg text-xs leading-relaxed font-semibold focus:outline-rose-500" placeholder="MAX +8 効果の詳細"></textarea>
           </div>
         </div>
       </div>
 
+      <!-- Footer Action -->
       <div class="pt-3 border-t border-slate-100 flex justify-end gap-2.5">
         <button onclick="closeHeroCreator()" class="px-3.5 py-1.5 border border-slate-200 rounded-xl text-slate-500 font-bold cursor-pointer">
           キャンセル
@@ -556,10 +592,11 @@
     </div>
   </div>
 
+  <!-- 効果項目名の入力候補用 Datalist -->
   <datalist id="skill-item-names-datalist"></datalist>
 
   <!-- 5. 進捗進行中オーバーレイ -->
-  <div id="progress-overlay" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+  <div id="progress-overlay" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
     <div class="w-full max-w-sm bg-white rounded-3xl p-6 border border-slate-100 shadow-2xl flex flex-col items-center gap-4 text-center">
       <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 shadow-2xs">
         <i data-lucide="cloud-lightning" class="w-8 h-8 animate-bounce"></i>
@@ -570,15 +607,20 @@
           データをシリアライズし、リポジトリに変更をプッシュ（PUT）しています。
         </p>
       </div>
+      <!-- リアルタイムログ -->
       <div id="progress-logs" class="w-full h-24 overflow-y-auto bg-slate-50 border border-slate-200 rounded-xl p-3 text-[9px] font-mono text-left text-slate-600 space-y-1.5 leading-normal">
       </div>
+      <!-- クライマックスインジケータ -->
       <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
         <div id="progress-bar-inner" class="bg-emerald-500 h-full w-12 rounded-full transition-all duration-300"></div>
       </div>
     </div>
   </div>
 
+
+  <!-- JS制御システム -->
   <script>
+    // State
     let rawCharacters = [];
     let currentElementFilter = 'all';
     let dbConfig = {
@@ -593,9 +635,12 @@
     let unsavedChanges = false;
     let editingHeroId = null;
 
+    // Local Storage Keys
     const GITHUB_SETTINGS_KEY = 'character_database_github_settings';
 
+    // Initialization
     async function init() {
+      // 1. Recover Cloud Configuration
       const savedConfig = localStorage.getItem(GITHUB_SETTINGS_KEY);
       if (savedConfig) {
         try {
@@ -604,10 +649,12 @@
         } catch (_) {}
       }
 
+      // 2. Hydrate from session admin check (or query params)
       const query = new URLSearchParams(window.location.search);
       const urlKey = query.get('key');
       if (urlKey && urlKey === dbConfig.adminKey) {
         hasAdminPrivilege = true;
+        // Strip out query parameter clean URL state
         window.history.replaceState({}, document.title, window.location.pathname);
       } else {
         const sessionAuth = sessionStorage.getItem('arcana_db_auth_session');
@@ -616,8 +663,10 @@
         }
       }
 
+      // Apply initial UI visibility of admin elements
       updateAdminUIVisibility();
 
+      // 3. Load Characters from Cloud Repository / or Fallback local mock
       if (!dbConfig.owner || !dbConfig.repo) {
         const hostname = window.location.hostname;
         if (hostname.endsWith('.github.io')) {
@@ -638,12 +687,14 @@
         loadDefaultFallbackMock();
       }
 
+      // Bind dynamic input filters
       document.getElementById('search-box').addEventListener('input', renderCharacters);
       document.getElementById('sort-select').addEventListener('change', renderCharacters);
       document.getElementById('rarity-select').addEventListener('change', renderCharacters);
       document.getElementById('skill-item-select').addEventListener('change', renderCharacters);
     }
 
+    // Recover locally if GitHub unavailable
     function loadDefaultFallbackMock() {
       rawCharacters = [
         {
@@ -723,7 +774,7 @@
           weaponStats0: 'ライダー攻撃力 +10%',
           weaponStats2: 'ライダー攻撃力 +25%',
           weaponStats4: 'ライダー攻撃力 +50% / 攻撃した敵部隊のスキルゲージを10%減少',
-          weaponStats6: 'ライダー攻撃力 +100% / 敵部隊 of 防御力を追加で15%貫通',
+          weaponStats6: 'ライダー攻撃力 +100% / 敵部隊の防御力を追加で15%貫通',
           weaponStats8: 'ライダー攻撃力 +200% / スキル発動時に確率で敵全体を1ターン行動不能（凍結）にする',
         },
         {
@@ -747,47 +798,90 @@
           weaponStats8: '軍団防御力 +100% / 全軍が受けるすべての持続物理ダメージ効果を常時無効化',
         }
       ];
+      populateSkillItemsFilter();
       renderCharacters();
-      populateSkillItemNames();
     }
 
+    // Fetch Database from repo
     async function loadDatabaseFromGitHub() {
-      const spinner = document.getElementById('loading-spinner');
-      const errBox = document.getElementById('error-box');
-      spinner.classList.remove('hidden');
-      errBox.classList.add('hidden');
+      document.getElementById('loading-spinner').classList.remove('hidden');
+      document.getElementById('error-box').classList.add('hidden');
 
-      const url = `https://api.github.com/repos/${dbConfig.owner}/${dbConfig.repo}/contents/${dbConfig.path}?ref=${dbConfig.branch}`;
-      
       const headers = {};
       if (dbConfig.token) {
         headers['Authorization'] = `token ${dbConfig.token}`;
       }
 
+      const branchRef = dbConfig.branch || 'main';
+      const cleanPath = dbConfig.path || 'puzzles_survival_db.json';
+      const url = `https://api.github.com/repos/${dbConfig.owner}/${dbConfig.repo}/contents/${cleanPath}?ref=${branchRef}&nocache=${Date.now()}`;
+
       try {
         const res = await fetch(url, { headers });
-        if (!res.ok) {
-          if (res.status === 404) {
-            throw new Error(`ファイル「${dbConfig.path}」が見つかりません。新規作成するにはパーソナルアクセストークンを接続設定に入力して、未保存データを「GitHub保存」へコミットしてください。`);
+        if (res.status === 200) {
+          const fileData = await res.json();
+          const decodedContent = decodeURIComponent(escape(atob(fileData.content)));
+          const parsed = JSON.parse(decodedContent);
+
+          if (Array.isArray(parsed)) {
+            rawCharacters = ensureStructuredSkillItems(parsed);
+          } else {
+            loadDefaultFallbackMock();
           }
-          throw new Error(`HTTP ${res.status}: データをロードできませんでした。ユーザー名や接続先設定をご確認ください。`);
+        } else if (res.status === 404) {
+          console.warn('Database file not found on repository, initializing blank template.');
+          loadDefaultFallbackMock();
+        } else {
+          throw new Error(`API Status Code: ${res.status}`);
         }
-        const data = await res.json();
-        const contentStr = decodeURIComponent(escape(atob(data.content)));
-        rawCharacters = JSON.parse(contentStr);
-        
-        spinner.classList.add('hidden');
+
+        populateSkillItemsFilter();
         renderCharacters();
-        populateSkillItemNames();
       } catch (err) {
-        spinner.classList.add('hidden');
-        errBox.classList.remove('hidden');
-        document.getElementById('error-message').innerText = err.message || err;
+        console.error('Failed to load DB', err);
+        document.getElementById('error-message').innerText = `GitHubからの接続・取得中にエラーが発生しました。\n(${err.message})\n右上ギア⚙から連動設定Owners/Repoをご確認ください。`;
+        document.getElementById('error-box').classList.remove('hidden');
         loadDefaultFallbackMock();
+      } finally {
+        document.getElementById('loading-spinner').classList.add('hidden');
       }
     }
 
-    function populateSkillItemNames() {
+    // Ensure all heroes have backward-compatibility skill items structure
+    function ensureStructuredSkillItems(arr) {
+      return arr.map(char => {
+        if (char.skillItems && Array.isArray(char.skillItems) && char.skillItems.length === 4) {
+          return char;
+        }
+        
+        const items = [
+          { itemName: '', itemValue: '' },
+          { itemName: '', itemValue: '' },
+          { itemName: '', itemValue: '' },
+          { itemName: '', itemValue: '' }
+        ];
+
+        if (char.skillEffect) {
+          const parts = char.skillEffect.split('/').map(p => p.trim());
+          parts.forEach((part, idx) => {
+            if (idx < 4 && part) {
+              const spaceIndex = part.lastIndexOf(' ');
+              if (spaceIndex !== -1) {
+                const name = part.substring(0, spaceIndex).trim();
+                const val = part.substring(spaceIndex).trim();
+                items[idx] = { itemName: name, itemValue: val };
+              } else {
+                items[idx] = { itemName: part, itemValue: '発動' };
+              }
+            }
+          });
+        }
+        return { ...char, skillItems: items };
+      });
+    }
+
+    // Refresh Selector
+    function populateSkillItemsFilter() {
       const DEFAULT_SKILL_ITEM_NAMES = [
         '軍団ATK',
         '軍団防御力',
@@ -808,9 +902,9 @@
 
       const distinctNames = new Set(DEFAULT_SKILL_ITEM_NAMES);
       rawCharacters.forEach(char => {
-        if (char.skillItems) {
+        if (char.skillItems && Array.isArray(char.skillItems)) {
           char.skillItems.forEach(item => {
-            if (item.itemName && item.itemName.trim() !== '') {
+            if (item.itemName && item.itemName.trim()) {
               distinctNames.add(item.itemName.trim());
             }
           });
@@ -818,8 +912,20 @@
       });
 
       const sortedNames = Array.from(distinctNames).sort();
+      
+      // 1. Filter dropdown selector
+      const select = document.getElementById('skill-item-select');
+      if (select) {
+        select.innerHTML = '<option value="all">すべての効果項目</option>';
+        sortedNames.forEach(name => {
+          const option = document.createElement('option');
+          option.value = name;
+          option.innerText = name;
+          select.appendChild(option);
+        });
+      }
 
-      // 1. Populate Datalist
+      // 2. Editor input helper datalist
       const datalist = document.getElementById('skill-item-names-datalist');
       if (datalist) {
         datalist.innerHTML = '';
@@ -828,20 +934,6 @@
           option.value = name;
           datalist.appendChild(option);
         });
-      }
-
-      // 2. Populate Dropdown Filter Select
-      const selectFilter = document.getElementById('skill-item-select');
-      if (selectFilter) {
-        const cachedVal = selectFilter.value;
-        selectFilter.innerHTML = '<option value="all">すべての効果項目</option>';
-        sortedNames.forEach(name => {
-          const option = document.createElement('option');
-          option.value = name;
-          option.innerText = name;
-          selectFilter.appendChild(option);
-        });
-        if (cachedVal) selectFilter.value = cachedVal;
       }
 
       // 3. Populate Creator Form drop-downs
@@ -889,477 +981,326 @@
       }
     }
 
+    // Rendering Characters List Grid
     function renderCharacters() {
-      const grid = document.getElementById('character-grid');
+      const g = document.getElementById('character-grid');
+      const emptyState = document.getElementById('empty-state');
+      
       const searchVal = document.getElementById('search-box').value.toLowerCase().trim();
-      const sortVal = document.getElementById('sort-select').value;
-      const rarityVal = document.getElementById('rarity-select').value;
-      const skillItemVal = document.getElementById('skill-item-select').value;
+      const sortBy = document.getElementById('sort-select').value;
+      const rarityFilter = document.getElementById('rarity-select').value;
+      const skillItemFilter = document.getElementById('skill-item-select').value;
 
-      let filtered = [...rawCharacters];
+      g.innerHTML = '';
 
-      // 1. Element filter
-      if (currentElementFilter !== 'all') {
-        filtered = filtered.filter(c => c.element === currentElementFilter);
-      }
+      // 1. Array filter mapping
+      let filtered = rawCharacters.filter(char => {
+        const queryMatch = 
+          char.name.toLowerCase().includes(searchVal) ||
+          (char.troopType && char.troopType.toLowerCase().includes(searchVal)) ||
+          (char.skillEffect && char.skillEffect.toLowerCase().includes(searchVal)) ||
+          (char.weaponName && char.weaponName.toLowerCase().includes(searchVal)) ||
+          (char.skillItems && char.skillItems.some(i => i.itemName.toLowerCase().includes(searchVal) || i.itemValue.toLowerCase().includes(searchVal)));
 
-      // 2. Rarity filter
-      if (rarityVal !== 'all') {
-        filtered = filtered.filter(c => String(c.rarity) === rarityVal);
-      }
+        const elementMatch = currentElementFilter === 'all' || char.element === currentElementFilter;
+        const rarityMatch = rarityFilter === 'all' || char.rarity.toString() === rarityFilter;
+        
+        const skillItemMatch = skillItemFilter === 'all' || (char.skillItems && char.skillItems.some(i => 
+          i.itemName === skillItemFilter && i.itemValue && i.itemValue !== '-' && i.itemValue.trim() !== ''
+        ));
 
-      // 3. Skill target item filter
-      if (skillItemVal !== 'all') {
-        filtered = filtered.filter(c => {
-          if (!c.skillItems) return false;
-          return c.skillItems.some(i => i.itemName === skillItemVal && i.itemValue && i.itemValue !== '-');
-        });
-      }
+        return queryMatch && elementMatch && rarityMatch && skillItemMatch;
+      });
 
-      // 4. Free text search
-      if (searchVal) {
-        filtered = filtered.filter(c => {
-          const matchName = c.name && c.name.toLowerCase().includes(searchVal);
-          const matchSkillName = c.skillName && c.skillName.toLowerCase().includes(searchVal);
-          const matchEffect = c.skillEffect && c.skillEffect.toLowerCase().includes(searchVal);
-          const matchWeapon = c.weaponName && c.weaponName.toLowerCase().includes(searchVal);
-          
-          let matchSkillDetails = false;
-          if (c.skillItems) {
-            matchSkillDetails = c.skillItems.some(i => {
-              return (i.itemName && i.itemName.toLowerCase().includes(searchVal)) ||
-                     (i.itemValue && i.itemValue.toLowerCase().includes(searchVal));
-            });
-          }
+      // 2. Sorting
+      filtered.sort((a, b) => {
+        if (sortBy === 'rarity') return (b.rarity || 5) - (a.rarity || 5);
+        if (sortBy === 'name') return a.name.localeCompare(b.name, 'ja');
+        return String(a.id || '').localeCompare(String(b.id || ''));
+      });
 
-          let matchWeaponDetails = false;
-          if (c.weaponName) {
-            matchWeaponDetails = [c.weaponStats0, c.weaponStats2, c.weaponStats4, c.weaponStats6, c.weaponStats8]
-              .some(stat => stat && stat.toLowerCase().includes(searchVal));
-          }
-
-          return matchName || matchSkillName || matchEffect || matchWeapon || matchSkillDetails || matchWeaponDetails;
-        });
-      }
-
-      // 5. Sorting
-      if (sortVal === 'rarity') {
-        filtered.sort((a, b) => (b.rarity || 0) - (a.rarity || 0));
-      } else if (sortVal === 'name') {
-        filtered.sort((a, b) => (a.name || '').localeCompare(b.name || '', 'ja'));
-      } else {
-        filtered.sort((a, b) => String(a.id || '').localeCompare(String(b.id || '')));
-      }
-
-      // Rendering logic
-      grid.innerHTML = '';
+      // Show/Hide Empty States
       if (filtered.length === 0) {
-        document.getElementById('empty-state').classList.remove('hidden');
+        emptyState.classList.remove('hidden');
       } else {
-        document.getElementById('empty-state').classList.add('hidden');
+        emptyState.classList.add('hidden');
+        
+        // Draw cards
         filtered.forEach(char => {
-          const card = createCharacterCard(char);
-          grid.appendChild(card);
+          let elementBgClass = 'bg-[#475569]';
+          if (char.element === '衝動型 (赤)') elementBgClass = 'bg-rose-600';
+          else if (char.element === '冷静型 (青)') elementBgClass = 'bg-blue-600';
+          else if (char.element === '狂乱型 (紫)') elementBgClass = 'bg-purple-600';
+          else if (char.element === '慎重型 (黄)') elementBgClass = 'bg-amber-600';
+          else if (char.element === '勇敢型 (緑)') elementBgClass = 'bg-emerald-600';
+
+          let stars = '';
+          for (let i = 0; i < (char.rarity || 5); i++) {
+            stars += '★';
+          }
+
+          const card = document.createElement('div');
+          card.className = 'bg-white border border-slate-200 rounded-xl p-3 shadow-2xs hover:shadow-sm hover:border-indigo-400 transition-all cursor-pointer flex items-center justify-between group relative select-none gap-2';
+          card.setAttribute('onclick', `if(!event.target.closest('.admin-btn-prevent')) openDetailsById('${char.id}')`);
+
+          // Admin quick edit overlays if logged in
+          let adminBadgeControls = '';
+          if (hasAdminPrivilege) {
+            adminBadgeControls = `
+              <div class="flex items-center gap-1 admin-btn-prevent shrink-0">
+                <button
+                  onclick="openHeroCreator('${char.id}')"
+                  class="p-0.5 px-2 rounded bg-indigo-50 hover:bg-indigo-600 text-indigo-600 hover:text-white border border-indigo-100 font-extrabold text-[8px] cursor-pointer transition-colors"
+                >
+                  編集
+                </button>
+                <button
+                  onclick="deleteHeroById('${char.id}')"
+                  class="p-0.5 px-2 bg-rose-50 hover:bg-rose-600 text-rose-600 hover:text-white border border-rose-100 font-extrabold text-[8px] cursor-pointer transition-colors"
+                >
+                  削除
+                </button>
+              </div>
+            `;
+          }
+
+          card.innerHTML = `
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="w-2.5 h-2.5 rounded-full shrink-0 ${elementBgClass}" title="${char.element}"></span>
+              <h3 class="text-xs font-bold text-slate-800 truncate group-hover:text-indigo-600 transition-colors">
+                ${char.name}
+              </h3>
+              <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-slate-50 text-slate-500 border border-slate-150">
+                ${char.troopType || '未設定'}
+              </span>
+            </div>
+
+            <div class="shrink-0 flex items-center gap-2">
+              ${adminBadgeControls}
+            </div>
+          `;
+
+          g.appendChild(card);
         });
       }
 
       // Update counters
       document.getElementById('footer-count').innerText = `表示中: ${filtered.length} 体 / 総登録数: ${rawCharacters.length} 体`;
-      
-      // Load lazy triggers for icons
-      if (window.lucide) {
-        window.lucide.createIcons();
-      }
+      lucide.createIcons();
     }
 
-    function createCharacterCard(char) {
-      const card = document.createElement('div');
-      card.className = "bg-white border border-slate-200/80 rounded-2xl p-4 flex flex-col justify-between hover:shadow-lg hover:border-slate-300 active:scale-[0.99] transition-all duration-200 cursor-pointer relative group overflow-hidden shadow-3xs";
-      
-      // Background Accent matching elements
-      let elementColorClass = "from-slate-500/10 to-transparent";
-      let textAccentClass = "text-slate-600";
-      let borderAccentColor = "border-slate-100";
-
-      if (char.element === '衝動型 (赤)') {
-        elementColorClass = "from-rose-500/5 to-transparent";
-        textAccentClass = "text-rose-600 bg-rose-50/70 border-rose-100";
-        borderAccentColor = "group-hover:border-rose-200";
-      } else if (char.element === '冷静型 (青)') {
-        elementColorClass = "from-sky-500/5 to-transparent";
-        textAccentClass = "text-sky-600 bg-sky-50/70 border-sky-100";
-        borderAccentColor = "group-hover:border-sky-200";
-      } else if (char.element === '狂乱型 (紫)') {
-        elementColorClass = "from-fuchsia-500/5 to-transparent";
-        textAccentClass = "text-fuchsia-600 bg-fuchsia-50/70 border-fuchsia-100";
-        borderAccentColor = "group-hover:border-fuchsia-200";
-      } else if (char.element === '慎重型 (黄)') {
-        elementColorClass = "from-amber-500/5 to-transparent";
-        textAccentClass = "text-amber-700 bg-amber-50/70 border-amber-100";
-        borderAccentColor = "group-hover:border-amber-200";
-      } else if (char.element === '勇敢型 (緑)') {
-        elementColorClass = "from-emerald-500/5 to-transparent";
-        textAccentClass = "text-emerald-700 bg-emerald-50/70 border-emerald-100";
-        borderAccentColor = "group-hover:border-emerald-200";
-      }
-
-      card.className += ` ${borderAccentColor}`;
-
-      // Aggregate high-tier army effect
-      let bestStats = '-';
-      if (char.skillItems && char.skillItems.length > 0) {
-        bestStats = char.skillItems
-          .filter(i => i.itemName && i.itemValue && i.itemValue !== '-')
-          .map(i => `${i.itemName} ${i.itemValue}`)
-          .slice(0, 2)
-          .join(' / ');
-      }
-
-      const stars = Array(char.rarity || 5).fill('<i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>').join('');
-
-      card.innerHTML = `
-        <!-- Accent light background -->
-        <div class="absolute inset-x-0 top-0 h-24 bg-gradient-to-b ${elementColorClass} -z-10 group-hover:opacity-100 transition-opacity"></div>
-        
-        <div class="space-y-2.5" onclick="showHeroDetails('${char.id}')">
-          <!-- Element badge + Stars -->
-          <div class="flex items-center justify-between gap-1">
-            <span class="px-2 py-0.5 border text-[9px] font-bold rounded-md tracking-wide ${textAccentClass}">
-              ${char.element || '不明'}
-            </span>
-            <div class="flex text-amber-400">
-              ${stars}
-            </div>
-          </div>
-
-          <!-- Name & Title -->
-          <div>
-            <h3 class="font-extrabold text-sm sm:text-base text-slate-800 tracking-tight flex items-baseline gap-1">
-              ${char.name}
-            </h3>
-            <p class="text-[10px] text-slate-400 font-bold block truncate mt-0.5" title="${char.skillName || '極秘スキル'}">
-              <span class="text-indigo-500 mr-0.5">■</span> ${char.skillName || '極秘スキル'}
-            </p>
-          </div>
-
-          <!-- Quick stat view -->
-          <div class="bg-slate-50 border border-slate-100 rounded-xl p-2.5 space-y-1">
-            <span class="text-[8px] text-slate-400 font-black block tracking-wider uppercase font-mono">主要増減値 (MAX)</span>
-            <p class="text-[10px] font-bold text-slate-700 block truncate" title="${bestStats}">
-              ${bestStats}
-            </p>
-          </div>
-        </div>
-
-        <!-- Foot Actions: Weapon Indicator & Admin Edit controls -->
-        <div class="flex justify-between items-center border-t border-slate-100 mt-3 pt-2.5 z-10">
-          <!-- Weapon Tag -->
-          <div class="flex items-center gap-1">
-            ${char.weaponName ? `
-              <div class="flex items-center gap-1 px-1.5 py-0.5 bg-rose-50 text-rose-600 rounded-md border border-rose-100 text-[9px] font-bold">
-                <i data-lucide="sword" class="w-2.5 h-2.5"></i>
-                <span class="max-w-[70px] truncate">${char.weaponName}</span>
-              </div>
-            ` : `
-              <span class="text-[9px] font-bold text-slate-400">専属なし</span>
-            `}
-          </div>
-
-          <!-- Admin Buttons -->
-          <div class="admin-actions hidden items-center gap-1">
-            <button
-              onclick="event.stopPropagation(); openHeroCreator('${char.id}')"
-              class="p-1 px-2 border border-indigo-200 hover:border-indigo-400/80 bg-white hover:bg-slate-50 text-indigo-650 text-indigo-600 rounded-lg text-[9px] font-bold transition-all cursor-pointer flex items-center gap-0.5"
-            >
-              <i data-lucide="edit-2" class="w-2.5 h-2.5"></i>
-              <span>編集</span>
-            </button>
-            <button
-              onclick="event.stopPropagation(); deleteCharacter('${char.id}')"
-              class="p-1 border border-red-200 hover:border-red-400/80 bg-white hover:bg-red-50 text-red-600 rounded-lg text-[9px] font-bold cursor-pointer transition-colors"
-              title="削除"
-            >
-              <i data-lucide="trash-2" class="w-2.5 h-2.5"></i>
-            </button>
-          </div>
-        </div>
-      `;
-      return card;
-    }
-
-    function setElementFilter(elementName) {
-      currentElementFilter = elementName;
-      const pills = document.querySelectorAll('.element-pill');
-      pills.forEach(p => {
-        const attr = p.getAttribute('data-element');
-        if (attr === elementName) {
-          p.className = "element-pill bg-indigo-600 text-white border-indigo-600 px-3 py-1 rounded-full text-[11px] font-bold border transition-all cursor-pointer shadow-3xs";
+    // Filter Trigger
+    function setElementFilter(el) {
+      currentElementFilter = el;
+      document.querySelectorAll('.element-pill').forEach(btn => {
+        if (btn.getAttribute('data-element') === el) {
+          btn.classList.add('bg-indigo-600', 'text-white', 'border-indigo-600');
+          btn.classList.remove('bg-white', 'text-slate-700', 'border-slate-200');
         } else {
-          p.className = "element-pill bg-white border-slate-200 px-3 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs";
+          btn.classList.remove('bg-indigo-600', 'text-white', 'border-indigo-600');
+          btn.classList.add('bg-white', 'text-slate-700', 'border-slate-200');
         }
       });
       renderCharacters();
     }
 
-    // Modal Details Actions
-    function showHeroDetails(id) {
-      const hero = rawCharacters.find(c => c.id === id);
-      if (!hero) return;
+    // Details Modal Control
+    function openDetailsById(id) {
+      const char = rawCharacters.find(c => c.id === id);
+      if (!char) return;
 
-      const detailsModal = document.getElementById('details-modal');
-      detailsModal.classList.remove('hidden');
+      document.getElementById('detail-name').innerText = char.name;
+      document.getElementById('detail-troop-type').innerText = char.troopType || '未設定';
+      
+      let elementBgClass = 'from-[#475569] to-[#334155]';
+      if (char.element === '衝動型 (赤)') elementBgClass = 'from-[#f43f5e] to-[#be123c]';
+      else if (char.element === '冷静型 (青)') elementBgClass = 'from-[#3b82f6] to-[#1d4ed8]';
+      else if (char.element === '狂乱型 (紫)') elementBgClass = 'from-[#a78bfa] to-[#6d28d9]';
+      else if (char.element === '慎重型 (黄)') elementBgClass = 'from-[#fbbf24] to-[#c2410c]';
+      else if (char.element === '勇敢型 (緑)') elementBgClass = 'from-[#34d399] to-[#047857]';
 
-      // Colors
-      let rgbStart = "from-slate-700";
-      let rgbEnd = "to-slate-900";
-      if (hero.element === '衝動型 (赤)') { rgbStart = "from-rose-600"; rgbEnd = "to-rose-800"; }
-      else if (hero.element === '冷静型 (青)') { rgbStart = "from-sky-600"; rgbEnd = "to-sky-800"; }
-      else if (hero.element === '狂乱型 (紫)') { rgbStart = "from-fuchsia-600"; rgbEnd = "to-fuchsia-800"; }
-      else if (hero.element === '慎重型 (黄)') { rgbStart = "from-amber-600"; rgbEnd = "to-amber-800"; }
-      else if (hero.element === '勇敢型 (緑)') { rgbStart = "from-emerald-600"; rgbEnd = "to-emerald-800"; }
+      document.getElementById('drawer-header').className = `p-5 text-white relative bg-gradient-to-r ${elementBgClass}`;
+      document.getElementById('detail-element-badge').innerText = char.element;
 
-      const header = document.getElementById('drawer-header');
-      header.className = `p-5 text-white relative bg-gradient-to-br ${rgbStart} ${rgbEnd}`;
+      const stars = document.getElementById('detail-stars');
+      stars.innerHTML = '';
+      for (let i = 0; i < (char.rarity || 5); i++) {
+        stars.innerHTML += '★';
+      }
 
-      document.getElementById('detail-element-badge').innerText = hero.element || '';
-      document.getElementById('detail-name').innerText = hero.name || '';
-      document.getElementById('detail-troop-type').innerText = hero.troopType || '未知';
+      // 4-Stages Grid
+      const sContainer = document.getElementById('detail-skill-items');
+      sContainer.innerHTML = '';
 
-      const stars = Array(hero.rarity || 5).fill('<i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>').join('');
-      document.getElementById('detail-stars').innerHTML = stars;
-
-      // Army skill mapping
-      const skillBox = document.getElementById('detail-skill-items');
-      skillBox.innerHTML = '';
-      if (hero.skillItems) {
-        hero.skillItems.forEach((item, idx) => {
-          const itemEl = document.createElement('div');
-          itemEl.className = "bg-white border border-slate-100 rounded-lg p-2.5 flex flex-col justify-between shadow-3xs";
-          
-          let nameText = item.itemName || '';
-          let valueText = item.itemValue || '';
-
-          if (!nameText && !valueText) {
-            itemEl.className += " opacity-40 border-dashed border-slate-100 bg-slate-50";
-            nameText = `段階${idx + 1}`;
-            valueText = "-";
-          }
-
-          itemEl.innerHTML = `
-            <span class="text-[8px] font-black font-mono tracking-wider text-slate-400 block uppercase">段階 ${idx + 1}</span>
-            <span class="text-[10px] font-bold text-slate-800 tracking-tight mt-1 truncate" title="${nameText}">${nameText}</span>
-            <span class="text-xs font-black text-indigo-650 text-indigo-600 font-mono tracking-wide mt-0.5 text-right">${valueText}</span>
+      if (char.skillItems && char.skillItems.length > 0) {
+        char.skillItems.forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'bg-white border border-indigo-50 rounded-xl p-2.5 shadow-3xs';
+          div.innerHTML = `
+            <span class="text-[9px] font-bold text-indigo-500 block truncate" title="${item.itemName}">${item.itemName}</span>
+            <span class="text-xs font-black text-slate-800 mt-0.5 block">${item.itemValue || '-'}</span>
           `;
-          skillBox.appendChild(itemEl);
+          sContainer.appendChild(div);
         });
       }
 
-      // Skill string aggregator
-      const activeStr = hero.skillItems ? hero.skillItems
-        .filter(item => item.itemName && item.itemValue && item.itemValue !== '-')
-        .map(item => `${item.itemName} ${item.itemValue}`)
-        .join(' / ') : '';
-      document.getElementById('detail-skill-aggregated').innerText = activeStr || '適用無し';
+      const formattedAggregated = char.skillEffect || char.skillItems.map(i => `${i.itemName} ${i.itemValue}`).join(' / ');
+      document.getElementById('detail-skill-aggregated').innerText = `一括テキスト: ${formattedAggregated}`;
 
-      // Weapon mapping
-      if (hero.weaponName) {
-        document.getElementById('drawer-weapon-section').classList.remove('hidden');
-        document.getElementById('detail-weapon-name').innerText = hero.weaponName;
-        document.getElementById('detail-weapon-tier-0').innerText = hero.weaponStats0 || '-';
-        document.getElementById('detail-weapon-tier-2').innerText = hero.weaponStats2 || '-';
-        document.getElementById('detail-weapon-tier-4').innerText = hero.weaponStats4 || '-';
-        document.getElementById('detail-weapon-tier-6').innerText = hero.weaponStats6 || '-';
-        document.getElementById('detail-weapon-tier-8').innerText = hero.weaponStats8 || '-';
+      // Weapon
+      const wpSection = document.getElementById('drawer-weapon-section');
+      if (char.weaponName) {
+        wpSection.classList.remove('hidden');
+        document.getElementById('detail-weapon-name').innerText = char.weaponName;
+        document.getElementById('detail-weapon-tier-0').innerText = char.weaponStats0 || '-';
+        document.getElementById('detail-weapon-tier-2').innerText = char.weaponStats2 || '-';
+        document.getElementById('detail-weapon-tier-4').innerText = char.weaponStats4 || '-';
+        document.getElementById('detail-weapon-tier-6').innerText = char.weaponStats6 || '-';
+        document.getElementById('detail-weapon-tier-8').innerText = char.weaponStats8 || '-';
       } else {
-        document.getElementById('drawer-weapon-section').classList.add('hidden');
+        wpSection.classList.add('hidden');
       }
 
-      if (window.lucide) {
-        window.lucide.createIcons();
-      }
+      document.getElementById('details-modal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      lucide.createIcons();
     }
 
     function closeDetails() {
       document.getElementById('details-modal').classList.add('hidden');
+      document.body.style.overflow = '';
     }
 
-    // Modal Admin Login Actions
+    // Toggle Admin Mode
     function toggleAdminStatusAction() {
       if (hasAdminPrivilege) {
-        hasAdminPrivilege = false;
-        sessionStorage.removeItem('arcana_db_auth_session');
-        updateAdminUIVisibility();
-        addAlertToast('ログアウトしました');
+        // Logout
+        if (confirm('管理者モードからログアウトしますか？データ登録編集はロックされます。')) {
+          hasAdminPrivilege = false;
+          sessionStorage.removeItem('arcana_db_auth_session');
+          updateAdminUIVisibility();
+          renderCharacters();
+          alert('ログアウトしました。一般閲覧（読み取り専用）モードに戻ります。');
+        }
       } else {
-        openLoginModal();
+        // Open Login Modal PIN
+        document.getElementById('login-pin-input').value = '';
+        document.getElementById('login-modal').classList.remove('hidden');
+        document.getElementById('login-pin-input').focus();
       }
     }
 
-    function openLoginModal() {
-      document.getElementById('login-modal').classList.remove('hidden');
-      const pin = document.getElementById('login-pin-input');
-      if (pin) {
-        pin.value = '';
-        pin.focus();
-      }
-    }
-
+    // Login Modals
     function closeLoginModal() {
       document.getElementById('login-modal').classList.add('hidden');
     }
 
     function submitAdminLogin() {
-      const enteredPIN = document.getElementById('login-pin-input').value.trim();
+      const enteredPIN = document.getElementById('login-pin-input').value;
       const expectedKey = dbConfig.adminKey || '1234';
-
+      
       if (enteredPIN === expectedKey || enteredPIN === '1234') {
         hasAdminPrivilege = true;
         sessionStorage.setItem('arcana_db_auth_session', enteredPIN);
         closeLoginModal();
         updateAdminUIVisibility();
-        addAlertToast('認証に成功しました。管理者権限を適用します');
+        renderCharacters();
+        alert('管理者ログイン成功！英雄データの登録、編集、およびGitHubへのクラウド連動上書きが可能になりました！');
       } else {
-        alert('認証エラー: パスコード（PIN）が一致しません');
+        alert('暗号キー（PIN）が正しくありません。');
       }
     }
 
+    // Visibility Update based on Admin states
     function updateAdminUIVisibility() {
-      const triggerText = document.getElementById('admin-status-text');
-      const triggerBtn = document.getElementById('admin-status-trigger');
-      
-      const adminElements = document.querySelectorAll('.admin-actions');
-      const creatorTrigger = document.getElementById('creator-modal-trigger');
-      const saveBtn = document.getElementById('global-save-btn');
+      const trigger = document.getElementById("admin-status-trigger");
+      const text = document.getElementById("admin-status-text");
+      const creatorBtn = document.getElementById("creator-modal-trigger");
+      const saveBtn = document.getElementById("global-save-btn");
 
       if (hasAdminPrivilege) {
-        triggerText.innerText = "管理者ログアウト";
-        triggerBtn.className = "px-2.5 py-1.5 rounded-xl text-[10px] font-bold border border-rose-500 hover:bg-rose-50 border-rose-500/20 bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 transition-all cursor-pointer flex items-center gap-1";
-        
-        creatorTrigger.classList.remove('hidden');
-        creatorTrigger.classList.add('flex');
-        
+        trigger.className = "px-2.5 py-1.5 rounded-xl text-[10px] font-bold border border-emerald-500 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-all cursor-pointer flex items-center gap-1";
+        text.innerText = "管理者：認証済 🔓";
+        creatorBtn.classList.remove("hidden");
+        creatorBtn.classList.add("flex");
+
         if (unsavedChanges) {
-          saveBtn.classList.remove('hidden');
-          saveBtn.classList.add('flex');
+          saveBtn.classList.remove("hidden");
+          saveBtn.classList.add("flex");
+          document.getElementById("unsaved-changes-badge").classList.remove("hidden");
+          document.getElementById("unsaved-changes-badge").classList.add("flex");
         } else {
-          saveBtn.classList.add('hidden');
-          saveBtn.classList.remove('flex');
+          saveBtn.classList.add("hidden");
+          document.getElementById("unsaved-changes-badge").classList.add("hidden");
         }
-
-        adminElements.forEach(el => {
-          el.classList.remove('hidden');
-          el.classList.add('flex');
-        });
       } else {
-        triggerText.innerText = "管理者ログイン";
-        triggerBtn.className = "px-2.5 py-1.5 rounded-xl text-[10px] font-bold border border-slate-700 hover:bg-slate-800 text-slate-300 transition-all cursor-pointer flex items-center gap-1";
-        
-        creatorTrigger.classList.add('hidden');
-        creatorTrigger.classList.remove('flex');
-        saveBtn.classList.add('hidden');
-        saveBtn.classList.remove('flex');
-
-        adminElements.forEach(el => {
-          el.classList.add('hidden');
-          el.classList.remove('flex');
-        });
+        trigger.className = "px-2.5 py-1.5 rounded-xl text-[10px] font-bold border border-slate-350 bg-slate-100 hover:bg-slate-200 text-slate-600 transition-all cursor-pointer flex items-center gap-1";
+        text.innerText = "管理者：未認証 🔒";
+        creatorBtn.classList.add("hidden");
+        creatorBtn.classList.remove("flex");
+        saveBtn.classList.add("hidden");
+        document.getElementById("unsaved-changes-badge").classList.add("hidden");
       }
     }
 
-    // GitHub Connecting Configuration Actions
-    function openConfigModal() {
-      document.getElementById('config-modal').classList.remove('hidden');
-      document.getElementById('cfg-owner').value = dbConfig.owner || '';
-      document.getElementById('cfg-repo').value = dbConfig.repo || '';
-      document.getElementById('cfg-branch').value = dbConfig.branch || 'main';
-      document.getElementById('cfg-path').value = dbConfig.path || 'puzzles_survival_db.json';
-      document.getElementById('cfg-token').value = dbConfig.token || '';
-      document.getElementById('cfg-admin-key').value = dbConfig.adminKey || '1234';
-
-      const resBox = document.getElementById('cfg-test-result');
-      resBox.className = "hidden p-3 rounded-lg text-[11px] leading-relaxed border";
-    }
-
-    function closeConfigModal() {
-      document.getElementById('config-modal').classList.add('hidden');
-    }
-
-    function saveConfigModalSettings() {
-      dbConfig.owner = document.getElementById('cfg-owner').value.trim();
-      dbConfig.repo = document.getElementById('cfg-repo').value.trim();
-      dbConfig.branch = document.getElementById('cfg-branch').value.trim() || 'main';
-      dbConfig.path = document.getElementById('cfg-path').value.trim() || 'puzzles_survival_db.json';
-      dbConfig.token = document.getElementById('cfg-token').value.trim();
-      dbConfig.adminKey = document.getElementById('cfg-admin-key').value.trim() || '1234';
-
-      localStorage.setItem(GITHUB_SETTINGS_KEY, JSON.stringify(dbConfig));
-      closeConfigModal();
-
-      if (dbConfig.owner && dbConfig.repo) {
-        loadDatabaseFromGitHub();
-      } else {
-        loadDefaultFallbackMock();
-      }
-
-      addAlertToast('接続先および暗号キー設定を保存しました');
-    }
-
+    // GitHub Connection Testing Action
     async function testGitHubConnectionCfg() {
-      const owner = document.getElementById('cfg-owner').value.trim();
-      const repo = document.getElementById('cfg-repo').value.trim();
-      const branch = document.getElementById('cfg-branch').value.trim() || 'main';
-      const path = document.getElementById('cfg-path').value.trim() || 'puzzles_survival_db.json';
-      const token = document.getElementById('cfg-token').value.trim();
-
-      const resBox = document.getElementById('cfg-test-result');
-      resBox.classList.remove('hidden');
-      resBox.className = "p-3 rounded-lg text-[11px] leading-relaxed border bg-slate-50 border-slate-200 text-slate-700 animate-pulse";
-      resBox.innerHTML = 'GitHub API をテスト中...';
+      const owner = document.getElementById("cfg-owner").value.trim();
+      const repo = document.getElementById("cfg-repo").value.trim();
+      const branch = document.getElementById("cfg-branch").value.trim() || 'main';
+      const token = document.getElementById("cfg-token").value.trim();
+      const resultBox = document.getElementById("cfg-test-result");
+      const btn = document.getElementById("cfg-btn-test");
 
       if (!owner || !repo) {
-        resBox.className = "p-3 rounded-lg text-[11px] leading-relaxed border bg-red-50 border-red-200 text-red-700";
-        resBox.innerHTML = '【検証失敗】Owner および Repo は必須です。';
+        alert("GitHub Owner and Repository name are required.");
         return;
       }
 
-      const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
-      const headers = {};
+      btn.disabled = true;
+      resultBox.className = "p-3 rounded-lg text-[11px] leading-relaxed border mt-2 bg-slate-50 border-slate-200 text-slate-600";
+      resultBox.innerText = "接続テスト中...";
+
+      const headers = {
+        "Content-Type": "application/json"
+      };
       if (token) {
-        headers['Authorization'] = `token ${token}`;
+        headers["Authorization"] = "token " + token;
       }
 
       try {
-        const testRes = await fetch(url, { headers });
-        if (testRes.ok) {
-          resBox.className = "p-3 rounded-lg text-[11px] leading-relaxed border bg-emerald-50 border-emerald-200 text-emerald-800";
-          resBox.innerHTML = `<strong>【接続検証成功！】</strong><br/>既知ファイルを発見。コミットおよび読み込み読み出しは正常に機能します。<br/>HTTP-Status: 200 (OK)`;
-        } else if (testRes.status === 404) {
-          resBox.className = "p-3 rounded-lg text-[11px] leading-relaxed border bg-amber-50 border-amber-200 text-amber-800";
-          resBox.innerHTML = `<strong>【ファイル不存在 (保存待機)】</strong><br/>リポジトリ「${owner}/${repo}」は正常に確認できましたが、「${path}」は未存在です。<br/>「適用保存」してから管理者として英雄を追加・修正し、「GitHub保存」コミットを行うことで新規作成ファイルが即時コミットされます。`;
-        } else {
-          throw new Error(`HTTP Code ${testRes.status}`);
+        const repoRes = await fetch("https://api.github.com/repos/" + owner + "/" + repo, { headers });
+        if (!repoRes.ok) {
+          throw new Error("リポジトリ情報が取得できません。ステータス: " + repoRes.status);
         }
+        const repoData = await repoRes.json();
+        
+        let scopeNotice = "（一般公開リポジトリの読み取り権限のみ、またはトークン未指定）";
+        if (token) {
+          const scopes = repoRes.headers.get("x-oauth-scopes") || "";
+          if (scopes.includes("repo")) {
+            scopeNotice = "（コミット権限/リポジトリ管理権限も完全に確認できました！完璧です。）";
+          } else {
+            scopeNotice = "（アクセス権はありますが、更新保存（書き込み）をするための十分なパーミッションが備わっていません。PATのスコープ「repo」がチェックされているかご確認ください）";
+          }
+        }
+
+        resultBox.className = "p-3 rounded-lg text-[11px] leading-relaxed border mt-2 bg-emerald-50 border-emerald-200 text-emerald-800";
+        resultBox.innerText = "接続完了！ リンクに成功しました。\n対象リポジトリ: \"" + repoData.full_name + "\"\n権限状況: " + scopeNotice;
       } catch (err) {
-        resBox.className = "p-3 rounded-lg text-[11px] leading-relaxed border bg-red-50 border-red-200 text-red-700";
-        resBox.innerHTML = `<strong>【接続失敗エラー】</strong><br/>接続できませんでした。以下理由を確認してください：<br/>- Personal Access Tokenの権限 or スペルの記載文字<br/>- 接続情報が公開であるか or 非公開（Private）でトークン必須かどうか<br/>${err.message || err}`;
+        resultBox.className = "p-3 rounded-lg text-[11px] leading-relaxed border mt-2 bg-rose-50 border-rose-200 text-rose-800";
+        resultBox.innerText = "接続エラー:\n" + err.message;
+      } finally {
+        btn.disabled = false;
       }
     }
 
-    // 4. Hero Registration Form creator
+    // Hero Custom Entry Creator Forms
     function openHeroCreator(id = null) {
-      if (!hasAdminPrivilege) {
-        alert('アクセス拒否: この機能のロック解除には管理者ログイン（PIN）が必要です。');
-        return;
-      }
-
       editingHeroId = id;
-      populateSkillItemNames();
-
-      const modal = document.getElementById('creator-modal');
       const title = document.getElementById('creator-title');
-      modal.classList.remove('hidden');
-
-      // Clear layout default state
+      
+      // Cleanup inputs
       document.getElementById('c-name').value = '';
       document.getElementById('c-element').value = '衝動型 (赤)';
       document.getElementById('c-rarity').value = '5';
@@ -1440,9 +1381,8 @@
         title.innerHTML = `<i data-lucide="user-plus" class="w-4 h-4 text-indigo-500"></i> 英雄データの新規登録`;
       }
 
-      if (window.lucide) {
-        window.lucide.createIcons();
-      }
+      document.getElementById('creator-modal').classList.remove('hidden');
+      lucide.createIcons();
     }
 
     function closeHeroCreator() {
@@ -1450,10 +1390,15 @@
       editingHeroId = null;
     }
 
+    // Save customized details to Memory state & Trigger UI state updates
     function saveHeroCreatorData() {
       const name = document.getElementById('c-name').value.trim();
+      const element = document.getElementById('c-element').value;
+      const rarity = parseInt(document.getElementById('c-rarity').value) || 5;
+      const troopType = document.getElementById('c-troop-type').value;
+
       if (!name) {
-        alert('英雄の名前は必須です。');
+        alert('英雄の名前は入力必須項目です。');
         return;
       }
 
@@ -1483,22 +1428,20 @@
         { itemName: s4n, itemValue: s4v }
       ];
 
-      // Skillaggregated Text Generator formatting
-      const aggregatedStr = skillItems
-        .filter(item => item.itemName && item.itemValue && item.itemValue !== '-')
-        .map(item => `${item.itemName} ${item.itemValue}`)
-        .join(' / ');
+      // Format concatenated plain string
+      const plainSkillPairs = skillItems
+        .filter(i => i.itemValue && i.itemValue !== '-')
+        .map(i => `${i.itemName} ${i.itemValue}`);
+      const skillEffect = plainSkillPairs.length > 0 ? plainSkillPairs.join(' / ') : '-';
 
-      const charData = {
-        id: editingHeroId || `char_${Date.now()}`,
-        name: name,
-        element: document.getElementById('c-element').value,
-        rarity: parseInt(document.getElementById('c-rarity').value || '5'),
-        troopType: document.getElementById('c-troop-type').value,
-        skillName: editingHeroId ? (rawCharacters.find(c => c.id === editingHeroId)?.skillName || '解放軍団スキル') : '解放軍団スキル',
-        skillEffect: aggregatedStr || '-',
-        skillItems: skillItems,
-        weaponName: document.getElementById('c-weapon').value.trim() || '',
+      const charPayload = {
+        name,
+        element,
+        rarity,
+        troopType,
+        skillEffect,
+        skillItems,
+        weaponName: document.getElementById('c-weapon').value.trim(),
         weaponStats0: document.getElementById('c-w0').value.trim(),
         weaponStats2: document.getElementById('c-w2').value.trim(),
         weaponStats4: document.getElementById('c-w4').value.trim(),
@@ -1507,178 +1450,143 @@
       };
 
       if (editingHeroId) {
-        const idx = rawCharacters.findIndex(c => c.id === editingHeroId);
-        if (idx !== -1) {
-          rawCharacters[idx] = charData;
-        }
+        // Edit Mode: update in array
+        rawCharacters = rawCharacters.map(c => {
+          if (c.id === editingHeroId) {
+            return { ...c, ...charPayload };
+          }
+          return c;
+        });
       } else {
-        rawCharacters.unshift(charData);
+        // Create Mode
+        const newId = `CUSTOM-${Date.now()}`;
+        rawCharacters.unshift({ id: newId, ...charPayload });
       }
 
-      markUnsavedChanges(true);
+      unsavedChanges = true;
       closeHeroCreator();
+      populateSkillItemsFilter();
       renderCharacters();
-      populateSkillItemNames();
+      updateAdminUIVisibility();
+      
+      alert(editingHeroId ? 'メモリ上で英雄データを更新しました！反映するには「GitHubへ保存」ボタンを忘れずに押してください。' : '新しい英雄を作成しました！反映するには「GitHubへ保存」ボタンを押してください。');
     }
 
-    function deleteCharacter(id) {
-      if (!hasAdminPrivilege) return;
+    // Delete Trigger
+    function deleteHeroById(id) {
       const char = rawCharacters.find(c => c.id === id);
       if (!char) return;
 
-      if (confirm(`本当に英雄 [${char.name}] のデータを削除してよろしいですか？`)) {
+      if (confirm(`本当に英雄「${char.name}」を削除しますか？\n(メモリ上で削除されます。反映にはGitHub保存が必要です)`)) {
         rawCharacters = rawCharacters.filter(c => c.id !== id);
-        markUnsavedChanges(true);
+        unsavedChanges = true;
+        populateSkillItemsFilter();
         renderCharacters();
-        populateSkillItemNames();
+        updateAdminUIVisibility();
       }
     }
 
-    function markUnsavedChanges(isUnsaved) {
-      unsavedChanges = isUnsaved;
-      const badge = document.getElementById('unsaved-changes-badge');
-      if (unsavedChanges) {
-        badge.classList.remove('hidden');
-        badge.classList.add('flex');
-      } else {
-        badge.classList.add('hidden');
-        badge.classList.remove('flex');
-      }
-      updateAdminUIVisibility();
-    }
-
-    // Push local rawCharacters database changes directly into GitHub commit (PUT /api)
+    // PUSH UPGRADE TO DATABASE (JSON) DIRECLTY TO GITHUB! 🚀
     async function pushToDatabaseGitHub() {
-      if (!hasAdminPrivilege) {
-        alert('管理者未ログインまたは認証期限が切れています');
-        return;
-      }
-
       if (!dbConfig.owner || !dbConfig.repo || !dbConfig.token) {
-        alert('GitHub接続設定（ユーザー名、リポジトリ名、アクセストークン等）が不足しているためコミットを実行できません。設定ギア（⚙）を開いて入力して適用してください。');
+        alert('エラー： クラウド連動（TokenやOwner、Repo）の設定がされていません。右上ギア⚙からトークンを登録してください。');
         return;
       }
 
-      // Open progress logger overlay
+      const logContainer = document.getElementById('progress-logs');
+      const prgBar = document.getElementById('progress-bar-inner');
       const overlay = document.getElementById('progress-overlay');
-      const logBox = document.getElementById('progress-logs');
-      const bar = document.getElementById('progress-bar-inner');
-      
+
       overlay.classList.remove('hidden');
-      logBox.innerHTML = '';
-      bar.style.width = "10%";
+      logContainer.innerHTML = '';
+      prgBar.style.width = '10%';
 
-      const appendLog = (msg, isError = false) => {
-        const line = document.createElement('div');
-        line.className = isError ? "text-red-400 font-bold" : "text-emerald-400";
-        line.innerText = `[${new Date().toLocaleTimeString()}] ${msg}`;
-        logBox.appendChild(line);
-        logBox.scrollTop = logBox.scrollHeight;
-      };
+      function addLog(text, isError = false) {
+        const div = document.createElement('div');
+        div.className = isError ? 'text-rose-500' : 'text-slate-600';
+        div.innerText = `[${new Date().toLocaleTimeString()}] ${text}`;
+        logContainer.appendChild(div);
+        logContainer.scrollTop = logContainer.scrollHeight;
+      }
 
-      appendLog(`1. SHA情報を取得するためリモートリポジトリ（${dbConfig.owner}/${dbConfig.repo}）を参照しています...`);
-      bar.style.width = "35%";
+      addLog('🚀 データのGitHubクラウド同期を開始中...');
+      
+      const payloadString = JSON.stringify(rawCharacters, null, 2);
+      // Clean high compatibility base64 encoding (avoids breaks on Japanese/multibyte chars)
+      const base64Content = btoa(unescape(encodeURIComponent(payloadString)));
 
-      const url = `https://api.github.com/repos/${dbConfig.owner}/${dbConfig.repo}/contents/${dbConfig.path}?ref=${dbConfig.branch}`;
       const headers = {
         'Authorization': `token ${dbConfig.token}`,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       };
 
-      let existingSha = null;
+      const branchRef = dbConfig.branch || 'main';
+      const cleanPath = dbConfig.path || 'puzzles_survival_db.json';
+      const contentUrl = `https://api.github.com/repos/${dbConfig.owner}/${dbConfig.repo}/contents/${cleanPath}?ref=${branchRef}`;
 
       try {
-        const getRes = await fetch(url, { headers });
-        if (getRes.ok) {
-          const getData = await getRes.json();
-          existingSha = getData.sha;
-          appendLog(`GitHub上に既存のファイル構成を発見（SHA: ${existingSha.substring(0, 10)}...）`);
-        } else if (getRes.status === 404) {
-          appendLog(`既存ファイルは存在しません。新規に「${dbConfig.path}」をアップロードします。`);
+        prgBar.style.width = '30%';
+        addLog(`1. リポジトリ上の既存ファイル 「${cleanPath}」 の最新メタ情報 (SHAハッシュ) を検証しています...`);
+
+        const headRes = await fetch(contentUrl, { headers });
+        let latestSHA = undefined;
+        
+        if (headRes.ok) {
+          const remoteMetadata = await headRes.json();
+          latestSHA = remoteMetadata.sha;
+          addLog(`  -> 既存のSHAハッシュを確認しました: (${latestSHA.substring(0, 8)})`);
+        } else if (headRes.status === 404) {
+          addLog(`  -> 指定されたファイルはリポジトリにまだ存在しません（新規作成扱いとなります）`);
         } else {
-          throw new Error(`HTTP fetch error ${getRes.status}`);
+          throw new Error(`メタデータ取得失敗: API Status ${headRes.status}`);
         }
 
-        bar.style.width = "65%";
-        appendLog(`2. 最新の英雄データをJSON形式（Base64バイト）へ変換しています...`);
+        addLog(`2. 最新データをコミット・プッシュしています...`);
+        prgBar.style.width = '60%';
 
-        // Base64 serialization UTF-8 supported
-        const dataStr = JSON.stringify(rawCharacters, null, 2);
-        const encodedContent = btoa(unescape(encodeURIComponent(dataStr)));
-
-        const payload = {
-          message: `Update character database from ARCANA_DB interface (Total: ${rawCharacters.length} items)`,
-          content: encodedContent,
-          branch: dbConfig.branch
+        const commitBody = {
+          message: `[ARCANA_DB] Update puzzles_survival_db.json data (${rawCharacters.length} records)`,
+          content: base64Content,
+          sha: latestSHA,
+          branch: branchRef
         };
 
-        if (existingSha) {
-          payload.sha = existingSha;
-        }
-
-        appendLog(`3. GitHub API経由（HTTP PUT）でコミット変更パッチをプッシュ中...`);
-        bar.style.width = "85%";
-
-        const putRes = await fetch(url, {
+        const pushRes = await fetch(`https://api.github.com/repos/${dbConfig.owner}/${dbConfig.repo}/contents/${cleanPath}`, {
           method: 'PUT',
           headers,
-          body: JSON.stringify(payload)
+          body: JSON.stringify(commitBody)
         });
 
-        if (!putRes.ok) {
-          const errData = await putRes.json();
-          throw new Error(errData.message || `HTTP ${putRes.status}`);
+        if (!pushRes.ok) {
+          const errPayload = await pushRes.json();
+          throw new Error(errPayload.message || 'データファイル(JSON)のPUT更新に失敗しました');
         }
 
-        bar.style.width = "100%";
-        appendLog(`🎉 保存に成功しました！GitHubへの書き込み・反映が完了しました！`);
+        const pushData = await pushRes.json();
+        addLog(`✨ JSONデータのGitHub同期に成功しました！ Commit: ${pushData.commit.sha.substring(0, 7)}`);
+        
+        prgBar.style.width = '100%';
+        unsavedChanges = false;
         
         setTimeout(() => {
           overlay.classList.add('hidden');
-          markUnsavedChanges(false);
-          addAlertToast('リポジトリの更新が完了しました');
-        }, 1100);
+          updateAdminUIVisibility();
+          alert('おめでとうございます！データが正常にGitHubへ同期されました！\n数秒〜数十秒後に閲覧サイト(GitHub Pages)にも完全に自動でリアルタイム反映されます。');
+        }, 1200);
 
       } catch (err) {
-        bar.style.width = "100%";
-        appendLog(`❌ コミット同期に失敗: ${err.message || err}`, true);
-        appendLog(`設定のアクセストークンのrepo書き込み権限をご確認ください。`, true);
-        
-        // Error Close btn inside status overlay
-        const errCloseBtn = document.createElement('button');
-        errCloseBtn.className = "mt-3 w-full py-1.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-xs cursor-pointer";
-        errCloseBtn.innerText = "閉じる (保存をリトライ)";
-        errCloseBtn.onclick = () => { overlay.classList.add('hidden'); };
-        logBox.appendChild(errCloseBtn);
+        addLog(`❌ クラウド同期失敗: ${err.message}`, true);
+        prgBar.style.width = '10%';
+        console.error('Push failed', err);
+        setTimeout(() => {
+          overlay.classList.add('hidden');
+          alert(`エラー： 同期に失敗しました。\n${err.message}`);
+        }, 3500);
       }
     }
 
-    // Dynamic alert notifications toaster
-    function addAlertToast(message) {
-      const toast = document.createElement('div');
-      toast.className = "fixed bottom-5 left-5 bg-slate-900 border border-slate-700/60 text-white rounded-2xl px-4 py-3 flex items-center gap-2 shadow-2xl z-50 transition-all text-xs font-semibold translate-y-10 opacity-0 duration-300";
-      toast.innerHTML = `
-        <i data-lucide="info" class="w-4 h-4 text-emerald-400"></i>
-        <span>${message}</span>
-      `;
-      document.body.appendChild(toast);
-      
-      if (window.lucide) {
-        window.lucide.createIcons();
-      }
-
-      setTimeout(() => {
-        toast.classList.remove('translate-y-10', 'opacity-0');
-      }, 50);
-
-      setTimeout(() => {
-        toast.classList.add('translate-y-10', 'opacity-0');
-        setTimeout(() => { toast.remove(); }, 300);
-      }, 3500);
-    }
-
-    // Trigger run init
-    window.addEventListener('DOMContentLoaded', init);
+    // Run when browser is fully loaded
+    window.onload = init;
   </script>
 </body>
 </html>
