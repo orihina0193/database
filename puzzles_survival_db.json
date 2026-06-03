@@ -38,7 +38,7 @@
     "element": "狂乱型 (紫)",
     "rarity": 5,
     "skillName": "ファントムブラスト",
-    "skillEffect": "シューターATK +120% / 軍団ATK +40% / その他追加ステータス 敵の防御力を一部無視",
+    "skillEffect": "シューターATK +120% / 軍団ATK +40%",
     "skillItems": [
       {
         "itemName": "シューターATK",
@@ -49,11 +49,11 @@
         "itemValue": "+40%"
       },
       {
-        "itemName": "その他追加ステータス",
-        "itemValue": "敵の防御力を一部無視"
+        "itemName": "軍団ATK",
+        "itemValue": "-"
       },
       {
-        "itemName": "",
+        "itemName": "軍団ATK",
         "itemValue": "-"
       }
     ],
@@ -104,7 +104,7 @@
     "element": "冷静型 (青)",
     "rarity": 5,
     "skillName": "氷結剣舞",
-    "skillEffect": "ライダーATK +110% / ライダーHP +110% / その他追加ステータス 敵の移動速度を低下",
+    "skillEffect": "ライダーATK +110% / ライダーHP +110%",
     "skillItems": [
       {
         "itemName": "ライダーATK",
@@ -115,11 +115,11 @@
         "itemValue": "+110%"
       },
       {
-        "itemName": "その他追加ステータス",
-        "itemValue": "敵の移動速度を低下"
+        "itemName": "",
+        "itemValue": "-"
       },
       {
-        "itemName": "",
+        "itemName": "軍団ATK",
         "itemValue": "-"
       }
     ],
