@@ -1,5 +1,33 @@
 [
   {
+    "id": "CUSTOM-1780512335233",
+    "name": "マリオス",
+    "element": "衝動型 (赤)",
+    "rarity": 5,
+    "troopType": "内政",
+    "skillEffect": "訓練速度 100 / スタミナ消費ダウン 28 / 訓練コストダウン 28",
+    "skillItems": [
+      {
+        "itemName": "訓練速度",
+        "itemValue": "100"
+      },
+      {
+        "itemName": "スタミナ消費ダウン",
+        "itemValue": "28"
+      },
+      {
+        "itemName": "訓練コストダウン",
+        "itemValue": "28"
+      }
+    ],
+    "weaponName": "デザートマグナム",
+    "weaponStats0": "建造速度 +50%",
+    "weaponStats2": "病院治療速度 +50%",
+    "weaponStats4": "研究速度 +50%",
+    "weaponStats6": "訓練速度 +100％",
+    "weaponStats8": "訓練速度 +100％"
+  },
+  {
     "id": "CUSTOM-1780511645431",
     "name": "アトムズ",
     "element": "勇敢型 (緑)",
