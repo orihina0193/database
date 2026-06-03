@@ -1,5 +1,33 @@
 [
   {
+    "id": "CUSTOM-1780530889514",
+    "name": "エンジェル",
+    "element": "勇敢型 (緑)",
+    "rarity": 5,
+    "troopType": "ライダー",
+    "skillEffect": "ライダーATK 350 / シューターATK 350 / 部隊DEF 350",
+    "skillItems": [
+      {
+        "itemName": "ライダーATK",
+        "itemValue": "350"
+      },
+      {
+        "itemName": "シューターATK",
+        "itemValue": "350"
+      },
+      {
+        "itemName": "部隊DEF",
+        "itemValue": "350"
+      }
+    ],
+    "weaponName": "軽量バッグ",
+    "weaponStats0": "ライダーHP +200%",
+    "weaponStats2": "シューターHP +200%",
+    "weaponStats4": "部隊DEF +100%",
+    "weaponStats6": "ライダーATK +200％,シューターATK +200％",
+    "weaponStats8": "部隊ATK +100％"
+  },
+  {
     "id": "CUSTOM-1780530634282",
     "name": "アンナ",
     "element": "冷静型 (青)",
@@ -80,7 +108,7 @@
     "weaponStats0": "部隊DEF +100%",
     "weaponStats2": "部隊HP +100%",
     "weaponStats4": "部隊ATK +100%",
-    "weaponStats6": "味方ライダーが敵方ファイターに対するだダメージ+30％",
+    "weaponStats6": "味方ライダーが敵方ファイターに対するダメージ+30％",
     "weaponStats8": "部隊DEF +100％"
   },
   {
