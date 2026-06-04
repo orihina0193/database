@@ -33,19 +33,19 @@
     "element": "冷静型 (青)",
     "rarity": 5,
     "troopType": "内政",
-    "skillEffect": "ファイターATK(パッシブ) - / ライダーATK(パッシブ) - / シューターATK(パッシブ) -",
+    "skillEffect": "ファイターATK(パッシブ) 200 / ライダーATK(パッシブ) 200 / シューターATK(パッシブ) 200",
     "skillItems": [
       {
         "itemName": "ファイターATK(パッシブ)",
-        "itemValue": "-"
+        "itemValue": "200"
       },
       {
         "itemName": "ライダーATK(パッシブ)",
-        "itemValue": "-"
+        "itemValue": "200"
       },
       {
         "itemName": "シューターATK(パッシブ)",
-        "itemValue": "-"
+        "itemValue": "200"
       }
     ],
     "weaponName": "サンダーウィップ",
