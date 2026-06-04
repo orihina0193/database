@@ -1,5 +1,33 @@
 [
   {
+    "id": "CUSTOM-1780534452625",
+    "name": "アマンダ",
+    "element": "狂乱型 (紫)",
+    "rarity": 5,
+    "troopType": "内政",
+    "skillEffect": "採集進軍速度 100 / 治療時鋼材消費 ー 36 / ギャザー規模 500,000",
+    "skillItems": [
+      {
+        "itemName": "採集進軍速度",
+        "itemValue": "100"
+      },
+      {
+        "itemName": "治療時鋼材消費 ー",
+        "itemValue": "36"
+      },
+      {
+        "itemName": "ギャザー規模",
+        "itemValue": "500,000"
+      }
+    ],
+    "weaponName": "リモコン爆弾",
+    "weaponStats0": "ギャザー規模 +50,000",
+    "weaponStats2": "ギャザー部隊HP +150%",
+    "weaponStats4": "ギャザー部隊DEF +150%",
+    "weaponStats6": "ギャザー部隊ATK +200％",
+    "weaponStats8": "ギャザー部隊ATK +200％"
+  },
+  {
     "id": "CUSTOM-1780534103310",
     "name": "マーク",
     "element": "慎重型 (黄)",
