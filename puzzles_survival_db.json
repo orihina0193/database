@@ -1,5 +1,121 @@
 [
   {
+    "id": "CUSTOM-1780553718883",
+    "name": "センベロ",
+    "element": "勇敢型 (緑)",
+    "rarity": 5,
+    "troopType": "内政",
+    "skillEffect": "部隊HP（パッシブ） 250 / 部隊DEF（パッシブ） 250 / 部隊ATK(パッシブ) 250",
+    "skillItems": [
+      {
+        "itemName": "部隊HP（パッシブ）",
+        "itemValue": "250"
+      },
+      {
+        "itemName": "部隊DEF（パッシブ）",
+        "itemValue": "250"
+      },
+      {
+        "itemName": "部隊ATK(パッシブ)",
+        "itemValue": "250"
+      }
+    ],
+    "weaponName": "ステルスダガー",
+    "weaponStats0": "部隊DEF +100%",
+    "weaponStats2": "部隊HP +100%",
+    "weaponStats4": "部隊ATK +100%",
+    "weaponStats6": "部隊ATK +150%",
+    "weaponStats8": "部隊HP +100%"
+  },
+  {
+    "id": "CUSTOM-1780553493891",
+    "name": "バンブルビー",
+    "element": "慎重型 (黄)",
+    "rarity": 5,
+    "troopType": "内政",
+    "skillEffect": "部隊HP（パッシブ） 250 / 部隊DEF（パッシブ） 250 / 部隊ATK(パッシブ) 250",
+    "skillItems": [
+      {
+        "itemName": "部隊HP（パッシブ）",
+        "itemValue": "250"
+      },
+      {
+        "itemName": "部隊DEF（パッシブ）",
+        "itemValue": "250"
+      },
+      {
+        "itemName": "部隊ATK(パッシブ)",
+        "itemValue": "250"
+      }
+    ],
+    "weaponName": "スティンガー",
+    "weaponStats0": "部隊DEF +100%",
+    "weaponStats2": "部隊HP +100%",
+    "weaponStats4": "部隊ATK +100%",
+    "weaponStats6": "部隊ATK +150%",
+    "weaponStats8": "部隊HP +100%"
+  },
+  {
+    "id": "CUSTOM-1780553298686",
+    "name": "ジェロ",
+    "element": "衝動型 (赤)",
+    "rarity": 5,
+    "troopType": "シューター",
+    "skillEffect": "シューターATK 500 / ファイターATK 500 / 部隊DEF 500 / 部隊HP 500",
+    "skillItems": [
+      {
+        "itemName": "シューターATK",
+        "itemValue": "500"
+      },
+      {
+        "itemName": "ファイターATK",
+        "itemValue": "500"
+      },
+      {
+        "itemName": "部隊DEF",
+        "itemValue": "500"
+      },
+      {
+        "itemName": "部隊HP",
+        "itemValue": "500"
+      }
+    ],
+    "weaponName": "衝撃の刃",
+    "weaponStats0": "シューターHP +200%",
+    "weaponStats2": "ファイターHP +200%",
+    "weaponStats4": "部隊DEF +100%",
+    "weaponStats6": "ファイターATK +200％,シューターATK +200％",
+    "weaponStats8": "部隊ATK +100％"
+  },
+  {
+    "id": "CUSTOM-1780552839925",
+    "name": "ゼイン・リーブス",
+    "element": "冷静型 (青)",
+    "rarity": 5,
+    "troopType": "ライダー",
+    "skillEffect": "ライダーHP 750 / ライダーDEF 750 / ライダーATK 750",
+    "skillItems": [
+      {
+        "itemName": "ライダーHP",
+        "itemValue": "750"
+      },
+      {
+        "itemName": "ライダーDEF",
+        "itemValue": "750"
+      },
+      {
+        "itemName": "ライダーATK",
+        "itemValue": "750"
+      }
+    ],
+    "weaponName": "シャドウガン",
+    "weaponStats0": "ライダーHP +200％",
+    "weaponStats2": "シューターHP +200%",
+    "weaponStats4": "部隊DEF +100%",
+    "weaponStats6": "シューターATK +200％,ライダーATK +200％",
+    "weaponStats8": "部隊ATK +100％"
+  },
+  {
     "id": "CUSTOM-1780552575933",
     "name": "エイミー",
     "element": "狂乱型 (紫)",
