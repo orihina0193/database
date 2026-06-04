@@ -1,5 +1,33 @@
 [
   {
+    "id": "CUSTOM-1780534830441",
+    "name": "羽生一郎",
+    "element": "冷静型 (青)",
+    "rarity": 5,
+    "troopType": "ファイター",
+    "skillEffect": "ファイターATK 350 / ライダーATK 350 / 部隊DEF 350",
+    "skillItems": [
+      {
+        "itemName": "ファイターATK",
+        "itemValue": "350"
+      },
+      {
+        "itemName": "ライダーATK",
+        "itemValue": "350"
+      },
+      {
+        "itemName": "部隊DEF",
+        "itemValue": "350"
+      }
+    ],
+    "weaponName": "多機能登山用斧",
+    "weaponStats0": "ファイターHP +200%",
+    "weaponStats2": "ライダーHP +200%",
+    "weaponStats4": "部隊DEF +100%",
+    "weaponStats6": "ファイターATK +200％,ライダーATK +200％",
+    "weaponStats8": "部隊ATK +100％"
+  },
+  {
     "id": "CUSTOM-1780534452625",
     "name": "アマンダ",
     "element": "狂乱型 (紫)",
