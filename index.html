@@ -880,36 +880,56 @@
         'ギャザー部隊ATK'
       ];
 
-      const distinctNames = new Set(DEFAULT_SKILL_ITEM_NAMES);
+      const customNames = new Set();
       rawCharacters.forEach(char => {
         if (char.skillItems && Array.isArray(char.skillItems)) {
           char.skillItems.forEach(item => {
-            if (item.itemName && item.itemName.trim()) {
-              distinctNames.add(item.itemName.trim());
+            const name = (item.itemName || '').trim();
+            if (name && !DEFAULT_SKILL_ITEM_NAMES.includes(name)) {
+              customNames.add(name);
             }
           });
         }
       });
 
-      const sortedNames = Array.from(distinctNames).sort();
+      const sortedCustomNames = Array.from(customNames).sort();
       
-      // 1. Filter dropdown selector
+      // 1. Filter dropdown selector using optgroup for great UX
       const select = document.getElementById('skill-item-select');
       if (select) {
         select.innerHTML = '<option value="all">すべての効果項目</option>';
-        sortedNames.forEach(name => {
+        
+        // Group 1: Standard Major Stats
+        const groupMajor = document.createElement('optgroup');
+        groupMajor.label = '🎯 主要効果 (軍団・ウェポン横断検索)';
+        DEFAULT_SKILL_ITEM_NAMES.forEach(name => {
           const option = document.createElement('option');
           option.value = name;
           option.innerText = name;
-          select.appendChild(option);
+          groupMajor.appendChild(option);
         });
+        select.appendChild(groupMajor);
+
+        // Group 2: Special unique skills
+        if (sortedCustomNames.length > 0) {
+          const groupSpecial = document.createElement('optgroup');
+          groupSpecial.label = '🛡️ その他固有・特殊効果 (軍団スキルから抽出)';
+          sortedCustomNames.forEach(name => {
+            const option = document.createElement('option');
+            option.value = name;
+            option.innerText = name;
+            groupSpecial.appendChild(option);
+          });
+          select.appendChild(groupSpecial);
+        }
       }
 
       // 2. Editor input helper datalist
+      const allSortedNames = [...DEFAULT_SKILL_ITEM_NAMES, ...sortedCustomNames].sort();
       const datalist = document.getElementById('skill-item-names-datalist');
       if (datalist) {
         datalist.innerHTML = '';
-        sortedNames.forEach(name => {
+        allSortedNames.forEach(name => {
           const option = document.createElement('option');
           option.value = name;
           datalist.appendChild(option);
@@ -929,7 +949,7 @@
           emptyOpt.innerText = '(未設定/なし)';
           selectEl.appendChild(emptyOpt);
 
-          sortedNames.forEach(name => {
+          allSortedNames.forEach(name => {
             if (name && name.trim() !== '') {
               const opt = document.createElement('option');
               opt.value = name;
@@ -994,9 +1014,53 @@
         const elementMatch = currentElementFilter === 'all' || char.element === currentElementFilter;
         const rarityMatch = rarityFilter === 'all' || char.rarity.toString() === rarityFilter;
         
-        const skillItemMatch = skillItemFilter === 'all' || (char.skillItems && char.skillItems.some(i => 
-          i.itemName === skillItemFilter && i.itemValue && i.itemValue !== '-' && i.itemValue.trim() !== ''
-        ));
+        let skillItemMatch = true;
+        if (skillItemFilter !== 'all') {
+          // エイリアスマッピング
+          const aliasesMap = {
+            '部隊ATK': ['部隊atk', '部隊攻撃', '全部種攻撃', '全部種atk', '軍団atk', '軍団攻撃'],
+            '部隊DEF': ['部隊def', '部隊防御', '全部種防御', '全部種def', '軍団def', '軍団防御'],
+            '部隊HP': ['部隊hp', '全部種hp', '軍団hp', '部隊ｈｐ'],
+            'ファイターATK': ['ファイターatk', 'ファイター攻撃'],
+            'ファイターDEF': ['ファイターdef', 'ファイター防御'],
+            'ファイターHP': ['ファイターhp'],
+            'ライダーATK': ['ライダーatk', 'ライダー攻撃'],
+            'ライダーDEF': ['ライダーdef', 'ライダー防御'],
+            'ライダーHP': ['ライダーhp'],
+            'シューターATK': ['シューターatk', 'シューター攻撃'],
+            'シューターDEF': ['シューターdef', 'シューター防御'],
+            'シューターHP': ['シューターhp'],
+            '部隊規模': ['部隊規模', '最大部隊規模'],
+            'ギャザー規模': ['ギャザー規模', '対ギャザー規模', 'ギャザー最大規模'],
+            'ギャザー部隊ATK': ['ギャザー部隊atk', 'ギャザーatk', '対ギャザーatk', '対ギャザー攻撃']
+          };
+
+          const activeTerms = aliasesMap[skillItemFilter] || [skillItemFilter.toLowerCase()];
+          
+          // A: 軍団スキル
+          const matchedInSkill = char.skillItems && char.skillItems.some(item => {
+            const nameLower = (item.itemName || '').toLowerCase();
+            const valLower = (item.itemValue || '').toLowerCase();
+            const hasValue = valLower && valLower !== '-' && valLower.trim() !== '';
+            return hasValue && activeTerms.some(term => nameLower.includes(term));
+          });
+
+          // B: 専属ウェポン
+          let matchedInWeapon = false;
+          if (char.weaponName) {
+            const weaponTextCombined = [
+              char.weaponStats0,
+              char.weaponStats2,
+              char.weaponStats4,
+              char.weaponStats6,
+              char.weaponStats8
+            ].map(txt => (txt || '').toLowerCase()).join(' ');
+
+            matchedInWeapon = activeTerms.some(term => weaponTextCombined.includes(term));
+          }
+
+          skillItemMatch = matchedInSkill || matchedInWeapon;
+        }
 
         return queryMatch && elementMatch && rarityMatch && skillItemMatch;
       });
