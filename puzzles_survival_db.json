@@ -1,5 +1,177 @@
 [
   {
+    "id": "CUSTOM-1780555181536",
+    "name": "ジェニー",
+    "element": "衝動型 (赤)",
+    "rarity": 5,
+    "troopType": "内政",
+    "skillEffect": "部隊HP（パッシブ） - / 部隊DEF（パッシブ） - / 部隊ATK(パッシブ) -",
+    "skillItems": [
+      {
+        "itemName": "部隊HP（パッシブ）",
+        "itemValue": "-"
+      },
+      {
+        "itemName": "部隊DEF（パッシブ）",
+        "itemValue": "-"
+      },
+      {
+        "itemName": "部隊ATK(パッシブ)",
+        "itemValue": "-"
+      }
+    ],
+    "weaponName": "天罰擲弾発射器",
+    "weaponStats0": "部隊DEF +100%",
+    "weaponStats2": "部隊HP +100%",
+    "weaponStats4": "部隊ATK +100%",
+    "weaponStats6": "部隊ATK +150%",
+    "weaponStats8": "部隊HP +100%"
+  },
+  {
+    "id": "CUSTOM-1780554744396",
+    "name": "綾音",
+    "element": "慎重型 (黄)",
+    "rarity": 5,
+    "troopType": "内政",
+    "skillEffect": "部隊HP（パッシブ） 125 / 部隊DEF（パッシブ） 125 / 部隊ATK(パッシブ) 125",
+    "skillItems": [
+      {
+        "itemName": "部隊HP（パッシブ）",
+        "itemValue": "125"
+      },
+      {
+        "itemName": "部隊DEF（パッシブ）",
+        "itemValue": "125"
+      },
+      {
+        "itemName": "部隊ATK(パッシブ)",
+        "itemValue": "125"
+      }
+    ],
+    "weaponName": "プラズマキャノン",
+    "weaponStats0": "部隊DEF +100%",
+    "weaponStats2": "部隊HP +100%",
+    "weaponStats4": "部隊ATK +100%",
+    "weaponStats6": "部隊ATK +150%",
+    "weaponStats8": "部隊HP +100%"
+  },
+  {
+    "id": "CUSTOM-1780554607312",
+    "name": "無心",
+    "element": "慎重型 (黄)",
+    "rarity": 5,
+    "troopType": "内政",
+    "skillEffect": "部隊HP（パッシブ） 125 / 部隊DEF（パッシブ） 125 / 部隊ATK(パッシブ) 125",
+    "skillItems": [
+      {
+        "itemName": "部隊HP（パッシブ）",
+        "itemValue": "125"
+      },
+      {
+        "itemName": "部隊DEF（パッシブ）",
+        "itemValue": "125"
+      },
+      {
+        "itemName": "部隊ATK(パッシブ)",
+        "itemValue": "125"
+      }
+    ],
+    "weaponName": "マスターケイン",
+    "weaponStats0": "部隊DEF +100%",
+    "weaponStats2": "部隊HP +100%",
+    "weaponStats4": "部隊ATK +100%",
+    "weaponStats6": "部隊ATK +150%",
+    "weaponStats8": "部隊HP +100％"
+  },
+  {
+    "id": "CUSTOM-1780554329239",
+    "name": "ナイトハンター",
+    "element": "勇敢型 (緑)",
+    "rarity": 5,
+    "troopType": "シューター",
+    "skillEffect": "シューターHP 750 / シューターDEF 750 / シューターATK 750",
+    "skillItems": [
+      {
+        "itemName": "シューターHP",
+        "itemValue": "750"
+      },
+      {
+        "itemName": "シューターDEF",
+        "itemValue": "750"
+      },
+      {
+        "itemName": "シューターATK",
+        "itemValue": "750"
+      }
+    ],
+    "weaponName": "ファルコンクロスボウ",
+    "weaponStats0": "シューターHP +200%",
+    "weaponStats2": "ファイターHP +200％",
+    "weaponStats4": "部隊DEF +100%",
+    "weaponStats6": "ファイターATK +200％,シューターATK +200％",
+    "weaponStats8": "部隊ATK +100％"
+  },
+  {
+    "id": "CUSTOM-1780554068059",
+    "name": "セリン",
+    "element": "狂乱型 (紫)",
+    "rarity": 5,
+    "troopType": "ファイター",
+    "skillEffect": "ファイターATK 500 / ライダーATK 500 / 部隊DEF 500 / 部隊HP 500",
+    "skillItems": [
+      {
+        "itemName": "ファイターATK",
+        "itemValue": "500"
+      },
+      {
+        "itemName": "ライダーATK",
+        "itemValue": "500"
+      },
+      {
+        "itemName": "部隊DEF",
+        "itemValue": "500"
+      },
+      {
+        "itemName": "部隊HP",
+        "itemValue": "500"
+      }
+    ],
+    "weaponName": "チャージグローブ",
+    "weaponStats0": "ファイターHP +200%",
+    "weaponStats2": "ライダーHP +200%",
+    "weaponStats4": "部隊DEF +100%",
+    "weaponStats6": "ライダーATK +200％,ファイターATK +200％",
+    "weaponStats8": "部隊ATK 100％"
+  },
+  {
+    "id": "CUSTOM-1780553887703",
+    "name": "マーカス",
+    "element": "慎重型 (黄)",
+    "rarity": 5,
+    "troopType": "内政",
+    "skillEffect": "部隊HP（パッシブ） 250 / 部隊DEF（パッシブ） 250 / 部隊ATK(パッシブ) 250",
+    "skillItems": [
+      {
+        "itemName": "部隊HP（パッシブ）",
+        "itemValue": "250"
+      },
+      {
+        "itemName": "部隊DEF（パッシブ）",
+        "itemValue": "250"
+      },
+      {
+        "itemName": "部隊ATK(パッシブ)",
+        "itemValue": "250"
+      }
+    ],
+    "weaponName": "精密懐中時計",
+    "weaponStats0": "部隊DEF +100%",
+    "weaponStats2": "部隊HP +100%",
+    "weaponStats4": "部隊ATK +100%",
+    "weaponStats6": "部隊ATK +150%",
+    "weaponStats8": "部隊HP +100%"
+  },
+  {
     "id": "CUSTOM-1780553718883",
     "name": "センベロ",
     "element": "勇敢型 (緑)",
