@@ -1,5 +1,33 @@
 [
   {
+    "id": "CUSTOM-1780533313873",
+    "name": "リア",
+    "element": "衝動型 (赤)",
+    "rarity": 5,
+    "troopType": "内政",
+    "skillEffect": "病院治療速度 100 / 治療時ガス消費 － 36 / 部隊規模 55,000",
+    "skillItems": [
+      {
+        "itemName": "病院治療速度",
+        "itemValue": "100"
+      },
+      {
+        "itemName": "治療時ガス消費 －",
+        "itemValue": "36"
+      },
+      {
+        "itemName": "部隊規模",
+        "itemValue": "55,000"
+      }
+    ],
+    "weaponName": "アキュラドローン",
+    "weaponStats0": "部隊DEF +100%",
+    "weaponStats2": "部隊HP +100%",
+    "weaponStats4": "部隊規模 +10,000",
+    "weaponStats6": "部隊規模 +15,000",
+    "weaponStats8": "部隊ATK +100％"
+  },
+  {
     "id": "CUSTOM-1780533032820",
     "name": "アイリス",
     "element": "狂乱型 (紫)",
