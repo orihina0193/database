@@ -1,5 +1,33 @@
 [
   {
+    "id": "CUSTOM-1780535284349",
+    "name": "ナターシャ",
+    "element": "勇敢型 (緑)",
+    "rarity": 5,
+    "troopType": "ファイター",
+    "skillEffect": "ファイターATK 350 / シューターATK 350 / 部隊DEF 350",
+    "skillItems": [
+      {
+        "itemName": "ファイターATK",
+        "itemValue": "350"
+      },
+      {
+        "itemName": "シューターATK",
+        "itemValue": "350"
+      },
+      {
+        "itemName": "部隊DEF",
+        "itemValue": "350"
+      }
+    ],
+    "weaponName": "クリーチャーフォースジェネレータ",
+    "weaponStats0": "ファイターHP +200%",
+    "weaponStats2": "シューターHP +200％",
+    "weaponStats4": "部隊DEF +100%",
+    "weaponStats6": "ファイターATK +200％,シューターATK +200％",
+    "weaponStats8": "部隊ATK +100％"
+  },
+  {
     "id": "CUSTOM-1780535045742",
     "name": "南川律",
     "element": "勇敢型 (緑)",
