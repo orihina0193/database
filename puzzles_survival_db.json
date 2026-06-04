@@ -1,5 +1,205 @@
 [
   {
+    "id": "CUSTOM-1780570765583",
+    "name": "千代紅葉",
+    "element": "冷静型 (青)",
+    "rarity": 5,
+    "troopType": "シューター",
+    "skillEffect": "シューターHP - / シューターDEF - / シューターATK -",
+    "skillItems": [
+      {
+        "itemName": "シューターHP",
+        "itemValue": "-"
+      },
+      {
+        "itemName": "シューターDEF",
+        "itemValue": "-"
+      },
+      {
+        "itemName": "シューターATK",
+        "itemValue": "-"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
+    "id": "CUSTOM-1780570703156",
+    "name": "カジシャ",
+    "element": "冷静型 (青)",
+    "rarity": 5,
+    "troopType": "ライダー",
+    "skillEffect": "ライダーATK 500 / シューターATK 500 / 部隊DEF 500 / 部隊HP 500",
+    "skillItems": [
+      {
+        "itemName": "ライダーATK",
+        "itemValue": "500"
+      },
+      {
+        "itemName": "シューターATK",
+        "itemValue": "500"
+      },
+      {
+        "itemName": "部隊DEF",
+        "itemValue": "500"
+      },
+      {
+        "itemName": "部隊HP",
+        "itemValue": "500"
+      }
+    ],
+    "weaponName": "エネルギーレールガン",
+    "weaponStats0": "ライダーHP +200％",
+    "weaponStats2": "シューターHP +200%",
+    "weaponStats4": "部隊DEF +100%",
+    "weaponStats6": "シューターATK +200％,ライダーATK +200％",
+    "weaponStats8": "部隊ATK +100％"
+  },
+  {
+    "id": "CUSTOM-1780570486535",
+    "name": "アーサー・マウントバッテン",
+    "element": "狂乱型 (紫)",
+    "rarity": 5,
+    "troopType": "ライダー",
+    "skillEffect": "ライダーHP 750 / ライダーDEF 750 / ライダーATK 750",
+    "skillItems": [
+      {
+        "itemName": "ライダーHP",
+        "itemValue": "750"
+      },
+      {
+        "itemName": "ライダーDEF",
+        "itemValue": "750"
+      },
+      {
+        "itemName": "ライダーATK",
+        "itemValue": "750"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
+    "id": "CUSTOM-1780570373807",
+    "name": "ルナ",
+    "element": "冷静型 (青)",
+    "rarity": 5,
+    "troopType": "内政",
+    "skillEffect": "部隊HP（パッシブ） 250 / 部隊DEF（パッシブ） 250 / 部隊ATK(パッシブ) 250",
+    "skillItems": [
+      {
+        "itemName": "部隊HP（パッシブ）",
+        "itemValue": "250"
+      },
+      {
+        "itemName": "部隊DEF（パッシブ）",
+        "itemValue": "250"
+      },
+      {
+        "itemName": "部隊ATK(パッシブ)",
+        "itemValue": "250"
+      }
+    ],
+    "weaponName": "メカぬいぐるみ",
+    "weaponStats0": "部隊DEF +100%",
+    "weaponStats2": "部隊HP +100%",
+    "weaponStats4": "部隊ATK +100%",
+    "weaponStats6": "部隊ATK +150%",
+    "weaponStats8": "部隊HP +100%"
+  },
+  {
+    "id": "CUSTOM-1780570252719",
+    "name": "ローレン・スミス",
+    "element": "狂乱型 (紫)",
+    "rarity": 5,
+    "troopType": "内政",
+    "skillEffect": "部隊HP（パッシブ） 125 / 部隊DEF（パッシブ） 125 / 部隊ATK(パッシブ) 125",
+    "skillItems": [
+      {
+        "itemName": "部隊HP（パッシブ）",
+        "itemValue": "125"
+      },
+      {
+        "itemName": "部隊DEF（パッシブ）",
+        "itemValue": "125"
+      },
+      {
+        "itemName": "部隊ATK(パッシブ)",
+        "itemValue": "125"
+      }
+    ],
+    "weaponName": "ゴーグル",
+    "weaponStats0": "部隊DEF +100%",
+    "weaponStats2": "部隊HP +100%",
+    "weaponStats4": "部隊ATK +100%",
+    "weaponStats6": "部隊ATK +150%",
+    "weaponStats8": "部隊HP +100%"
+  },
+  {
+    "id": "CUSTOM-1780570146939",
+    "name": "ケイラ・ロドリゲス",
+    "element": "勇敢型 (緑)",
+    "rarity": 5,
+    "troopType": "ファイター",
+    "skillEffect": "ファイターHP 750 / ファイターDEF 750 / ファイターATK 750",
+    "skillItems": [
+      {
+        "itemName": "ファイターHP",
+        "itemValue": "750"
+      },
+      {
+        "itemName": "ファイターDEF",
+        "itemValue": "750"
+      },
+      {
+        "itemName": "ファイターATK",
+        "itemValue": "750"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
+    "id": "CUSTOM-1780569989648",
+    "name": "スタースクリーム",
+    "element": "衝動型 (赤)",
+    "rarity": 5,
+    "troopType": "ファイター",
+    "skillEffect": "部隊HP（パッシブ） 250 / 部隊DEF（パッシブ） 250 / 部隊ATK(パッシブ) 250",
+    "skillItems": [
+      {
+        "itemName": "部隊HP（パッシブ）",
+        "itemValue": "250"
+      },
+      {
+        "itemName": "部隊DEF（パッシブ）",
+        "itemValue": "250"
+      },
+      {
+        "itemName": "部隊ATK(パッシブ)",
+        "itemValue": "250"
+      }
+    ],
+    "weaponName": "トリックスタッフ",
+    "weaponStats0": "部隊DEF +100%",
+    "weaponStats2": "部隊HP +100%",
+    "weaponStats4": "部隊ATK +100%",
+    "weaponStats6": "部隊ATK +150%",
+    "weaponStats8": "部隊HP +100%"
+  },
+  {
     "id": "CUSTOM-1780557198820",
     "name": "ドンドン7号",
     "element": "狂乱型 (紫)",
@@ -76,7 +276,7 @@
         "itemValue": "250"
       }
     ],
-    "weaponName": "トリックスタッフ",
+    "weaponName": "デストロウィング",
     "weaponStats0": "部隊DEF +100%",
     "weaponStats2": "部隊HP +100%",
     "weaponStats4": "部隊ATK +100%",
