@@ -172,16 +172,38 @@
         </button>
       </div>
 
-      <!-- 詳細絞り込み (軍団効果項目) -->
-      <div class="border-t border-slate-100 pt-2.5">
-        <div class="flex items-center gap-2">
-          <span class="text-[11px] font-bold text-slate-400 uppercase font-mono shrink-0">効果項目:</span>
-          <select
-            id="skill-item-select"
-            class="w-full bg-slate-50 border border-slate-200 px-2.5 py-1.5 rounded-xl text-[11px] font-bold text-slate-700 cursor-pointer focus:outline-none"
-          >
-            <option value="all">すべての効果項目</option>
-          </select>
+      <!-- 詳細絞り込み (カテゴリ＆チップ選択式) -->
+      <div class="border-t border-slate-100 pt-2.5 space-y-2">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-[11px] font-bold text-slate-400 uppercase font-mono shrink-0 flex items-center gap-1">
+            <i data-lucide="shield" class="w-3.5 h-3.5 text-indigo-500"></i>
+            効果カテゴリ:
+          </span>
+          <div class="flex flex-wrap gap-1">
+            <button onclick="setSkillCategory('all')" id="cat-pill-all" class="cat-pill bg-indigo-600 text-white border-indigo-600 px-2.5 py-1 rounded-full text-[10px] font-bold border transition-all cursor-pointer shadow-3xs" data-category="all">
+              すべて (フィルターなし)
+            </button>
+            <button onclick="setSkillCategory('troop')" id="cat-pill-troop" class="cat-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[10px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs" data-category="troop">
+              部隊・ギャザー
+            </button>
+            <button onclick="setSkillCategory('fighter')" id="cat-pill-fighter" class="cat-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[10px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs" data-category="fighter">
+              ファイター
+            </button>
+            <button onclick="setSkillCategory('shooter')" id="cat-pill-shooter" class="cat-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[10px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs" data-category="shooter">
+              シューター
+            </button>
+            <button onclick="setSkillCategory('rider')" id="cat-pill-rider" class="cat-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[10px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs" data-category="rider">
+              ライダー
+            </button>
+            <button onclick="setSkillCategory('special')" id="cat-pill-special" class="cat-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[10px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs" data-category="special">
+              固有・特殊効果
+            </button>
+          </div>
+        </div>
+
+        <!-- チップコンテナ（カテゴリごとに対応するステータスボタンが並ぶ） -->
+        <div id="skill-chips-container" class="flex flex-wrap gap-1.5 pt-0.5 min-h-[30px] items-center">
+          <!-- JSで動的にマウント -->
         </div>
       </div>
 
@@ -609,6 +631,8 @@
     // State
     let rawCharacters = [];
     let currentElementFilter = 'all';
+    let selectedSkillCategory = 'all';
+    let selectedSkillItem = 'all';
     let dbConfig = {
       owner: '',
       repo: '',
@@ -676,7 +700,116 @@
       // Bind dynamic input filters
       document.getElementById('search-box').addEventListener('input', renderCharacters);
       document.getElementById('sort-select').addEventListener('change', renderCharacters);
-      document.getElementById('skill-item-select').addEventListener('change', renderCharacters);
+      
+      // Initialize interactive chips
+      setSkillCategory('all');
+    }
+
+    // カテゴリ選択の切り替え
+    function setSkillCategory(cat) {
+      selectedSkillCategory = cat;
+      selectedSkillItem = 'all'; // カテゴリ変更時は項目選択を初期化
+
+      // ALLカテゴリピルのデザイン更新
+      document.querySelectorAll('.cat-pill').forEach(btn => {
+        if (btn.getAttribute('data-category') === cat) {
+          btn.classList.add('bg-indigo-600', 'text-white', 'border-indigo-600');
+          btn.classList.remove('bg-white', 'text-slate-700', 'border-slate-200');
+        } else {
+          btn.classList.remove('bg-indigo-600', 'text-white', 'border-indigo-600');
+          btn.classList.add('bg-white', 'text-slate-700', 'border-slate-200');
+        }
+      });
+
+      // 選択カテゴリにあてはまる個別チップを生成
+      renderSkillChips();
+      // 再描画
+      renderCharacters();
+    }
+
+    // 各カテゴリに合わせた具体的なステータスボタン(チップ)を動的に描画
+    function renderSkillChips() {
+      const container = document.getElementById('skill-chips-container');
+      if (!container) return;
+      container.innerHTML = '';
+
+      // カテゴリごとにマッピングする固定項目リスト
+      const groupMap = {
+        'all': [],
+        'troop': ['部隊ATK', '部隊DEF', '部隊HP', '部隊規模', 'ギャザー規模', 'ギャザー部隊ATK'],
+        'fighter': ['ファイターATK', 'ファイターDEF', 'ファイターHP'],
+        'shooter': ['シューターATK', 'シューターDEF', 'シューターHP'],
+        'rider': ['ライダーATK', 'ライダーDEF', 'ライダーHP']
+      };
+
+      let itemsToShow = [];
+      if (selectedSkillCategory === 'all') {
+        // 「すべて」の時は主要な主要ステータスを並べる
+        itemsToShow = [
+          '部隊ATK', '部隊DEF', '部隊HP', '部隊規模',
+          'ファイターATK', 'シューターATK', 'ライダーATK'
+        ];
+      } else if (selectedSkillCategory === 'special') {
+        // 「特殊効果」の時は、DEFAULT_SKILL_ITEM_NAMES 以外のデータベースに登録されている全固有テキストを抽出
+        const DEFAULT_SKILL_ITEM_NAMES = [
+          '部隊ATK', '部隊DEF', '部隊HP', 'ファイターATK', 'ファイターDEF', 'ファイターHP',
+          'ライダーATK', 'ライダーDEF', 'ライダーHP', 'シューターATK', 'シューターDEF', 'シューターHP',
+          '部隊規模', 'ギャザー規模', 'ギャザー部隊ATK'
+        ];
+        const customSet = new Set();
+        rawCharacters.forEach(char => {
+          if (char.skillItems && Array.isArray(char.skillItems)) {
+            char.skillItems.forEach(item => {
+              const name = (item.itemName || '').trim();
+              if (name && !DEFAULT_SKILL_ITEM_NAMES.includes(name)) {
+                customSet.add(name);
+              }
+            });
+          }
+        });
+        itemsToShow = Array.from(customSet).sort();
+      } else {
+        itemsToShow = groupMap[selectedSkillCategory] || [];
+      }
+
+      // 「すべて」を表すデフォルト枠を先頭に追加（カテゴリ別フィルタのクリアに相当）
+      const allOptionBtn = document.createElement('button');
+      allOptionBtn.onclick = () => setSkillItem('all');
+      const isAllSelected = selectedSkillItem === 'all';
+      
+      allOptionBtn.className = `px-2.5 py-1 text-[10px] sm:text-[11px] font-bold rounded-lg border transition-all cursor-pointer ${
+        isAllSelected 
+          ? 'bg-slate-800 text-white border-slate-800' 
+          : 'bg-slate-100 border-slate-200 text-slate-500 hover:bg-slate-200 hover:text-slate-800'
+      }`;
+      allOptionBtn.innerText = '指定なし';
+      container.appendChild(allOptionBtn);
+
+      // 個別のボタンを描画
+      itemsToShow.forEach(name => {
+        const btn = document.createElement('button');
+        btn.onclick = () => setSkillItem(name);
+        
+        const isSelected = selectedSkillItem === name;
+        btn.className = `px-2.5 py-1 text-[10px] sm:text-[11px] font-bold rounded-lg border transition-all cursor-pointer ${
+          isSelected 
+            ? 'bg-indigo-600 text-white border-indigo-600 shadow-3xs scale-[1.02]' 
+            : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300'
+        }`;
+        btn.innerText = name;
+        container.appendChild(btn);
+      });
+    }
+
+    // 個別ステータス項目の選択
+    function setSkillItem(itemName) {
+      if (selectedSkillItem === itemName) {
+        selectedSkillItem = 'all'; // すでに選択中ならトグルで解除
+      } else {
+        selectedSkillItem = itemName;
+      }
+      renderSkillChips(); // チップの見た目（アクティブ状態）を更新
+      renderCharacters(); // リストを絞り込んで再描画
     }
 
     // Recover locally if GitHub unavailable
@@ -894,35 +1027,8 @@
 
       const sortedCustomNames = Array.from(customNames).sort();
       
-      // 1. Filter dropdown selector using optgroup for great UX
-      const select = document.getElementById('skill-item-select');
-      if (select) {
-        select.innerHTML = '<option value="all">すべての効果項目</option>';
-        
-        // Group 1: Standard Major Stats
-        const groupMajor = document.createElement('optgroup');
-        groupMajor.label = '🎯 主要効果 (軍団・ウェポン横断検索)';
-        DEFAULT_SKILL_ITEM_NAMES.forEach(name => {
-          const option = document.createElement('option');
-          option.value = name;
-          option.innerText = name;
-          groupMajor.appendChild(option);
-        });
-        select.appendChild(groupMajor);
-
-        // Group 2: Special unique skills
-        if (sortedCustomNames.length > 0) {
-          const groupSpecial = document.createElement('optgroup');
-          groupSpecial.label = '🛡️ その他固有・特殊効果 (軍団スキルから抽出)';
-          sortedCustomNames.forEach(name => {
-            const option = document.createElement('option');
-            option.value = name;
-            option.innerText = name;
-            groupSpecial.appendChild(option);
-          });
-          select.appendChild(groupSpecial);
-        }
-      }
+      // 1. Update active tags/chips view in case character database changed
+      renderSkillChips();
 
       // 2. Editor input helper datalist
       const allSortedNames = [...DEFAULT_SKILL_ITEM_NAMES, ...sortedCustomNames].sort();
@@ -998,7 +1104,7 @@
       const searchVal = document.getElementById('search-box').value.toLowerCase().trim();
       const sortBy = document.getElementById('sort-select').value;
       const rarityFilter = 'all';
-      const skillItemFilter = document.getElementById('skill-item-select').value;
+      const skillItemFilter = selectedSkillItem;
 
       g.innerHTML = '';
 
