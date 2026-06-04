@@ -1,5 +1,33 @@
 [
   {
+    "id": "CUSTOM-1780536145954",
+    "name": "エヴァ",
+    "element": "狂乱型 (紫)",
+    "rarity": 5,
+    "troopType": "内政",
+    "skillEffect": "資源採集速度 100 / 病院治療速度 100 / 部隊規模 50,000",
+    "skillItems": [
+      {
+        "itemName": "資源採集速度",
+        "itemValue": "100"
+      },
+      {
+        "itemName": "病院治療速度",
+        "itemValue": "100"
+      },
+      {
+        "itemName": "部隊規模",
+        "itemValue": "50,000"
+      }
+    ],
+    "weaponName": "プラズマスキャナー",
+    "weaponStats0": "ギャザー部隊HP +150％",
+    "weaponStats2": "ギャザー部隊DEF +150%",
+    "weaponStats4": "ギャザー部隊ATK +150%",
+    "weaponStats6": "ギャザー規模 +200,000",
+    "weaponStats8": "病院治療速度 +100％"
+  },
+  {
     "id": "CUSTOM-1780535735806",
     "name": "リィー",
     "element": "慎重型 (黄)",
