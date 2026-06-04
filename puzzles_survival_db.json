@@ -1,5 +1,33 @@
 [
   {
+    "id": "CUSTOM-1780534103310",
+    "name": "マーク",
+    "element": "慎重型 (黄)",
+    "rarity": 5,
+    "troopType": "内政",
+    "skillEffect": "食料産出量 50 / 病院治療速度 100 / 病院収容量 35",
+    "skillItems": [
+      {
+        "itemName": "食料産出量",
+        "itemValue": "50"
+      },
+      {
+        "itemName": "病院治療速度",
+        "itemValue": "100"
+      },
+      {
+        "itemName": "病院収容量",
+        "itemValue": "35"
+      }
+    ],
+    "weaponName": "パワードスーツ",
+    "weaponStats0": "ギャザー規模 +50,000",
+    "weaponStats2": "ギャザー部隊HP +150%",
+    "weaponStats4": "ギャザー部隊DEF +150%",
+    "weaponStats6": "ギャザー部隊ATK +200％",
+    "weaponStats8": "病院収容量アップ +200,000"
+  },
+  {
     "id": "CUSTOM-1780533758057",
     "name": "ダーラ",
     "element": "衝動型 (赤)",
