@@ -36,6 +36,13 @@
     ::-webkit-scrollbar-thumb:hover {
       background: #94a3b8;
     }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
@@ -201,9 +208,21 @@
           </div>
         </div>
 
-        <!-- チップコンテナ（カテゴリごとに対応するステータスボタンが並ぶ） -->
-        <div id="skill-chips-container" class="flex flex-wrap gap-1.5 pt-0.5 min-h-[30px] items-center">
-          <!-- JSで動的にマウント -->
+        <!-- 現在の選択ステータスと、ぼんやり浮かび上がるポップアップへのトリガーボタン -->
+        <div id="skill-trigger-banner" class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 bg-indigo-50/40 border border-indigo-100/50 rounded-xl">
+          <div class="flex items-center gap-2">
+            <div class="p-1.5 bg-indigo-100/60 text-indigo-600 rounded-lg shrink-0">
+              <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i>
+            </div>
+            <div class="text-xs">
+              <span class="font-bold text-slate-500" id="trigger-banner-cat-label">全体フィルター</span>
+              <span class="mx-1.5 text-slate-300">|</span>
+              <span class="font-extrabold text-slate-800" id="trigger-banner-item-label">指定なし (全効果を読み込み中)</span>
+            </div>
+          </div>
+          <div id="trigger-banner-btn-wrapper" class="flex items-center">
+            <!-- 状況に応じたボタンがJSからマウントされる -->
+          </div>
         </div>
       </div>
 
@@ -633,6 +652,7 @@
     let currentElementFilter = 'all';
     let selectedSkillCategory = 'all';
     let selectedSkillItem = 'all';
+    let isSkillChipsExpanded = false;
     let dbConfig = {
       owner: '',
       repo: '',
@@ -721,19 +741,132 @@
         }
       });
 
-      // 選択カテゴリにあてはまる個別チップを生成
+      // 選択カテゴリにあてはまる個別ステータスをバナーに反映
       renderSkillChips();
-      // 再描画
-      renderCharacters();
+      
+      // 'all' 以外が選ばれたら自動的にモーダルを浮かび上がらせる
+      if (cat !== 'all') {
+        openSkillModal();
+      } else {
+        // 再描画
+        renderCharacters();
+      }
     }
 
-    // 各カテゴリに合わせた具体的なステータスボタン(チップ)を動的に描画
+    // 上部のフィルターバナー情報及びボタンを動的描画
     function renderSkillChips() {
-      const container = document.getElementById('skill-chips-container');
-      if (!container) return;
-      container.innerHTML = '';
+      const bannerCatLabel = document.getElementById('trigger-banner-cat-label');
+      const bannerItemLabel = document.getElementById('trigger-banner-item-label');
+      const bannerBtnWrapper = document.getElementById('trigger-banner-btn-wrapper');
+      
+      if (!bannerCatLabel || !bannerItemLabel || !bannerBtnWrapper) return;
 
-      // カテゴリごとにマッピングする固定項目リスト
+      const catMap = {
+        'all': '全体フィルター',
+        'troop': '部隊・ギャザー',
+        'fighter': 'ファイター',
+        'shooter': 'シューター',
+        'rider': 'ライダー',
+        'special': '固有・特殊効果'
+      };
+
+      bannerCatLabel.innerText = catMap[selectedSkillCategory] || '全体フィルター';
+      
+      if (selectedSkillItem === 'all') {
+        bannerItemLabel.innerText = '指定なし (全効果を読み込み中)';
+      } else {
+        bannerItemLabel.innerText = selectedSkillItem;
+      }
+
+      bannerBtnWrapper.innerHTML = '';
+      if (selectedSkillCategory !== 'all') {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.onclick = openSkillModal;
+        btn.className = 'px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white hover:text-white border-none text-[11px] font-extrabold rounded-lg transition-all shadow-3xs cursor-pointer flex items-center gap-1 shrink-0';
+        btn.innerHTML = '<i data-lucide="sparkles" class="w-3 h-3 text-indigo-200"></i><span>効果項目を絞り込む</span>';
+        bannerBtnWrapper.appendChild(btn);
+        // Re-initialize lucide icons inside the dynamic button
+        if (typeof lucide !== 'undefined') {
+          lucide.createIcons();
+        }
+      } else {
+        const infoDiv = document.createElement('div');
+        infoDiv.className = 'text-[10px] text-slate-400 font-bold font-mono';
+        infoDiv.innerText = '💡 効果カテゴリを選択すると詳細をポップアップで絞り込めます';
+        bannerBtnWrapper.appendChild(infoDiv);
+      }
+    }
+
+    // 個別ステータス項目の選択
+    function setSkillItem(itemName) {
+      if (selectedSkillItem === itemName) {
+        selectedSkillItem = 'all'; // すでに選択中ならトグルで解除
+      } else {
+        selectedSkillItem = itemName;
+      }
+      renderSkillChips(); // バナー（アクティブ状態）を更新
+      renderCharacters(); // リストを絞り込んで再描画
+    }
+
+    // モーダル操作用のカスタムハンドラ
+    function openSkillModal() {
+      const overlay = document.getElementById('skill-modal-overlay');
+      const card = document.getElementById('skill-modal-card');
+      if (!overlay || !card) return;
+
+      overlay.classList.remove('hidden');
+      setTimeout(() => {
+        card.classList.remove('scale-95', 'opacity-0', 'translate-y-4');
+        card.classList.add('scale-100', 'opacity-100', 'translate-y-0');
+      }, 20);
+
+      // モーダル内のカテゴリ表記ラベル更新
+      const catLabel = document.getElementById('skill-modal-category-label');
+      if (catLabel) {
+        const catMap = {
+          'troop': '部隊・ギャザー',
+          'fighter': 'ファイター',
+          'shooter': 'シューター',
+          'rider': 'ライダー',
+          'special': '固有・特殊効果'
+        };
+        catLabel.innerText = `カテゴリ: ${catMap[selectedSkillCategory] || 'すべて'}`;
+      }
+
+      // 簡易検索表示切り替え
+      const searchWrap = document.getElementById('skill-modal-search-wrapper');
+      const searchInput = document.getElementById('skill-modal-search-input');
+      if (searchWrap && searchInput) {
+        if (selectedSkillCategory === 'special') {
+          searchWrap.classList.remove('hidden');
+          searchInput.value = '';
+        } else {
+          searchWrap.classList.add('hidden');
+        }
+      }
+
+      renderModalSkillChips();
+    }
+
+    function closeSkillModal() {
+      const overlay = document.getElementById('skill-modal-overlay');
+      const card = document.getElementById('skill-modal-card');
+      if (!overlay || !card) return;
+
+      card.classList.remove('scale-100', 'opacity-100', 'translate-y-0');
+      card.classList.add('scale-95', 'opacity-0', 'translate-y-4');
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+      }, 150);
+    }
+
+    function renderModalSkillChips() {
+      const grid = document.getElementById('skill-modal-chips-grid');
+      const searchInput = document.getElementById('skill-modal-search-input');
+      if (!grid) return;
+      grid.innerHTML = '';
+
       const groupMap = {
         'all': [],
         'troop': ['部隊ATK', '部隊DEF', '部隊HP', '部隊規模', 'ギャザー規模', 'ギャザー部隊ATK'],
@@ -744,13 +877,11 @@
 
       let itemsToShow = [];
       if (selectedSkillCategory === 'all') {
-        // 「すべて」の時は主要な主要ステータスを並べる
         itemsToShow = [
           '部隊ATK', '部隊DEF', '部隊HP', '部隊規模',
           'ファイターATK', 'シューターATK', 'ライダーATK'
         ];
       } else if (selectedSkillCategory === 'special') {
-        // 「特殊効果」の時は、DEFAULT_SKILL_ITEM_NAMES 以外のデータベースに登録されている全固有テキストを抽出
         const DEFAULT_SKILL_ITEM_NAMES = [
           '部隊ATK', '部隊DEF', '部隊HP', 'ファイターATK', 'ファイターDEF', 'ファイターHP',
           'ライダーATK', 'ライダーDEF', 'ライダーHP', 'シューターATK', 'シューターDEF', 'シューターHP',
@@ -772,44 +903,57 @@
         itemsToShow = groupMap[selectedSkillCategory] || [];
       }
 
-      // 「すべて」を表すデフォルト枠を先頭に追加（カテゴリ別フィルタのクリアに相当）
-      const allOptionBtn = document.createElement('button');
-      allOptionBtn.onclick = () => setSkillItem('all');
-      const isAllSelected = selectedSkillItem === 'all';
-      
-      allOptionBtn.className = `px-2.5 py-1 text-[10px] sm:text-[11px] font-bold rounded-lg border transition-all cursor-pointer ${
-        isAllSelected 
-          ? 'bg-slate-800 text-white border-slate-800' 
-          : 'bg-slate-100 border-slate-200 text-slate-500 hover:bg-slate-200 hover:text-slate-800'
-      }`;
-      allOptionBtn.innerText = '指定なし';
-      container.appendChild(allOptionBtn);
+      if (searchInput && selectedSkillCategory === 'special') {
+        const query = searchInput.value.toLowerCase().trim();
+        if (query) {
+          itemsToShow = itemsToShow.filter(name => name.toLowerCase().includes(query));
+        }
+      }
 
-      // 個別のボタンを描画
+      const countLabel = document.getElementById('skill-modal-count-label');
+      if (countLabel) {
+        countLabel.innerText = `合計 ${itemsToShow.length} 件の選択肢`;
+      }
+
+      // "指定なし" ボタン
+      const allBtn = document.createElement('button');
+      allBtn.type = 'button';
+      allBtn.onclick = () => {
+        setSkillItem('all');
+        closeSkillModal();
+      };
+      const isAllSelected = selectedSkillItem === 'all';
+      allBtn.className = `px-3.5 py-3 text-xs font-bold rounded-xl border transition-all text-left flex items-center justify-between cursor-pointer ${
+        isAllSelected
+          ? 'bg-slate-800 text-white border-slate-800'
+          : 'bg-white border-slate-150 text-slate-500 hover:bg-slate-50 hover:border-slate-300'
+      }`;
+      allBtn.innerHTML = '<span>指定なし (すべてを表示)</span>' + (isAllSelected ? '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>' : '');
+      grid.appendChild(allBtn);
+
       itemsToShow.forEach(name => {
         const btn = document.createElement('button');
-        btn.onclick = () => setSkillItem(name);
-        
+        btn.type = 'button';
+        btn.onclick = () => {
+          setSkillItem(name);
+          closeSkillModal();
+        };
         const isSelected = selectedSkillItem === name;
-        btn.className = `px-2.5 py-1 text-[10px] sm:text-[11px] font-bold rounded-lg border transition-all cursor-pointer ${
-          isSelected 
-            ? 'bg-indigo-600 text-white border-indigo-600 shadow-3xs scale-[1.02]' 
-            : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300'
+        btn.className = `px-3.5 py-3 text-xs font-bold rounded-xl border transition-all text-left flex items-center justify-between cursor-pointer ${
+          isSelected
+            ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm'
+            : 'bg-white border-slate-150 text-slate-700 hover:bg-slate-50 hover:border-slate-300'
         }`;
-        btn.innerText = name;
-        container.appendChild(btn);
+        btn.innerHTML = `<span class="truncate">${name}</span>` + (isSelected ? '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>' : '');
+        grid.appendChild(btn);
       });
-    }
 
-    // 個別ステータス項目の選択
-    function setSkillItem(itemName) {
-      if (selectedSkillItem === itemName) {
-        selectedSkillItem = 'all'; // すでに選択中ならトグルで解除
-      } else {
-        selectedSkillItem = itemName;
+      if (itemsToShow.length === 0) {
+        const emptyDiv = document.createElement('div');
+        emptyDiv.className = 'text-center py-12 text-slate-400 text-xs font-semibold col-span-1 sm:col-span-2';
+        emptyDiv.innerText = '該当する効果項目がありません。別のキーワードを入力してください。';
+        grid.appendChild(emptyDiv);
       }
-      renderSkillChips(); // チップの見た目（アクティブ状態）を更新
-      renderCharacters(); // リストを絞り込んで再描画
     }
 
     // Recover locally if GitHub unavailable
@@ -1833,5 +1977,61 @@
     // Run when browser is fully loaded
     window.onload = init;
   </script>
+
+  <!-- 効果項目選択モーダル (背景ぼやーっと浮かび上がる感じ) -->
+  <div id="skill-modal-overlay" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+    <!-- Blurred Backdrop with fade animation -->
+    <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-md" onclick="closeSkillModal()"></div>
+    
+    <!-- Floating Content Card -->
+    <div class="bg-white rounded-2xl shadow-2xl border border-slate-100 max-w-lg w-full max-h-[80vh] flex flex-col relative z-20 overflow-hidden transition-all duration-300 scale-95 opacity-0 translate-y-4" id="skill-modal-card">
+      <!-- Header -->
+      <div class="px-5 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/60 shrink-0">
+        <div class="flex items-center gap-2">
+          <i data-lucide="shield" class="w-5 h-5 text-indigo-600 animate-pulse"></i>
+          <div>
+            <h3 class="text-xs font-extrabold text-slate-800 tracking-wide uppercase">効果項目を選択</h3>
+            <p class="text-[10px] text-slate-400 font-bold font-mono" id="skill-modal-category-label">カテゴリ:</p>
+          </div>
+        </div>
+        <button onclick="closeSkillModal()" class="text-slate-400 hover:text-slate-600 p-1.5 hover:bg-slate-100 rounded-full transition-all cursor-pointer border-none bg-transparent flex items-center justify-center">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Search wrapper inside modal -->
+      <div id="skill-modal-search-wrapper" class="p-4 bg-white border-b border-slate-100 hidden shrink-0">
+        <div class="relative">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+            <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400"></i>
+          </span>
+          <input
+            type="text"
+            id="skill-modal-search-input"
+            placeholder="🔍 固有効果名を入力して簡易絞り込み..."
+            class="w-full bg-slate-50 hover:bg-white border border-slate-200 focus:border-indigo-500 pl-8 pr-3 py-2 rounded-xl text-xs font-semibold text-slate-705 outline-none transition-all placeholder:text-slate-400"
+            oninput="renderModalSkillChips()"
+          />
+        </div>
+      </div>
+
+      <!-- Actionable Chips List Grid -->
+      <div class="p-5 overflow-y-auto flex-1 bg-slate-50/30">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" id="skill-modal-chips-grid">
+          <!-- JSで動的にマウント -->
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="px-5 py-3 border-t border-slate-100 bg-slate-50/60 flex items-center justify-between shrink-0 font-mono">
+        <span class="text-[10px] text-slate-400 font-extrabold tracking-wider" id="skill-modal-count-label">
+          合計 0 件の選択肢
+        </span>
+        <button onclick="closeSkillModal()" class="px-4 py-1.5 bg-slate-800 hover:bg-slate-900 border-none text-white text-xs font-bold rounded-xl cursor-pointer shadow-3xs transition-all flex items-center">
+          閉じる
+        </button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
