@@ -1,5 +1,33 @@
 [
   {
+    "id": "CUSTOM-1780533758057",
+    "name": "ダーラ",
+    "element": "衝動型 (赤)",
+    "rarity": 5,
+    "troopType": "シューター",
+    "skillEffect": "シューターATK 350 / ファイターATK 350 / 部隊DEF 350",
+    "skillItems": [
+      {
+        "itemName": "シューターATK",
+        "itemValue": "350"
+      },
+      {
+        "itemName": "ファイターATK",
+        "itemValue": "350"
+      },
+      {
+        "itemName": "部隊DEF",
+        "itemValue": "350"
+      }
+    ],
+    "weaponName": "パーティー仮面",
+    "weaponStats0": "シューターHP +200%",
+    "weaponStats2": "ファイターHP +200%",
+    "weaponStats4": "部隊DEF +100%",
+    "weaponStats6": "シューターATK +200％,ファイターATK +200％",
+    "weaponStats8": "部隊ATK +100％"
+  },
+  {
     "id": "CUSTOM-1780533313873",
     "name": "リア",
     "element": "衝動型 (赤)",
