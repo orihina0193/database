@@ -1,5 +1,33 @@
 [
   {
+    "id": "CUSTOM-1780535045742",
+    "name": "南川律",
+    "element": "勇敢型 (緑)",
+    "rarity": 5,
+    "troopType": "シューター",
+    "skillEffect": "部隊HP 125 / 部隊DEF 125 / 部隊ATK 125",
+    "skillItems": [
+      {
+        "itemName": "部隊HP",
+        "itemValue": "125"
+      },
+      {
+        "itemName": "部隊DEF",
+        "itemValue": "125"
+      },
+      {
+        "itemName": "部隊ATK",
+        "itemValue": "125"
+      }
+    ],
+    "weaponName": "テイクダウンボウ",
+    "weaponStats0": "部隊DEF +100%",
+    "weaponStats2": "部隊HP +100%",
+    "weaponStats4": "部隊ATK +100%",
+    "weaponStats6": "味方シューターが敵方ライダーに対するダメージ+30％",
+    "weaponStats8": "部隊DEF +100％"
+  },
+  {
     "id": "CUSTOM-1780534830441",
     "name": "羽生一郎",
     "element": "冷静型 (青)",
