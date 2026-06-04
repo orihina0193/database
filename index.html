@@ -154,28 +154,28 @@
       </div>
 
       <!-- 属性選択ピルフィルター -->
-      <div id="element-filters-container" class="flex flex-wrap items-center gap-1.5 border-t border-slate-100 pt-2.5">
-        <span class="text-[11px] font-bold text-slate-400 mr-1.5 flex items-center gap-1">
+      <div id="element-filters-container" class="flex items-center gap-1.5 border-t border-slate-100 pt-2.5 max-w-full overflow-x-auto no-scrollbar">
+        <span class="text-[11px] font-bold text-slate-400 mr-1.5 flex items-center gap-1 shrink-0">
           <i data-lucide="filter" class="w-3.5 h-3.5 text-indigo-500"></i>
-          属性分類:
+          <span class="hidden xs:inline">属性:</span>
         </span>
-        <button onclick="setElementFilter('all')" class="element-pill bg-indigo-600 text-white border-indigo-600 px-3 py-1 rounded-full text-[11px] font-bold border transition-all cursor-pointer shadow-3xs" data-element="all">
-          すべて
+        <button onclick="setElementFilter('all')" class="element-pill bg-indigo-600 text-white border-indigo-600 px-2.5 py-1 rounded-full text-[11px] font-bold border transition-all cursor-pointer shadow-3xs shrink-0" data-element="all">
+          ⚔️ すべて
         </button>
-        <button onclick="setElementFilter('衝動型 (赤)')" class="element-pill bg-white border-slate-200 px-3 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs" data-element="衝動型 (赤)">
-          衝動型 (赤)
+        <button onclick="setElementFilter('衝動型 (赤)')" class="element-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs shrink-0" data-element="衝動型 (赤)">
+          🔥 赤
         </button>
-        <button onclick="setElementFilter('冷静型 (青)')" class="element-pill bg-white border-slate-200 px-3 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs" data-element="冷静型 (青)">
-          冷静型 (青)
+        <button onclick="setElementFilter('冷静型 (青)')" class="element-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs shrink-0" data-element="冷静型 (青)">
+          💧 青
         </button>
-        <button onclick="setElementFilter('狂乱型 (紫)')" class="element-pill bg-white border-slate-200 px-3 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs" data-element="狂乱型 (紫)">
-          狂乱型 (紫)
+        <button onclick="setElementFilter('狂乱型 (紫)')" class="element-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs shrink-0" data-element="狂乱型 (紫)">
+          🔮 紫
         </button>
-        <button onclick="setElementFilter('慎重型 (黄)')" class="element-pill bg-white border-slate-200 px-3 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs" data-element="慎重型 (黄)">
-          慎重型 (黄)
+        <button onclick="setElementFilter('慎重型 (黄)')" class="element-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-750 transition-all cursor-pointer shadow-3xs shrink-0" data-element="慎重型 (黄)">
+          ☀️ 黄
         </button>
-        <button onclick="setElementFilter('勇敢型 (緑)')" class="element-pill bg-white border-slate-200 px-3 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs" data-element="勇敢型 (緑)">
-          勇敢型 (緑)
+        <button onclick="setElementFilter('勇敢型 (緑)')" class="element-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs shrink-0" data-element="勇敢型 (緑)">
+          🍃 緑
         </button>
       </div>
 
