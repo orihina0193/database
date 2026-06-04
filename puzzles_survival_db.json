@@ -1,5 +1,33 @@
 [
   {
+    "id": "CUSTOM-1780556441470",
+    "name": "リリアン",
+    "element": "衝動型 (赤)",
+    "rarity": 5,
+    "troopType": "内政",
+    "skillEffect": "部隊HP（パッシブ） - / 部隊DEF（パッシブ） - / 部隊ATK(パッシブ) -",
+    "skillItems": [
+      {
+        "itemName": "部隊HP（パッシブ）",
+        "itemValue": "-"
+      },
+      {
+        "itemName": "部隊DEF（パッシブ）",
+        "itemValue": "-"
+      },
+      {
+        "itemName": "部隊ATK(パッシブ)",
+        "itemValue": "-"
+      }
+    ],
+    "weaponName": "キャンディボム",
+    "weaponStats0": "部隊DEF +100%",
+    "weaponStats2": "部隊HP +100%",
+    "weaponStats4": "部隊ATK +100%",
+    "weaponStats6": "部隊ATK +150%",
+    "weaponStats8": "部隊HP +100%"
+  },
+  {
     "id": "CUSTOM-1780555904030",
     "name": "レイ・ルイス",
     "element": "勇敢型 (緑)",
