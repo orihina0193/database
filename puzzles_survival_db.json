@@ -1,23 +1,51 @@
 [
   {
+    "id": "CUSTOM-1780556539630",
+    "name": "目がトロン",
+    "element": "狂乱型 (紫)",
+    "rarity": 5,
+    "troopType": "内政",
+    "skillEffect": "部隊HP（パッシブ） 250 / 部隊DEF（パッシブ） 250 / 部隊ATK(パッシブ) 250",
+    "skillItems": [
+      {
+        "itemName": "部隊HP（パッシブ）",
+        "itemValue": "250"
+      },
+      {
+        "itemName": "部隊DEF（パッシブ）",
+        "itemValue": "250"
+      },
+      {
+        "itemName": "部隊ATK(パッシブ)",
+        "itemValue": "250"
+      }
+    ],
+    "weaponName": "トリックスタッフ",
+    "weaponStats0": "部隊DEF +100%",
+    "weaponStats2": "部隊HP +100%",
+    "weaponStats4": "部隊ATK +100%",
+    "weaponStats6": "部隊ATK +150%",
+    "weaponStats8": "部隊HP +100%"
+  },
+  {
     "id": "CUSTOM-1780556441470",
     "name": "リリアン",
     "element": "衝動型 (赤)",
     "rarity": 5,
     "troopType": "内政",
-    "skillEffect": "部隊HP（パッシブ） - / 部隊DEF（パッシブ） - / 部隊ATK(パッシブ) -",
+    "skillEffect": "部隊HP（パッシブ） 250 / 部隊DEF（パッシブ） 250 / 部隊ATK(パッシブ) 250",
     "skillItems": [
       {
         "itemName": "部隊HP（パッシブ）",
-        "itemValue": "-"
+        "itemValue": "250"
       },
       {
         "itemName": "部隊DEF（パッシブ）",
-        "itemValue": "-"
+        "itemValue": "250"
       },
       {
         "itemName": "部隊ATK(パッシブ)",
-        "itemValue": "-"
+        "itemValue": "250"
       }
     ],
     "weaponName": "キャンディボム",
@@ -33,19 +61,19 @@
     "element": "勇敢型 (緑)",
     "rarity": 5,
     "troopType": "内政",
-    "skillEffect": "部隊HP（パッシブ） - / 部隊DEF（パッシブ） - / 部隊ATK(パッシブ) -",
+    "skillEffect": "部隊HP（パッシブ） 250 / 部隊DEF（パッシブ） 250 / 部隊ATK(パッシブ) 250",
     "skillItems": [
       {
         "itemName": "部隊HP（パッシブ）",
-        "itemValue": "-"
+        "itemValue": "250"
       },
       {
         "itemName": "部隊DEF（パッシブ）",
-        "itemValue": "-"
+        "itemValue": "250"
       },
       {
         "itemName": "部隊ATK(パッシブ)",
-        "itemValue": "-"
+        "itemValue": "250"
       }
     ],
     "weaponName": "サウンドウェーブ",
