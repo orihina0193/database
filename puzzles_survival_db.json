@@ -1,5 +1,117 @@
 [
   {
+    "id": "CUSTOM-1780634732906",
+    "name": "シェイン",
+    "element": "冷静型 (青)",
+    "rarity": 3,
+    "troopType": "ファイター",
+    "skillEffect": "ファイターHP 25 / ファイターDEF 25 / ファイターATK 25",
+    "skillItems": [
+      {
+        "itemName": "ファイターHP",
+        "itemValue": "25"
+      },
+      {
+        "itemName": "ファイターDEF",
+        "itemValue": "25"
+      },
+      {
+        "itemName": "ファイターATK",
+        "itemValue": "25"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
+    "id": "CUSTOM-1780634690164",
+    "name": "バーボン",
+    "element": "冷静型 (青)",
+    "rarity": 3,
+    "troopType": "内政",
+    "skillEffect": "採集進軍速度 30 / 資源採集速度 10 / 部隊積載量 30",
+    "skillItems": [
+      {
+        "itemName": "採集進軍速度",
+        "itemValue": "30"
+      },
+      {
+        "itemName": "資源採集速度",
+        "itemValue": "10"
+      },
+      {
+        "itemName": "部隊積載量",
+        "itemValue": "30"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
+    "id": "CUSTOM-1780634590019",
+    "name": "イラ",
+    "element": "狂乱型 (紫)",
+    "rarity": 3,
+    "troopType": "内政",
+    "skillEffect": "無料ブースト時間 10分 / 建造時鋼材消費 － 100,000 / 建造時ガス消費 － 50,000",
+    "skillItems": [
+      {
+        "itemName": "無料ブースト時間",
+        "itemValue": "10分"
+      },
+      {
+        "itemName": "建造時鋼材消費 －",
+        "itemValue": "100,000"
+      },
+      {
+        "itemName": "建造時ガス消費 －",
+        "itemValue": "50,000"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
+    "id": "CUSTOM-1780634433227",
+    "name": "ゼルス",
+    "element": "狂乱型 (紫)",
+    "rarity": 3,
+    "troopType": "ライダー",
+    "skillEffect": "鋼材採集速度 30 / ライダーDEF 25 / ライダーATK 25",
+    "skillItems": [
+      {
+        "itemName": "鋼材採集速度",
+        "itemValue": "30"
+      },
+      {
+        "itemName": "ライダーDEF",
+        "itemValue": "25"
+      },
+      {
+        "itemName": "ライダーATK",
+        "itemValue": "25"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
     "id": "CUSTOM-1780631924356",
     "name": "ツァイ",
     "element": "冷静型 (青)",
