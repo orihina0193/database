@@ -1,5 +1,173 @@
 [
   {
+    "id": "CUSTOM-1780635347328",
+    "name": "レゴー",
+    "element": "慎重型 (黄)",
+    "rarity": 3,
+    "troopType": "ライダー",
+    "skillEffect": "ライダーHP 25 / ライダーDEF 25 / ライダーATK 25",
+    "skillItems": [
+      {
+        "itemName": "ライダーHP",
+        "itemValue": "25"
+      },
+      {
+        "itemName": "ライダーDEF",
+        "itemValue": "25"
+      },
+      {
+        "itemName": "ライダーATK",
+        "itemValue": "25"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
+    "id": "CUSTOM-1780635287432",
+    "name": "マーシャル",
+    "element": "衝動型 (赤)",
+    "rarity": 3,
+    "troopType": "内政",
+    "skillEffect": "ガス採集速度 30 / 狩猟進軍速度 30 / 狩猟ATKアップ 30",
+    "skillItems": [
+      {
+        "itemName": "ガス採集速度",
+        "itemValue": "30"
+      },
+      {
+        "itemName": "狩猟進軍速度",
+        "itemValue": "30"
+      },
+      {
+        "itemName": "狩猟ATKアップ",
+        "itemValue": "30"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
+    "id": "CUSTOM-1780635172151",
+    "name": "エルウィン",
+    "element": "衝動型 (赤)",
+    "rarity": 3,
+    "troopType": "内政",
+    "skillEffect": "訓練兵士数 500 / 研究時鋼材消費 － 100,000 / 研究時ガス消費 － 50,000",
+    "skillItems": [
+      {
+        "itemName": "訓練兵士数",
+        "itemValue": "500"
+      },
+      {
+        "itemName": "研究時鋼材消費 －",
+        "itemValue": "100,000"
+      },
+      {
+        "itemName": "研究時ガス消費 －",
+        "itemValue": "50,000"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
+    "id": "CUSTOM-1780634983496",
+    "name": "オーマンス",
+    "element": "慎重型 (黄)",
+    "rarity": 3,
+    "troopType": "シューター",
+    "skillEffect": "シューターHP 25 / シューターDEF 25 / シューターATK 25",
+    "skillItems": [
+      {
+        "itemName": "シューターHP",
+        "itemValue": "25"
+      },
+      {
+        "itemName": "シューターDEF",
+        "itemValue": "25"
+      },
+      {
+        "itemName": "シューターATK",
+        "itemValue": "25"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
+    "id": "CUSTOM-1780634936575",
+    "name": "バートン",
+    "element": "勇敢型 (緑)",
+    "rarity": 3,
+    "troopType": "シューター",
+    "skillEffect": "木材採集速度 30 / シューターDEF 25 / シューターATK 25",
+    "skillItems": [
+      {
+        "itemName": "木材採集速度",
+        "itemValue": "30"
+      },
+      {
+        "itemName": "シューターDEF",
+        "itemValue": "25"
+      },
+      {
+        "itemName": "シューターATK",
+        "itemValue": "25"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
+    "id": "CUSTOM-1780634860636",
+    "name": "ジュリア",
+    "element": "勇敢型 (緑)",
+    "rarity": 3,
+    "troopType": "ファイター",
+    "skillEffect": "食料採集速度 30 / ファイターDEF 25 / ファイターATK 25",
+    "skillItems": [
+      {
+        "itemName": "食料採集速度",
+        "itemValue": "30"
+      },
+      {
+        "itemName": "ファイターDEF",
+        "itemValue": "25"
+      },
+      {
+        "itemName": "ファイターATK",
+        "itemValue": "25"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
     "id": "CUSTOM-1780634732906",
     "name": "シェイン",
     "element": "冷静型 (青)",
