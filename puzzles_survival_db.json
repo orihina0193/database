@@ -1,5 +1,89 @@
 [
   {
+    "id": "CUSTOM-1780631924356",
+    "name": "ツァイ",
+    "element": "冷静型 (青)",
+    "rarity": 4,
+    "troopType": "ファイター",
+    "skillEffect": "部隊HP 16 / 部隊DEF 16 / 部隊ATK 16",
+    "skillItems": [
+      {
+        "itemName": "部隊HP",
+        "itemValue": "16"
+      },
+      {
+        "itemName": "部隊DEF",
+        "itemValue": "16"
+      },
+      {
+        "itemName": "部隊ATK",
+        "itemValue": "16"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
+    "id": "CUSTOM-1780631754276",
+    "name": "あすか",
+    "element": "衝動型 (赤)",
+    "rarity": 4,
+    "troopType": "ファイター",
+    "skillEffect": "部隊HP 16 / 部隊DEF 16 / 部隊ATK 16",
+    "skillItems": [
+      {
+        "itemName": "部隊HP",
+        "itemValue": "16"
+      },
+      {
+        "itemName": "部隊DEF",
+        "itemValue": "16"
+      },
+      {
+        "itemName": "部隊ATK",
+        "itemValue": "16"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
+    "id": "CUSTOM-1780631675996",
+    "name": "れいこ",
+    "element": "勇敢型 (緑)",
+    "rarity": 4,
+    "troopType": "ファイター",
+    "skillEffect": "ファイターHP 50 / ファイターDEF 50 / ファイターATK 50",
+    "skillItems": [
+      {
+        "itemName": "ファイターHP",
+        "itemValue": "50"
+      },
+      {
+        "itemName": "ファイターDEF",
+        "itemValue": "50"
+      },
+      {
+        "itemName": "ファイターATK",
+        "itemValue": "50"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
     "id": "CUSTOM-1780631624352",
     "name": "レイブン",
     "element": "冷静型 (青)",
