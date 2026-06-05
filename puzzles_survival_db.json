@@ -1,5 +1,145 @@
 [
   {
+    "id": "CUSTOM-1780635871124",
+    "name": "ヘンリー",
+    "element": "冷静型 (青)",
+    "rarity": 2,
+    "troopType": "ライダー",
+    "skillEffect": "鋼材産出量 10 / ライダーDEF 10 / ライダーATK 10",
+    "skillItems": [
+      {
+        "itemName": "鋼材産出量",
+        "itemValue": "10"
+      },
+      {
+        "itemName": "ライダーDEF",
+        "itemValue": "10"
+      },
+      {
+        "itemName": "ライダーATK",
+        "itemValue": "10"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
+    "id": "CUSTOM-1780635787536",
+    "name": "サベス",
+    "element": "狂乱型 (紫)",
+    "rarity": 2,
+    "troopType": "内政",
+    "skillEffect": "ガス産出量 10 / 建造時食料消費 － 100,000 / 建造時木材消費 － 100,000",
+    "skillItems": [
+      {
+        "itemName": "ガス産出量",
+        "itemValue": "10"
+      },
+      {
+        "itemName": "建造時食料消費 －",
+        "itemValue": "100,000"
+      },
+      {
+        "itemName": "建造時木材消費 －",
+        "itemValue": "100,000"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
+    "id": "CUSTOM-1780635658464",
+    "name": "Mr.陳",
+    "element": "慎重型 (黄)",
+    "rarity": 2,
+    "troopType": "内政",
+    "skillEffect": "狩猟進軍速度 10 / 研究時食料消費 － 100,000 / 研究時木材消費 － 100,000",
+    "skillItems": [
+      {
+        "itemName": "狩猟進軍速度",
+        "itemValue": "10"
+      },
+      {
+        "itemName": "研究時食料消費 －",
+        "itemValue": "100,000"
+      },
+      {
+        "itemName": "研究時木材消費 －",
+        "itemValue": "100,000"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
+    "id": "CUSTOM-1780635508940",
+    "name": "エレイン",
+    "element": "衝動型 (赤)",
+    "rarity": 2,
+    "troopType": "シューター",
+    "skillEffect": "木材産出量 10 / シューターDEF 10 / シューターATK 10",
+    "skillItems": [
+      {
+        "itemName": "木材産出量",
+        "itemValue": "10"
+      },
+      {
+        "itemName": "シューターDEF",
+        "itemValue": "10"
+      },
+      {
+        "itemName": "シューターATK",
+        "itemValue": "10"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
+    "id": "CUSTOM-1780635456791",
+    "name": "デーラ",
+    "element": "勇敢型 (緑)",
+    "rarity": 2,
+    "troopType": "ファイター",
+    "skillEffect": "食料産出量 10 / ファイターDEF 10 / ファイターATK 10",
+    "skillItems": [
+      {
+        "itemName": "食料産出量",
+        "itemValue": "10"
+      },
+      {
+        "itemName": "ファイターDEF",
+        "itemValue": "10"
+      },
+      {
+        "itemName": "ファイターATK",
+        "itemValue": "10"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
     "id": "CUSTOM-1780635347328",
     "name": "レゴー",
     "element": "慎重型 (黄)",
