@@ -1,5 +1,61 @@
 [
   {
+    "id": "CUSTOM-1780631624352",
+    "name": "レイブン",
+    "element": "冷静型 (青)",
+    "rarity": 4,
+    "troopType": "ファイター",
+    "skillEffect": "食料産出量 100 / ファイターDEF 50 / ファイターATK 50",
+    "skillItems": [
+      {
+        "itemName": "食料産出量",
+        "itemValue": "100"
+      },
+      {
+        "itemName": "ファイターDEF",
+        "itemValue": "50"
+      },
+      {
+        "itemName": "ファイターATK",
+        "itemValue": "50"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
+    "id": "CUSTOM-1780631550981",
+    "name": "オットー",
+    "element": "冷静型 (青)",
+    "rarity": 4,
+    "troopType": "内政",
+    "skillEffect": "指揮官EXPアップ 30 / 病院治療速度 20 / 部隊規模 10,000",
+    "skillItems": [
+      {
+        "itemName": "指揮官EXPアップ",
+        "itemValue": "30"
+      },
+      {
+        "itemName": "病院治療速度",
+        "itemValue": "20"
+      },
+      {
+        "itemName": "部隊規模",
+        "itemValue": "10,000"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
     "id": "CUSTOM-1780631444449",
     "name": "ニモラ",
     "element": "勇敢型 (緑)",
