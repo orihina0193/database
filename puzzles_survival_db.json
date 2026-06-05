@@ -1,5 +1,173 @@
 [
   {
+    "id": "CUSTOM-1780631444449",
+    "name": "ニモラ",
+    "element": "勇敢型 (緑)",
+    "rarity": 4,
+    "troopType": "シューター",
+    "skillEffect": "シューターHP 50 / シューターDEF 50 / シューターATK 50",
+    "skillItems": [
+      {
+        "itemName": "シューターHP",
+        "itemValue": "50"
+      },
+      {
+        "itemName": "シューターDEF",
+        "itemValue": "50"
+      },
+      {
+        "itemName": "シューターATK",
+        "itemValue": "50"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
+    "id": "CUSTOM-1780631379209",
+    "name": "イライア",
+    "element": "狂乱型 (紫)",
+    "rarity": 4,
+    "troopType": "内政",
+    "skillEffect": "研究速度 15 / 血清産出量 100 / 部隊規模 10,000",
+    "skillItems": [
+      {
+        "itemName": "研究速度",
+        "itemValue": "15"
+      },
+      {
+        "itemName": "血清産出量",
+        "itemValue": "100"
+      },
+      {
+        "itemName": "部隊規模",
+        "itemValue": "10,000"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
+    "id": "CUSTOM-1780631256772",
+    "name": "フィネス",
+    "element": "狂乱型 (紫)",
+    "rarity": 4,
+    "troopType": "内政",
+    "skillEffect": "建造速度 15 / ガス産出量 100 / ギャザー規模 100,000",
+    "skillItems": [
+      {
+        "itemName": "建造速度",
+        "itemValue": "15"
+      },
+      {
+        "itemName": "ガス産出量",
+        "itemValue": "100"
+      },
+      {
+        "itemName": "ギャザー規模",
+        "itemValue": "100,000"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
+    "id": "CUSTOM-1780631180861",
+    "name": "ルシウス",
+    "element": "慎重型 (黄)",
+    "rarity": 4,
+    "troopType": "ライダー",
+    "skillEffect": "鋼材産出量 100 / ライダーDEF 50 / ライダーATK 50",
+    "skillItems": [
+      {
+        "itemName": "鋼材産出量",
+        "itemValue": "100"
+      },
+      {
+        "itemName": "ライダーDEF",
+        "itemValue": "50"
+      },
+      {
+        "itemName": "ライダーATK",
+        "itemValue": "50"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
+    "id": "CUSTOM-1780631071876",
+    "name": "クロック",
+    "element": "慎重型 (黄)",
+    "rarity": 4,
+    "troopType": "シューター",
+    "skillEffect": "木材産出量 100 / シューターDEF 50 / シューターATK 50",
+    "skillItems": [
+      {
+        "itemName": "木材産出量",
+        "itemValue": "100"
+      },
+      {
+        "itemName": "シューターDEF",
+        "itemValue": "50"
+      },
+      {
+        "itemName": "シューターATK",
+        "itemValue": "50"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
+    "id": "CUSTOM-1780630993388",
+    "name": "レイン",
+    "element": "衝動型 (赤)",
+    "rarity": 4,
+    "troopType": "ライダー",
+    "skillEffect": "ライダーHP 50 / ライダーDEF 50 / ライダーATK 50",
+    "skillItems": [
+      {
+        "itemName": "ライダーHP",
+        "itemValue": "50"
+      },
+      {
+        "itemName": "ライダーDEF",
+        "itemValue": "50"
+      },
+      {
+        "itemName": "ライダーATK",
+        "itemValue": "50"
+      }
+    ],
+    "weaponName": "",
+    "weaponStats0": "",
+    "weaponStats2": "",
+    "weaponStats4": "",
+    "weaponStats6": "",
+    "weaponStats8": ""
+  },
+  {
     "id": "CUSTOM-1780570765583",
     "name": "千代紅葉",
     "element": "冷静型 (青)",
