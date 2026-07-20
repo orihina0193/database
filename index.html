@@ -156,6 +156,16 @@
 
       <!-- 属性選択ピルフィルター -->
       <div id="element-filters-container" class="flex items-center gap-1.5 border-t border-slate-100 pt-2.5 max-w-full overflow-x-auto no-scrollbar">
+        <!-- 表示モードトグル -->
+        <div class="flex bg-slate-100 p-0.5 rounded-lg shrink-0 mr-1.5 border border-slate-200/50">
+          <button id="mode-btn-heroes" onclick="setDisplayMode('heroes')" class="px-2.5 py-0.5 rounded-md text-[10px] font-black transition-all cursor-pointer bg-white text-indigo-700 shadow-3xs">
+            👥 英雄
+          </button>
+          <button id="mode-btn-weapons" onclick="setDisplayMode('weapons')" class="px-2.5 py-0.5 rounded-md text-[10px] font-black transition-all cursor-pointer text-slate-500 hover:text-slate-800">
+            ⚔️ 武器
+          </button>
+        </div>
+
         <span class="text-[11px] font-bold text-slate-400 mr-1.5 shrink-0">
           <span class="hidden xs:inline">属性:</span>
         </span>
@@ -163,19 +173,19 @@
           ⚔️ すべて
         </button>
         <button onclick="setElementFilter('衝動型 (赤)')" class="element-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs shrink-0" data-element="衝動型 (赤)">
-          🔥 赤
+          🔥赤
         </button>
         <button onclick="setElementFilter('冷静型 (青)')" class="element-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs shrink-0" data-element="冷静型 (青)">
-          💧 青
+          💧青
         </button>
         <button onclick="setElementFilter('狂乱型 (紫)')" class="element-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs shrink-0" data-element="狂乱型 (紫)">
-          🔮 紫
+          🔮紫
         </button>
         <button onclick="setElementFilter('慎重型 (黄)')" class="element-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-750 transition-all cursor-pointer shadow-3xs shrink-0" data-element="慎重型 (黄)">
-          ☀️ 黄
+          ☀️黄
         </button>
         <button onclick="setElementFilter('勇敢型 (緑)')" class="element-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs shrink-0" data-element="勇敢型 (緑)">
-          🍃 緑
+          🍃緑
         </button>
       </div>
 
@@ -654,6 +664,7 @@
     let selectedSkillCategory = 'all';
     let selectedSkillItem = 'all';
     let isSkillChipsExpanded = false;
+    let currentDisplayMode = 'heroes';
     let dbConfig = {
       owner: '',
       repo: '',
@@ -665,6 +676,25 @@
     let hasAdminPrivilege = false;
     let unsavedChanges = false;
     let editingHeroId = null;
+
+    function setDisplayMode(mode) {
+      currentDisplayMode = mode;
+      
+      const btnHeroes = document.getElementById('mode-btn-heroes');
+      const btnWeapons = document.getElementById('mode-btn-weapons');
+      
+      if (btnHeroes && btnWeapons) {
+        if (mode === 'heroes') {
+          btnHeroes.className = 'px-2.5 py-0.5 rounded-md text-[10px] font-black transition-all cursor-pointer bg-white text-indigo-700 shadow-3xs';
+          btnWeapons.className = 'px-2.5 py-0.5 rounded-md text-[10px] font-black transition-all cursor-pointer text-slate-500 hover:text-slate-800';
+        } else {
+          btnHeroes.className = 'px-2.5 py-0.5 rounded-md text-[10px] font-black transition-all cursor-pointer text-slate-500 hover:text-slate-800';
+          btnWeapons.className = 'px-2.5 py-0.5 rounded-md text-[10px] font-black transition-all cursor-pointer bg-white text-indigo-700 shadow-3xs';
+        }
+      }
+      
+      renderCharacters();
+    }
 
     // Local Storage Keys
     const GITHUB_SETTINGS_KEY = 'character_database_github_settings';
@@ -1260,6 +1290,11 @@
           (char.troopType && char.troopType.toLowerCase().includes(searchVal)) ||
           (char.skillEffect && char.skillEffect.toLowerCase().includes(searchVal)) ||
           (char.weaponName && char.weaponName.toLowerCase().includes(searchVal)) ||
+          (char.weaponStats0 && char.weaponStats0.toLowerCase().includes(searchVal)) ||
+          (char.weaponStats2 && char.weaponStats2.toLowerCase().includes(searchVal)) ||
+          (char.weaponStats4 && char.weaponStats4.toLowerCase().includes(searchVal)) ||
+          (char.weaponStats6 && char.weaponStats6.toLowerCase().includes(searchVal)) ||
+          (char.weaponStats8 && char.weaponStats8.toLowerCase().includes(searchVal)) ||
           (char.skillItems && char.skillItems.some(i => i.itemName.toLowerCase().includes(searchVal) || i.itemValue.toLowerCase().includes(searchVal)));
 
         const elementMatch = currentElementFilter === 'all' || char.element === currentElementFilter;
@@ -1269,18 +1304,18 @@
         if (skillItemFilter !== 'all') {
           // エイリアスマッピング
           const aliasesMap = {
-            '部隊ATK': ['部隊atk', '部隊攻撃', '全部種攻撃', '全部種atk', '軍団atk', '軍団攻撃'],
-            '部隊DEF': ['部隊def', '部隊防御', '全部種防御', '全部種def', '軍団def', '軍団防御'],
-            '部隊HP': ['部隊hp', '全部種hp', '軍団hp', '部隊ｈｐ'],
-            'ファイターATK': ['ファイターatk', 'ファイター攻撃'],
-            'ファイターDEF': ['ファイターdef', 'ファイター防御'],
-            'ファイターHP': ['ファイターhp'],
-            'ライダーATK': ['ライダーatk', 'ライダー攻撃'],
-            'ライダーDEF': ['ライダーdef', 'ライダー防御'],
-            'ライダーHP': ['ライダーhp'],
-            'シューターATK': ['シューターatk', 'シューター攻撃'],
-            'シューターDEF': ['シューターdef', 'シューター防御'],
-            'シューターHP': ['シューターhp'],
+            '部隊ATK': ['部隊atk', '部隊攻撃', '全部種攻撃', '全部種atk', '軍団atk', '軍団攻撃', '部隊の攻撃', '軍団の攻撃'],
+            '部隊DEF': ['部隊def', '部隊防御', '全部種防御', '全部種def', '軍団def', '軍団防御', '部隊の防御', '軍団の防御'],
+            '部隊HP': ['部隊hp', '全部種hp', '軍団hp', '部隊ｈｐ', '部隊のhp', '軍団のhp'],
+            'ファイターATK': ['ファイターatk', 'ファイター攻撃', 'ファイターの攻撃'],
+            'ファイターDEF': ['ファイターdef', 'ファイター防御', 'ファイターの防御'],
+            'ファイターHP': ['ファイターhp', 'ファイターのhp'],
+            'ライダーATK': ['ライダーatk', 'ライダー攻撃', 'ライダーの攻撃'],
+            'ライダーDEF': ['ライダーdef', 'ライダー防御', 'ライダーの防御'],
+            'ライダーHP': ['ライダーhp', 'ライダーのhp'],
+            'シューターATK': ['シューターatk', 'シューター攻撃', 'シューターの攻撃'],
+            'シューターDEF': ['シューターdef', 'シューター防御', 'シューターの防御'],
+            'シューターHP': ['シューターhp', 'シューターのhp'],
             '部隊規模': ['部隊規模', '最大部隊規模'],
             'ギャザー規模': ['ギャザー規模', '対ギャザー規模', 'ギャザー最大規模'],
             'ギャザー部隊ATK': ['ギャザー部隊atk', 'ギャザーatk', '対ギャザーatk', '対ギャザー攻撃']
@@ -1313,7 +1348,9 @@
           skillItemMatch = matchedInSkill || matchedInWeapon;
         }
 
-        return queryMatch && elementMatch && rarityMatch && skillItemMatch;
+        const matchesMode = currentDisplayMode !== 'weapons' || (char.weaponName && char.weaponName.trim() !== '');
+
+        return queryMatch && elementMatch && rarityMatch && skillItemMatch && matchesMode;
       });
 
       // 2. Sorting
@@ -1343,48 +1380,101 @@
             stars += '★';
           }
 
-          const card = document.createElement('div');
-          card.className = 'bg-white border border-slate-200 rounded-xl p-3 shadow-2xs hover:shadow-sm hover:border-indigo-400 transition-all cursor-pointer flex items-center justify-between group relative select-none gap-2';
-          card.setAttribute('onclick', `if(!event.target.closest('.admin-btn-prevent')) openDetailsById('${char.id}')`);
+          if (currentDisplayMode === 'heroes') {
+            const card = document.createElement('div');
+            card.className = 'bg-white border border-slate-200 rounded-xl p-3 shadow-2xs hover:shadow-sm hover:border-indigo-400 transition-all cursor-pointer flex items-center justify-between group relative select-none gap-2';
+            card.setAttribute('onclick', `if(!event.target.closest('.admin-btn-prevent')) openDetailsById('${char.id}')`);
 
-          // Admin quick edit overlays if logged in
-          let adminBadgeControls = '';
-          if (hasAdminPrivilege) {
-            adminBadgeControls = `
-              <div class="flex items-center gap-1 admin-btn-prevent shrink-0">
-                <button
-                  onclick="openHeroCreator('${char.id}')"
-                  class="p-0.5 px-2 rounded bg-indigo-50 hover:bg-indigo-600 text-indigo-600 hover:text-white border border-indigo-100 font-extrabold text-[8px] cursor-pointer transition-colors"
-                >
-                  編集
-                </button>
-                <button
-                  onclick="deleteHeroById('${char.id}')"
-                  class="p-0.5 px-2 bg-rose-50 hover:bg-rose-600 text-rose-600 hover:text-white border border-rose-100 font-extrabold text-[8px] cursor-pointer transition-colors"
-                >
-                  削除
-                </button>
+            // Admin quick edit overlays if logged in
+            let adminBadgeControls = '';
+            if (hasAdminPrivilege) {
+              adminBadgeControls = `
+                <div class="flex items-center gap-1 admin-btn-prevent shrink-0">
+                  <button
+                    onclick="openHeroCreator('${char.id}')"
+                    class="p-0.5 px-2 rounded bg-indigo-50 hover:bg-indigo-600 text-indigo-600 hover:text-white border border-indigo-100 font-extrabold text-[8px] cursor-pointer transition-colors"
+                  >
+                    編集
+                  </button>
+                  <button
+                    onclick="deleteHeroById('${char.id}')"
+                    class="p-0.5 px-2 bg-rose-50 hover:bg-rose-600 text-rose-600 hover:text-white border border-rose-100 font-extrabold text-[8px] cursor-pointer transition-colors"
+                  >
+                    削除
+                  </button>
+                </div>
+              `;
+            }
+
+            card.innerHTML = `
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="w-2.5 h-2.5 rounded-full shrink-0 ${elementBgClass}" title="${char.element}"></span>
+                <h3 class="text-xs font-bold text-slate-800 truncate group-hover:text-indigo-600 transition-colors">
+                  ${char.name}
+                </h3>
+                <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-slate-50 text-slate-500 border border-slate-150">
+                  ${char.troopType || '未設定'}
+                </span>
+              </div>
+
+              <div class="shrink-0 flex items-center gap-2">
+                ${adminBadgeControls}
               </div>
             `;
+
+            g.appendChild(card);
+          } else {
+            // 武器表示用のカード (WeaponCard 相当)
+            const card = document.createElement('div');
+            card.className = 'bg-white border border-slate-200 rounded-xl p-4 shadow-2xs hover:shadow-sm hover:border-indigo-400 transition-all cursor-pointer flex flex-col group relative select-none gap-3';
+            card.setAttribute('onclick', `if(!event.target.closest('.admin-btn-prevent')) openDetailsById('${char.id}')`);
+
+            let statsHtml = '';
+            const addStatRow = (label, value) => {
+              if (value && value.trim() !== '') {
+                statsHtml += `
+                  <div class="flex justify-between gap-1 border-t border-slate-200/40 pt-1">
+                    <span class="font-black text-slate-400 text-[8px] shrink-0">${label}:</span>
+                    <span class="text-slate-600 font-bold text-right truncate text-[9px]" title="${value}">${value}</span>
+                  </div>
+                `;
+              }
+            };
+            
+            addStatRow('＋0', char.weaponStats0);
+            addStatRow('＋2', char.weaponStats2);
+            addStatRow('＋4', char.weaponStats4);
+            addStatRow('＋6', char.weaponStats6);
+            addStatRow('＋8', char.weaponStats8);
+
+            card.innerHTML = `
+              <div class="flex justify-between items-start gap-2.5">
+                <div class="flex items-center gap-2 min-w-0">
+                  <div class="p-1 bg-rose-50 border border-rose-100 text-rose-500 rounded-lg shrink-0">
+                    <i data-lucide="sword" class="w-3.5 h-3.5 text-rose-500"></i>
+                  </div>
+                  <div class="min-w-0">
+                    <h4 class="text-[8px] font-black text-slate-400 leading-none uppercase">専属ウェポン</h4>
+                    <h3 class="text-xs font-black text-slate-800 tracking-tight mt-1 truncate group-hover:text-indigo-600 transition-colors">
+                      ${char.weaponName || '未設定'}
+                    </h3>
+                  </div>
+                </div>
+                <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-slate-50 text-slate-500 border border-slate-150">
+                  ${char.element.split(' ')[0]}
+                </span>
+              </div>
+
+              <div class="bg-slate-50 rounded-lg p-2 space-y-1 border border-slate-100 text-[10px]">
+                <div class="flex items-baseline justify-between text-[9px]">
+                  <span class="font-bold text-slate-400">専用者:</span>
+                  <span class="font-extrabold text-slate-700">${char.name}</span>
+                </div>
+                ${statsHtml}
+              </div>
+            `;
+            g.appendChild(card);
           }
-
-          card.innerHTML = `
-            <div class="flex items-center gap-2.5 min-w-0">
-              <span class="w-2.5 h-2.5 rounded-full shrink-0 ${elementBgClass}" title="${char.element}"></span>
-              <h3 class="text-xs font-bold text-slate-800 truncate group-hover:text-indigo-600 transition-colors">
-                ${char.name}
-              </h3>
-              <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-slate-50 text-slate-500 border border-slate-150">
-                ${char.troopType || '未設定'}
-              </span>
-            </div>
-
-            <div class="shrink-0 flex items-center gap-2">
-              ${adminBadgeControls}
-            </div>
-          `;
-
-          g.appendChild(card);
         });
       }
 
