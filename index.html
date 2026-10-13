@@ -47,59 +47,54 @@
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
 
-  <!-- ヘッダー -->
+  <!-- ヘッダー（スリム化） -->
   <header class="bg-slate-900 text-white shadow-md border-b border-indigo-500/20 sticky top-0 z-40">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-      <div class="flex items-center gap-3">
-        <div class="p-2.5 bg-indigo-600/95 rounded-xl shadow-md shadow-indigo-600/25 flex items-center justify-center">
-          <i data-lucide="database" class="w-6 h-6 text-white animate-pulse"></i>
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-12 flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2 min-w-0">
+        <div class="p-1.5 bg-indigo-600/95 rounded-lg flex items-center justify-center shrink-0">
+          <i data-lucide="database" class="w-4 h-4 text-white"></i>
         </div>
-        <div>
-          <h1 class="text-base md:text-xl font-black tracking-wider text-white uppercase flex items-center gap-1.5">
-            ARCANA_DB <span class="bg-indigo-500/20 text-[#38bdf8] text-[9px] font-mono tracking-widest px-2 py-0.5 rounded-full border border-indigo-500/30"> MAX STATUS</span>
+        <div class="min-w-0">
+          <h1 class="text-sm sm:text-base font-black tracking-wider text-white uppercase flex items-center gap-1.5">
+            ARCANA_DB
+            <span class="hidden sm:inline bg-indigo-500/20 text-[#38bdf8] text-[9px] font-mono tracking-widest px-2 py-0.5 rounded-full border border-indigo-500/30">MAX STATUS</span>
           </h1>
-          <p class="text-[10px] text-slate-400 font-mono tracking-widest uppercase mt-0.5">
+          <p class="hidden sm:block text-[9px] text-slate-400 font-mono tracking-widest uppercase leading-none">
             Puzzles & Survival Alliance Database
           </p>
         </div>
       </div>
-      
-      <!-- クラウド操作エリア（管理者ログイン ＆ 設定） -->
-      <div class="flex items-center gap-2">
-        <!-- 未保存バッジ -->
-        <div id="unsaved-changes-badge" class="hidden px-2.5 py-1.5 rounded-lg text-[10px] font-bold text-amber-400 bg-amber-500/10 border border-amber-500/30 items-center gap-1 animate-pulse shrink-0">
+
+      <div class="flex items-center gap-1.5 shrink-0">
+        <div id="unsaved-changes-badge" class="hidden px-2 py-1 rounded-lg text-[10px] font-bold text-amber-400 bg-amber-500/10 border border-amber-500/30 items-center gap-1 animate-pulse shrink-0">
           <span class="w-1.5 h-1.5 bg-amber-400 rounded-full"></span>
-          <span>未保存の変更あり</span>
+          <span>未保存</span>
         </div>
 
-        <!-- アクションボタン：保存 -->
         <button
           id="global-save-btn"
           onclick="pushToDatabaseGitHub()"
-          class="hidden px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white hover:text-white border-none rounded-xl text-[11px] font-black tracking-wider transition-all cursor-pointer items-center gap-1 shadow-md hover:scale-[1.02] shrink-0"
+          class="hidden px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white border-none rounded-lg text-[11px] font-black tracking-wider transition-all cursor-pointer items-center gap-1 shrink-0"
         >
           <i data-lucide="cloud-upload" class="w-3.5 h-3.5"></i>
-          <span>GitHubへ保存</span>
+          <span>保存</span>
         </button>
 
-        <!-- 管理者ログインステータス -->
         <div id="admin-session-box" class="flex items-center gap-1">
-          <!-- ログイン状態別UI -->
           <button
             id="admin-status-trigger"
             onclick="toggleAdminStatusAction()"
-            class="px-2.5 py-1.5 rounded-xl text-[10px] font-bold border border-slate-700 hover:bg-slate-800 text-slate-300 transition-all cursor-pointer flex items-center gap-1"
+            class="px-2 py-1 rounded-lg text-[10px] font-bold border border-slate-700 hover:bg-slate-800 text-slate-300 transition-all cursor-pointer flex items-center gap-1"
           >
             <i data-lucide="key" class="w-3.5 h-3.5 text-indigo-400"></i>
             <span id="admin-status-text">管理者ログイン</span>
           </button>
         </div>
 
-        <!-- ギア設定モーダル起動 -->
         <button
           id="github-config-trigger"
           onclick="openConfigModal()"
-          class="hidden p-2 rounded-xl text-slate-400 hover:text-white bg-slate-800 border border-slate-700 hover:border-slate-600 cursor-pointer transition-colors"
+          class="hidden p-1.5 rounded-lg text-slate-400 hover:text-white bg-slate-800 border border-slate-700 cursor-pointer"
           title="GitHub接続設定 / 暗号キー設定"
         >
           <i data-lucide="settings" class="w-4 h-4"></i>
@@ -108,162 +103,115 @@
     </div>
   </header>
 
-  <!-- 検索・フィルターコントロールパネル -->
-  <div class="bg-white border-b border-slate-200 shadow-3xs sticky top-20 z-30">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 space-y-3.5">
-      
-      <!-- 自由検索 ＆ ソート ＆ 新規登録 -->
-      <div class="flex flex-col md:flex-row gap-3 justify-between items-stretch md:items-center">
-        <!-- 検索入力 -->
-        <div class="relative flex-grow max-w-xl">
+  <!-- 検索バー（固定は1行のみ） -->
+  <div class="bg-white border-b border-slate-200 sticky top-12 z-30">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2">
+      <div class="flex items-center gap-2">
+        <div class="relative flex-grow">
           <span class="absolute inset-y-0 left-0 flex items-center pl-3">
             <i data-lucide="search" class="w-4 h-4 text-slate-400"></i>
           </span>
           <input
             id="search-box"
             type="text"
-            placeholder="名前、スキル名、専属ウェポン、効果項目などから自由検索..."
-            class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 hover:border-slate-300 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-indigo-500 focus:bg-white transition-all font-semibold text-slate-850 text-slate-800"
+            placeholder="名前・スキル・ウェポンで検索..."
+            class="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-indigo-500 focus:bg-white transition-all font-semibold text-slate-800"
           />
         </div>
-
-        <!-- 新規登録＆ソート -->
-        <div class="flex items-center justify-between gap-3 shrink-0">
-          <div class="flex items-center gap-1.5 select-wrapper text-[11px] font-bold text-slate-500 uppercase">
-            <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5 text-slate-400"></i>
-            <span>順序:</span>
-            <select
-              id="sort-select"
-              class="bg-slate-50 border border-slate-200 px-2.5 py-1.5 rounded-xl text-[11px] font-bold text-slate-700 cursor-pointer focus:outline-none focus:bg-white"
-            >
-              <option value="id">登録順 (ID)</option>
-              <option value="rarity">レア度(★)最高順</option>
-              <option value="name">五十音順</option>
-            </select>
-          </div>
-
-          <!-- 新規登録ボタン (管理者のみ表示可能) -->
-          <button
-            id="creator-modal-trigger"
-            onclick="openHeroCreator(null)"
-            class="hidden px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-[11px] font-black tracking-wider shadow-sm transition-all cursor-pointer items-center gap-1"
-          >
-            <i data-lucide="user-plus" class="w-3.5 h-3.5"></i>
-            <span>英雄を新規登録</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- 属性選択ピルフィルター -->
-      <div id="element-filters-container" class="flex items-center gap-1.5 border-t border-slate-100 pt-2.5 max-w-full overflow-x-auto no-scrollbar">
-        <!-- 表示モードトグル -->
-        <div class="flex bg-slate-100 p-0.5 rounded-lg shrink-0 mr-1.5 border border-slate-200/50">
-          <button id="mode-btn-heroes" onclick="setDisplayMode('heroes')" class="px-2.5 py-0.5 rounded-md text-[10px] font-black transition-all cursor-pointer bg-white text-indigo-700 shadow-3xs">
-            👥 英雄
-          </button>
-          <button id="mode-btn-weapons" onclick="setDisplayMode('weapons')" class="px-2.5 py-0.5 rounded-md text-[10px] font-black transition-all cursor-pointer text-slate-500 hover:text-slate-800">
-            ⚔️ 武器
-          </button>
-        </div>
-
-        <span class="text-[11px] font-bold text-slate-400 mr-1.5 shrink-0">
-          <span class="hidden xs:inline">属性:</span>
-        </span>
-        <button onclick="setElementFilter('all')" class="element-pill bg-indigo-600 text-white border-indigo-600 px-2.5 py-1 rounded-full text-[11px] font-bold border transition-all cursor-pointer shadow-3xs shrink-0" data-element="all">
-          ⚔️ すべて
-        </button>
-        <button onclick="setElementFilter('衝動型 (赤)')" class="element-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs shrink-0" data-element="衝動型 (赤)">
-          🔥赤
-        </button>
-        <button onclick="setElementFilter('冷静型 (青)')" class="element-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs shrink-0" data-element="冷静型 (青)">
-          💧青
-        </button>
-        <button onclick="setElementFilter('狂乱型 (紫)')" class="element-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs shrink-0" data-element="狂乱型 (紫)">
-          🔮紫
-        </button>
-        <button onclick="setElementFilter('慎重型 (黄)')" class="element-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-750 transition-all cursor-pointer shadow-3xs shrink-0" data-element="慎重型 (黄)">
-          ☀️黄
-        </button>
-        <button onclick="setElementFilter('勇敢型 (緑)')" class="element-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs shrink-0" data-element="勇敢型 (緑)">
-          🍃緑
+        <button
+          id="filter-toggle-btn"
+          onclick="toggleFilterPanel()"
+          class="relative shrink-0 px-3 py-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 cursor-pointer flex items-center gap-1.5"
+        >
+          <i data-lucide="sliders-horizontal" class="w-4 h-4 text-indigo-500"></i>
+          <span>絞り込み</span>
+          <span id="filter-badge" class="hidden min-w-[16px] h-4 px-1 rounded-full bg-indigo-600 text-white text-[9px] font-black items-center justify-center">0</span>
         </button>
       </div>
 
-      <!-- 兵種選択ピルフィルター -->
-      <div id="troop-filters-container" class="flex items-center gap-1.5 border-t border-slate-100 pt-2.5 max-w-full overflow-x-auto no-scrollbar">
-        <span class="text-[11px] font-bold text-slate-400 mr-1.5 shrink-0 flex items-center gap-1">
-          <i data-lucide="shield" class="w-3.5 h-3.5 text-indigo-500"></i>
-          <span>兵種:</span>
-        </span>
-        <button onclick="setTroopFilter('all')" class="troop-pill bg-indigo-600 text-white border-indigo-600 px-2.5 py-1 rounded-full text-[11px] font-bold border transition-all cursor-pointer shadow-3xs shrink-0" data-troop="all">
-          🛡️ すべて
-        </button>
-        <button onclick="setTroopFilter('ファイター')" class="troop-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs shrink-0" data-troop="ファイター">
-          ⚔️ ファイター
-        </button>
-        <button onclick="setTroopFilter('ライダー')" class="troop-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs shrink-0" data-troop="ライダー">
-          🏍️ ライダー
-        </button>
-        <button onclick="setTroopFilter('シューター')" class="troop-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs shrink-0" data-troop="シューター">
-          🎯 シューター
-        </button>
-        <button onclick="setTroopFilter('内政')" class="troop-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs shrink-0" data-troop="内政">
-          🏛️ 内政
-        </button>
-      </div>
+      <!-- 折りたたみ式 絞り込みパネル -->
+      <div id="filter-panel" class="hidden mt-2 pt-2 border-t border-slate-100 space-y-3 max-h-[60vh] overflow-y-auto">
 
-      <!-- 詳細絞り込み (カテゴリ＆チップ選択式) -->
-      <div class="border-t border-slate-100 pt-2.5 space-y-2">
-        <div class="flex flex-wrap items-center gap-2">
-          <span class="text-[11px] font-bold text-slate-400 uppercase font-mono shrink-0 flex items-center gap-1">
-            <i data-lucide="shield" class="w-3.5 h-3.5 text-indigo-500"></i>
-            効果カテゴリ:
-          </span>
-          <div class="flex flex-wrap gap-1">
-            <button onclick="setSkillCategory('all')" id="cat-pill-all" class="cat-pill bg-indigo-600 text-white border-indigo-600 px-2.5 py-1 rounded-full text-[10px] font-bold border transition-all cursor-pointer shadow-3xs" data-category="all">
-              すべて (フィルターなし)
-            </button>
-            <button onclick="setSkillCategory('troop')" id="cat-pill-troop" class="cat-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[10px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs" data-category="troop">
-              部隊・ギャザー
-            </button>
-            <button onclick="setSkillCategory('fighter')" id="cat-pill-fighter" class="cat-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[10px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs" data-category="fighter">
-              ファイター
-            </button>
-            <button onclick="setSkillCategory('shooter')" id="cat-pill-shooter" class="cat-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[10px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs" data-category="shooter">
-              シューター
-            </button>
-            <button onclick="setSkillCategory('rider')" id="cat-pill-rider" class="cat-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[10px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs" data-category="rider">
-              ライダー
-            </button>
-            <button onclick="setSkillCategory('special')" id="cat-pill-special" class="cat-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[10px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer shadow-3xs" data-category="special">
-              固有・特殊効果
-            </button>
+        <!-- 属性 -->
+        <div>
+          <div class="text-[10px] font-bold text-slate-400 mb-1">属性</div>
+          <div id="element-filters-container" class="flex flex-wrap items-center gap-1.5">
+            <button onclick="setElementFilter('all')" class="element-pill bg-indigo-600 text-white border-indigo-600 px-2.5 py-1 rounded-full text-[11px] font-bold border transition-all cursor-pointer" data-element="all">すべて</button>
+            <button onclick="setElementFilter('衝動型 (赤)')" class="element-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer" data-element="衝動型 (赤)">🔥赤</button>
+            <button onclick="setElementFilter('冷静型 (青)')" class="element-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer" data-element="冷静型 (青)">💧青</button>
+            <button onclick="setElementFilter('狂乱型 (紫)')" class="element-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer" data-element="狂乱型 (紫)">🔮紫</button>
+            <button onclick="setElementFilter('慎重型 (黄)')" class="element-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer" data-element="慎重型 (黄)">☀️黄</button>
+            <button onclick="setElementFilter('勇敢型 (緑)')" class="element-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer" data-element="勇敢型 (緑)">🍃緑</button>
           </div>
         </div>
 
-        <!-- 現在の選択ステータスと、ぼんやり浮かび上がるポップアップへのトリガーボタン -->
-        <div id="skill-trigger-banner" class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 bg-indigo-50/40 border border-indigo-100/50 rounded-xl">
-          <div class="flex items-center gap-2">
-            <div class="p-1.5 bg-indigo-100/60 text-indigo-600 rounded-lg shrink-0">
-              <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i>
-            </div>
-            <div class="text-xs">
-              <span class="font-bold text-slate-500" id="trigger-banner-cat-label">全体フィルター</span>
-              <span class="mx-1.5 text-slate-300">|</span>
-              <span class="font-extrabold text-slate-800" id="trigger-banner-item-label">指定なし (全効果を読み込み中)</span>
-            </div>
-          </div>
-          <div id="trigger-banner-btn-wrapper" class="flex items-center">
-            <!-- 状況に応じたボタンがJSからマウントされる -->
+        <!-- 兵種 -->
+        <div>
+          <div class="text-[10px] font-bold text-slate-400 mb-1">兵種</div>
+          <div id="troop-filters-container" class="flex flex-wrap items-center gap-1.5">
+            <button onclick="setTroopFilter('all')" class="troop-pill bg-indigo-600 text-white border-indigo-600 px-2.5 py-1 rounded-full text-[11px] font-bold border transition-all cursor-pointer" data-troop="all">すべて</button>
+            <button onclick="setTroopFilter('ファイター')" class="troop-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer" data-troop="ファイター">⚔️ ファイター</button>
+            <button onclick="setTroopFilter('ライダー')" class="troop-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer" data-troop="ライダー">🏍️ ライダー</button>
+            <button onclick="setTroopFilter('シューター')" class="troop-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer" data-troop="シューター">🎯 シューター</button>
+            <button onclick="setTroopFilter('内政')" class="troop-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer" data-troop="内政">🏛️ 内政</button>
           </div>
         </div>
-      </div>
 
+        <!-- 効果カテゴリ -->
+        <div>
+          <div class="text-[10px] font-bold text-slate-400 mb-1">効果カテゴリ</div>
+          <div class="flex flex-wrap gap-1.5">
+            <button onclick="setSkillCategory('all')" id="cat-pill-all" class="cat-pill bg-indigo-600 text-white border-indigo-600 px-2.5 py-1 rounded-full text-[11px] font-bold border transition-all cursor-pointer" data-category="all">指定なし</button>
+            <button onclick="setSkillCategory('troop')" id="cat-pill-troop" class="cat-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer" data-category="troop">部隊・ギャザー</button>
+            <button onclick="setSkillCategory('fighter')" id="cat-pill-fighter" class="cat-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer" data-category="fighter">ファイター</button>
+            <button onclick="setSkillCategory('shooter')" id="cat-pill-shooter" class="cat-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer" data-category="shooter">シューター</button>
+            <button onclick="setSkillCategory('rider')" id="cat-pill-rider" class="cat-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer" data-category="rider">ライダー</button>
+            <button onclick="setSkillCategory('special')" id="cat-pill-special" class="cat-pill bg-white border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold border hover:bg-slate-50 text-slate-700 transition-all cursor-pointer" data-category="special">固有・特殊</button>
+          </div>
+        </div>
+
+        <!-- 現在の効果項目（コンパクト） -->
+        <div id="skill-trigger-banner" class="flex items-center justify-between gap-2 px-3 py-2 bg-indigo-50/50 border border-indigo-100 rounded-xl">
+          <div class="text-[11px] min-w-0 truncate">
+            <span class="font-bold text-slate-500" id="trigger-banner-cat-label">全体フィルター</span>
+            <span class="mx-1 text-slate-300">|</span>
+            <span class="font-extrabold text-slate-800" id="trigger-banner-item-label">指定なし (全効果を読み込み中)</span>
+          </div>
+          <div id="trigger-banner-btn-wrapper" class="flex items-center shrink-0"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 表示切替・並び順・新規登録（固定しない1行） -->
+  <div class="max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 pt-3 flex items-center justify-between gap-2">
+    <div class="flex bg-slate-100 p-0.5 rounded-lg shrink-0 border border-slate-200/50">
+      <button id="mode-btn-heroes" onclick="setDisplayMode('heroes')" class="px-3 py-1 rounded-md text-[11px] font-black transition-all cursor-pointer bg-white text-indigo-700 shadow-3xs">👥 英雄</button>
+      <button id="mode-btn-weapons" onclick="setDisplayMode('weapons')" class="px-3 py-1 rounded-md text-[11px] font-black transition-all cursor-pointer text-slate-500 hover:text-slate-800">⚔️ 武器</button>
+    </div>
+
+    <div class="flex items-center gap-2 min-w-0">
+      <select
+        id="sort-select"
+        class="bg-slate-50 border border-slate-200 px-2 py-1.5 rounded-lg text-[11px] font-bold text-slate-700 cursor-pointer focus:outline-none focus:bg-white"
+      >
+        <option value="id">登録順</option>
+        <option value="rarity">レア度順</option>
+        <option value="name">五十音順</option>
+      </select>
+      <button
+        id="creator-modal-trigger"
+        onclick="openHeroCreator(null)"
+        class="hidden px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-[11px] font-black shadow-sm cursor-pointer items-center gap-1 whitespace-nowrap"
+      >
+        <i data-lucide="user-plus" class="w-3.5 h-3.5"></i>
+        <span>新規登録</span>
+      </button>
     </div>
   </div>
 
   <!-- メインコンテンツ -->
-  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4">
     <!-- ローディングスピナー -->
     <div id="loading-spinner" class="py-24 text-center flex flex-col items-center justify-center gap-3">
       <div class="w-10 h-10 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
@@ -287,7 +235,7 @@
     </div>
 
     <!-- キャラクターグリッド -->
-    <div id="character-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5"></div>
+    <div id="character-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5"></div>
   </main>
 
   <!-- フッター -->
@@ -305,7 +253,7 @@
   <div id="details-modal" class="hidden fixed inset-0 z-50 flex items-center justify-end">
     <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-xs transition-opacity" onclick="closeDetails()"></div>
     <div class="relative w-full max-w-md h-full bg-white shadow-2xl flex flex-col z-10 overflow-hidden border-l border-slate-100">
-      
+
       <!-- ヘッダー (属性色グラデーション) -->
       <div id="drawer-header" class="p-5 text-white relative">
         <button onclick="closeDetails()" class="absolute top-4 right-4 p-1 px-2.5 bg-black/15 text-white/90 hover:text-white hover:bg-black/25 rounded-lg border border-white/10 transition-all text-xs font-bold cursor-pointer">
@@ -701,22 +649,42 @@
     let unsavedChanges = false;
     let editingHeroId = null;
 
+    // 絞り込みパネルの開閉
+    function toggleFilterPanel() {
+      document.getElementById('filter-panel').classList.toggle('hidden');
+    }
+
+    // 絞り込み中の件数バッジ
+    function updateFilterBadge() {
+      const badge = document.getElementById('filter-badge');
+      if (!badge) return;
+      const n = [
+        currentElementFilter !== 'all',
+        currentTroopFilter !== 'all',
+        selectedSkillCategory !== 'all',
+        selectedSkillItem !== 'all'
+      ].filter(Boolean).length;
+      badge.innerText = n;
+      badge.classList.toggle('hidden', n === 0);
+      badge.classList.toggle('flex', n > 0);
+    }
+
     function setDisplayMode(mode) {
       currentDisplayMode = mode;
-      
+
       const btnHeroes = document.getElementById('mode-btn-heroes');
       const btnWeapons = document.getElementById('mode-btn-weapons');
-      
+
       if (btnHeroes && btnWeapons) {
         if (mode === 'heroes') {
-          btnHeroes.className = 'px-2.5 py-0.5 rounded-md text-[10px] font-black transition-all cursor-pointer bg-white text-indigo-700 shadow-3xs';
-          btnWeapons.className = 'px-2.5 py-0.5 rounded-md text-[10px] font-black transition-all cursor-pointer text-slate-500 hover:text-slate-800';
+          btnHeroes.className = 'px-3 py-1 rounded-md text-[11px] font-black transition-all cursor-pointer bg-white text-indigo-700 shadow-3xs';
+          btnWeapons.className = 'px-3 py-1 rounded-md text-[11px] font-black transition-all cursor-pointer text-slate-500 hover:text-slate-800';
         } else {
-          btnHeroes.className = 'px-2.5 py-0.5 rounded-md text-[10px] font-black transition-all cursor-pointer text-slate-500 hover:text-slate-800';
-          btnWeapons.className = 'px-2.5 py-0.5 rounded-md text-[10px] font-black transition-all cursor-pointer bg-white text-indigo-700 shadow-3xs';
+          btnHeroes.className = 'px-3 py-1 rounded-md text-[11px] font-black transition-all cursor-pointer text-slate-500 hover:text-slate-800';
+          btnWeapons.className = 'px-3 py-1 rounded-md text-[11px] font-black transition-all cursor-pointer bg-white text-indigo-700 shadow-3xs';
         }
       }
-      
+
       renderCharacters();
     }
 
@@ -775,7 +743,7 @@
       // Bind dynamic input filters
       document.getElementById('search-box').addEventListener('input', renderCharacters);
       document.getElementById('sort-select').addEventListener('change', renderCharacters);
-      
+
       // Initialize interactive chips
       setSkillCategory('all');
     }
@@ -798,7 +766,7 @@
 
       // 選択カテゴリにあてはまる個別ステータスをバナーに反映
       renderSkillChips();
-      
+
       // 'all' 以外が選ばれたら自動的にモーダルを浮かび上がらせる
       if (cat !== 'all') {
         openSkillModal();
@@ -813,7 +781,7 @@
       const bannerCatLabel = document.getElementById('trigger-banner-cat-label');
       const bannerItemLabel = document.getElementById('trigger-banner-item-label');
       const bannerBtnWrapper = document.getElementById('trigger-banner-btn-wrapper');
-      
+
       if (!bannerCatLabel || !bannerItemLabel || !bannerBtnWrapper) return;
 
       const catMap = {
@@ -826,7 +794,7 @@
       };
 
       bannerCatLabel.innerText = catMap[selectedSkillCategory] || '全体フィルター';
-      
+
       if (selectedSkillItem === 'all') {
         bannerItemLabel.innerText = '指定なし (全効果を読み込み中)';
       } else {
@@ -848,7 +816,7 @@
       } else {
         const infoDiv = document.createElement('div');
         infoDiv.className = 'text-[10px] text-slate-400 font-bold font-mono';
-        infoDiv.innerText = '💡 効果カテゴリを選択すると詳細をポップアップで絞り込めます';
+        infoDiv.innerText = '💡 カテゴリを選ぶと詳細を絞り込めます';
         bannerBtnWrapper.appendChild(infoDiv);
       }
     }
@@ -1171,7 +1139,7 @@
           char.skillItems = char.skillItems.filter(item => item && item.itemName && item.itemName.trim() !== '');
           return char;
         }
-        
+
         const items = [];
         if (char.skillEffect) {
           const parts = char.skillEffect.split('/').map(p => p.trim());
@@ -1225,7 +1193,7 @@
       });
 
       const sortedCustomNames = Array.from(customNames).sort();
-      
+
       // 1. Update active tags/chips view in case character database changed
       renderSkillChips();
 
@@ -1247,7 +1215,7 @@
         if (selectEl) {
           const currentVal = selectEl.value;
           selectEl.innerHTML = '';
-          
+
           // Add empty option first
           const emptyOpt = document.createElement('option');
           emptyOpt.value = '';
@@ -1299,7 +1267,7 @@
     function renderCharacters() {
       const g = document.getElementById('character-grid');
       const emptyState = document.getElementById('empty-state');
-      
+
       const searchVal = document.getElementById('search-box').value.toLowerCase().trim();
       const sortBy = document.getElementById('sort-select').value;
       const rarityFilter = 'all';
@@ -1309,7 +1277,7 @@
 
       // 1. Array filter mapping
       let filtered = rawCharacters.filter(char => {
-        const queryMatch = 
+        const queryMatch =
           char.name.toLowerCase().includes(searchVal) ||
           (char.troopType && char.troopType.toLowerCase().includes(searchVal)) ||
           (char.skillEffect && char.skillEffect.toLowerCase().includes(searchVal)) ||
@@ -1324,7 +1292,7 @@
         const elementMatch = currentElementFilter === 'all' || char.element === currentElementFilter;
         const troopMatch = currentTroopFilter === 'all' || (char.troopType && char.troopType.trim().toLowerCase() === currentTroopFilter.toLowerCase());
         const rarityMatch = rarityFilter === 'all' || char.rarity.toString() === rarityFilter;
-        
+
         let skillItemMatch = true;
         if (skillItemFilter !== 'all') {
           // エイリアスマッピング
@@ -1347,7 +1315,7 @@
           };
 
           const activeTerms = aliasesMap[skillItemFilter] || [skillItemFilter.toLowerCase()];
-          
+
           // A: 軍団スキル
           const matchedInSkill = char.skillItems && char.skillItems.some(item => {
             const nameLower = (item.itemName || '').toLowerCase();
@@ -1390,7 +1358,7 @@
         emptyState.classList.remove('hidden');
       } else {
         emptyState.classList.add('hidden');
-        
+
         // Draw cards
         filtered.forEach(char => {
           let elementBgClass = 'bg-[#475569]';
@@ -1465,7 +1433,7 @@
                 `;
               }
             };
-            
+
             addStatRow('＋0', char.weaponStats0);
             addStatRow('＋2', char.weaponStats2);
             addStatRow('＋4', char.weaponStats4);
@@ -1505,6 +1473,7 @@
 
       // Update counters
       document.getElementById('footer-count').innerText = `表示中: ${filtered.length} 体 / 総登録数: ${rawCharacters.length} 体`;
+      updateFilterBadge();
       lucide.createIcons();
     }
 
@@ -1544,7 +1513,7 @@
 
       document.getElementById('detail-name').innerText = char.name;
       document.getElementById('detail-troop-type').innerText = char.troopType || '未設定';
-      
+
       let elementBgClass = 'from-[#475569] to-[#334155]';
       if (char.element === '衝動型 (赤)') elementBgClass = 'from-[#f43f5e] to-[#be123c]';
       else if (char.element === '冷静型 (青)') elementBgClass = 'from-[#3b82f6] to-[#1d4ed8]';
@@ -1636,7 +1605,7 @@
     function submitAdminLogin() {
       const enteredPIN = document.getElementById('login-pin-input').value;
       const expectedKey = dbConfig.adminKey || '1234';
-      
+
       if (enteredPIN === expectedKey || enteredPIN === '1234') {
         hasAdminPrivilege = true;
         sessionStorage.setItem('arcana_db_auth_session', enteredPIN);
@@ -1719,7 +1688,7 @@
           throw new Error("リポジトリ情報が取得できません。ステータス: " + repoRes.status);
         }
         const repoData = await repoRes.json();
-        
+
         let scopeNotice = "（一般公開リポジトリの読み取り権限のみ、またはトークン未指定）";
         if (token) {
           const scopes = repoRes.headers.get("x-oauth-scopes") || "";
@@ -1748,11 +1717,11 @@
       document.getElementById("cfg-path").value = dbConfig.path || 'puzzles_survival_db.json';
       document.getElementById("cfg-admin-key").value = dbConfig.adminKey || '1234';
       document.getElementById("cfg-token").value = dbConfig.token || '';
-      
+
       const resultBox = document.getElementById("cfg-test-result");
       resultBox.classList.add("hidden");
       resultBox.innerText = "";
-      
+
       document.getElementById("config-modal").classList.remove("hidden");
     }
 
@@ -1776,13 +1745,13 @@
       dbConfig.token = token;
 
       localStorage.setItem(GITHUB_SETTINGS_KEY, JSON.stringify(dbConfig));
-      
+
       // Update session auth if already authenticated
       const sessionAuth = sessionStorage.getItem('arcana_db_auth_session');
       if (sessionAuth) {
         sessionStorage.setItem('arcana_db_auth_session', adminKey);
       }
-      
+
       closeConfigModal();
       updateAdminUIVisibility();
 
@@ -1801,7 +1770,7 @@
       const w0El = document.getElementById('c-w0');
       const w2El = document.getElementById('c-w2');
       const w4El = document.getElementById('c-w4');
-      
+
       if (weaponVal !== '') {
         if (w0El && !w0El.value.trim()) {
           w0El.value = '部隊DEF +100%';
@@ -1819,19 +1788,19 @@
     function openHeroCreator(id = null) {
       editingHeroId = id;
       const title = document.getElementById('creator-title');
-      
+
       // Cleanup inputs
       document.getElementById('c-name').value = '';
       document.getElementById('c-element').value = '衝動型 (赤)';
       document.getElementById('c-rarity').value = '5';
       document.getElementById('c-troop-type').value = 'ファイター';
-      
+
       // Reset Select and Inputs (Defaults to unselected/empty)
       for (let idx = 1; idx <= 4; idx++) {
         const selectEl = document.getElementById(`c-s${idx}-select`);
         const inputEl = document.getElementById(`c-s${idx}-n`);
         const valEl = document.getElementById(`c-s${idx}-v`);
-        
+
         if (selectEl) selectEl.value = '';
         if (inputEl) {
           inputEl.value = '';
@@ -1866,7 +1835,7 @@
 
             if (item) {
               if (valEl) valEl.value = item.itemValue || '';
-              
+
               if (selectEl && inputEl) {
                 const name = item.itemName || '';
                 if (name) {
@@ -1998,7 +1967,7 @@
       populateSkillItemsFilter();
       renderCharacters();
       updateAdminUIVisibility();
-      
+
       alert(editingHeroId ? 'メモリ上で英雄データを更新しました！反映するには「GitHubへ保存」ボタンを忘れずに押してください。' : '新しい英雄を作成しました！反映するには「GitHubへ保存」ボタンを押してください。');
     }
 
@@ -2040,7 +2009,7 @@
       }
 
       addLog('🚀 データのGitHubクラウド同期を開始中...');
-      
+
       const payloadString = JSON.stringify(rawCharacters, null, 2);
       // Clean high compatibility base64 encoding (avoids breaks on Japanese/multibyte chars)
       const base64Content = btoa(unescape(encodeURIComponent(payloadString)));
@@ -2060,7 +2029,7 @@
 
         const headRes = await fetch(contentUrl, { headers });
         let latestSHA = undefined;
-        
+
         if (headRes.ok) {
           const remoteMetadata = await headRes.json();
           latestSHA = remoteMetadata.sha;
@@ -2094,10 +2063,10 @@
 
         const pushData = await pushRes.json();
         addLog(`✨ JSONデータのGitHub同期に成功しました！ Commit: ${pushData.commit.sha.substring(0, 7)}`);
-        
+
         prgBar.style.width = '100%';
         unsavedChanges = false;
-        
+
         setTimeout(() => {
           overlay.classList.add('hidden');
           updateAdminUIVisibility();
@@ -2123,7 +2092,7 @@
   <div id="skill-modal-overlay" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
     <!-- Blurred Backdrop with fade animation -->
     <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-md" onclick="closeSkillModal()"></div>
-    
+
     <!-- Floating Content Card -->
     <div class="bg-white rounded-2xl shadow-2xl border border-slate-100 max-w-lg w-full max-h-[80vh] flex flex-col relative z-20 overflow-hidden transition-all duration-300 scale-95 opacity-0 translate-y-4" id="skill-modal-card">
       <!-- Header -->
