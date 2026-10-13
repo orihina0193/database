@@ -36,6 +36,12 @@
     ::-webkit-scrollbar-thumb:hover {
       background: #94a3b8;
     }
+    /* スマホで入力欄にフォーカスした時の自動ズーム防止（iOSは16px未満だと拡大される） */
+    @media (max-width: 767px) {
+      input, select, textarea {
+        font-size: 16px !important;
+      }
+    }
     .no-scrollbar::-webkit-scrollbar {
       display: none;
     }
